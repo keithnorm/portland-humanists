@@ -6,14 +6,21 @@
     <meta name="robots" content="noindex" />
     <title>Portland Humanists - Content Manager</title>
     <style>
-      /* Instructions banner styling */
+      /* Instructions banner styling - positioned absolutely to not interfere with CMS */
       #cms-instructions {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
         background: linear-gradient(135deg, #1e3a5f 0%, #2a4d7f 100%);
         color: white;
         padding: 2rem;
         text-align: center;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        z-index: 999999;
+        max-height: 100vh;
+        overflow-y: auto;
       }
 
       #cms-instructions h1 {
@@ -69,51 +76,108 @@
         font-weight: 600;
       }
 
-      /* Hide instructions once logged in */
-      body.cms-logged-in #cms-instructions {
-        display: none;
+      /* Hide instructions completely once logged in */
+      #cms-instructions.hidden {
+        display: none !important;
+      }
+
+      /* Push down the CMS content when instructions are showing */
+      body:not(.cms-logged-in) #nc-root {
+        margin-top: 100vh;
       }
     </style>
   </head>
   <body>
-    <!-- Instructions banner (shown before login) -->
-    <div id="cms-instructions">
-      <h1>🌟 Welcome to the Portland Humanists Website Manager</h1>
-      <p class="welcome-text">
-        This is where you can edit the website content, add new Sunday programs, and update pages.
-      </p>
-
-      <div class="instructions-box">
-        <h2>📝 First Time Here?</h2>
-        <ol>
-          <li>
-            <strong>Create a GitHub account</strong> (if you don't have one):
-            <br>
-            Visit <a href="https://github.com/signup" target="_blank">github.com/signup</a> and create a free account
-          </li>
-          <li>
-            <strong>Send your GitHub username</strong> to:
-            <br>
-            <span class="contact-email">keithnorm@gmail.com</span>
-          </li>
-          <li>
-            <strong>Wait for access</strong>: Once we add you, you'll receive an email from GitHub
-          </li>
-          <li>
-            <strong>Come back here</strong> and click "Login with GitHub" below
-          </li>
-        </ol>
-      </div>
-    </div>
-
     <!-- Include the script that builds the page and powers Decap CMS -->
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 
     <script>
-      // Hide instructions banner once user is logged in
-      CMS.init().then(() => {
-        document.body.classList.add('cms-logged-in');
+      // Add instructions banner after CMS loads
+      window.addEventListener('DOMContentLoaded', function() {
+        // Check if user is already logged in
+        const checkLoginStatus = setInterval(function() {
+          const loginButton = document.querySelector('[class*="AuthenticationPage"]');
+          const appContainer = document.querySelector('[class*="App_app"]');
+
+          // If we see the main app (not login page), user is logged in
+          if (appContainer && !loginButton) {
+            clearInterval(checkLoginStatus);
+            return; // Don't show instructions if already logged in
+          }
+
+          // If we see the login page, show instructions
+          if (loginButton) {
+            clearInterval(checkLoginStatus);
+            showInstructions();
+          }
+        }, 100);
+
+        // Stop checking after 5 seconds
+        setTimeout(() => clearInterval(checkLoginStatus), 5000);
       });
+
+      function showInstructions() {
+        const instructionsHTML = `
+          <div id="cms-instructions">
+            <h1>🌟 Welcome to the Portland Humanists Website Manager</h1>
+            <p class="welcome-text">
+              This is where you can edit the website content, add new Sunday programs, and update pages.
+            </p>
+
+            <div class="instructions-box">
+              <h2>📝 First Time Here?</h2>
+              <ol>
+                <li>
+                  <strong>Create a GitHub account</strong> (if you don't have one):
+                  <br>
+                  Visit <a href="https://github.com/signup" target="_blank">github.com/signup</a> and create a free account
+                </li>
+                <li>
+                  <strong>Send your GitHub username</strong> to:
+                  <br>
+                  <span class="contact-email">keithnorm@gmail.com</span>
+                </li>
+                <li>
+                  <strong>Wait for access</strong>: Once we add you, you'll receive an email from GitHub
+                </li>
+                <li>
+                  <strong>Come back here</strong> and click "Login with GitHub" below
+                </li>
+              </ol>
+            </div>
+
+            <div class="instructions-box" style="margin-top: 1rem;">
+              <h2>❓ Need Help?</h2>
+              <p style="margin: 0;">
+                Email us at <span class="contact-email">keithnorm@gmail.com</span> with any questions.
+                We're here to help!
+              </p>
+            </div>
+          </div>
+        `;
+
+        document.body.insertAdjacentHTML('afterbegin', instructionsHTML);
+
+        // Monitor for login - hide instructions when user logs in
+        const observer = new MutationObserver(function() {
+          const appContainer = document.querySelector('[class*="App_app"]');
+          const loginButton = document.querySelector('[class*="AuthenticationPage"]');
+
+          if (appContainer && !loginButton) {
+            const instructions = document.getElementById('cms-instructions');
+            if (instructions) {
+              instructions.classList.add('hidden');
+            }
+            document.body.classList.add('cms-logged-in');
+            observer.disconnect();
+          }
+        });
+
+        observer.observe(document.body, {
+          childList: true,
+          subtree: true
+        });
+      }
     </script>
   </body>
 </html>
