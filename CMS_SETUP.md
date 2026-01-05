@@ -188,17 +188,21 @@ When an event is over:
 - **Solution:** Make sure both `npm run dev` AND `decap-server` are running
 
 **Problem:** Can't log in to production CMS
-- **Solution:** Make sure Netlify Identity is enabled and you've been invited
+- **Solution:**
+  - Make sure you've set up the GitHub OAuth App correctly
+  - Verify OAuth credentials are added to Netlify
+  - Ensure you have write access to the GitHub repository
 
 **Problem:** Changes not showing up
 - **Solution:** In production, Netlify needs to rebuild. Check build logs.
 
-**Problem:** "Git Gateway not configured"
-- **Solution:** Enable Git Gateway in Netlify Identity settings
+**Problem:** "Error: Failed to load config"
+- **Solution:** Check that `public/admin/config.yml` has the correct repo name and `local_backend` is commented out
 
 ---
 
 ## Need Help?
 
 - [Decap CMS Documentation](https://decapcms.org/docs/)
-- [Netlify Identity Documentation](https://docs.netlify.com/visitor-access/identity/)
+- [GitHub OAuth Setup Guide](GITHUB_OAUTH_SETUP.md) - Detailed authentication setup
+- [Decap GitHub Backend Docs](https://decapcms.org/docs/github-backend/)

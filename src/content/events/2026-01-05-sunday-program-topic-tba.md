@@ -1,10 +1,10 @@
 ---
 title: Sunday Program - (Topic TBA!)
-date: 2026-01-04T20:04:00.000-08:00
+date: 2025-01-11T10:00:00.000-08:00
 presenter: Presenter Name
 presenterTitle: Doctor
-startTime: 2026-01-11 10:00
-endTime: 2026-01-11 12:00
+startTime: 2025-01-11 10:00
+endTime: 2025-01-11 12:00
 location: Friendly House & Zoom
 zoomLink: https://zoom.com/example-zoom-link
 description: >

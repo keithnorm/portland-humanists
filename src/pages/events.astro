@@ -5,14 +5,19 @@ import { getCollection } from 'astro:content';
 
 const allEvents = await getCollection('events');
 
+// Helper function to parse startTime string to Date
+function parseStartTime(startTime: string): Date {
+  return new Date(startTime.replace(' ', 'T'));
+}
+
 // Separate upcoming and past events
 const upcomingEvents = allEvents
   .filter(event => event.data.status === 'upcoming')
-  .sort((a, b) => new Date(a.data.date).getTime() - new Date(b.data.date).getTime()); // Ascending: soonest first
+  .sort((a, b) => parseStartTime(a.data.startTime).getTime() - parseStartTime(b.data.startTime).getTime()); // Ascending: soonest first
 
 const pastEvents = allEvents
   .filter(event => event.data.status === 'past')
-  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()); // Descending: most recent first
+  .sort((a, b) => parseStartTime(b.data.startTime).getTime() - parseStartTime(a.data.startTime).getTime()); // Descending: most recent first
 
 function formatDate(date: Date): string {
   return new Intl.DateTimeFormat('en-US', {
@@ -64,13 +69,13 @@ function formatTime(timeString: string): string {
                 <div class="md:w-48 bg-gradient-to-br from-[#2a4d7f] to-[#4a90e2] p-8 flex flex-col justify-center items-center text-white">
                   <div class="text-center">
                     <div class="text-3xl font-bold mb-1">
-                      {new Intl.DateTimeFormat('en-US', { month: 'short' }).format(event.data.date).toUpperCase()}
+                      {new Intl.DateTimeFormat('en-US', { month: 'short' }).format(parseStartTime(event.data.startTime)).toUpperCase()}
                     </div>
                     <div class="text-5xl font-bold mb-1">
-                      {event.data.date.getDate()}
+                      {parseStartTime(event.data.startTime).getDate()}
                     </div>
                     <div class="text-lg">
-                      {new Intl.DateTimeFormat('en-US', { weekday: 'short' }).format(event.data.date)}
+                      {new Intl.DateTimeFormat('en-US', { weekday: 'short' }).format(parseStartTime(event.data.startTime))}
                     </div>
                   </div>
                 </div>
@@ -159,7 +164,7 @@ function formatTime(timeString: string): string {
 
               <div class="p-6">
                 <div class="text-sm text-[#1e3a5f] font-semibold mb-2">
-                  {formatDate(event.data.date)}
+                  {formatDate(parseStartTime(event.data.startTime))}
                 </div>
                 <a href={`/events/${event.slug}`}>
                   <h3 class="text-xl font-bold text-neutral-900 mb-2 line-clamp-2 hover:text-[#1e3a5f] transition-colors">

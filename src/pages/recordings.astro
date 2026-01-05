@@ -5,10 +5,15 @@ import { getCollection } from 'astro:content';
 
 const allEvents = await getCollection('events');
 
-// Get only past events with YouTube IDs
+// Helper function to parse startTime string to Date
+function parseStartTime(startTime: string): Date {
+  return new Date(startTime.replace(' ', 'T'));
+}
+
+// Get only past events with YouTube IDs, sorted by actual event date
 const recordedEvents = allEvents
   .filter(event => event.data.status === 'past' && event.data.youtubeId)
-  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+  .sort((a, b) => parseStartTime(b.data.startTime).getTime() - parseStartTime(a.data.startTime).getTime());
 
 function formatDate(date: Date): string {
   return new Intl.DateTimeFormat('en-US', {
@@ -68,7 +73,7 @@ function formatDate(date: Date): string {
 
               <div class="p-6">
                 <div class="text-sm text-[#1e3a5f] font-semibold mb-2">
-                  {formatDate(event.data.date)}
+                  {formatDate(parseStartTime(event.data.startTime))}
                 </div>
                 <h3 class="text-xl font-bold text-neutral-900 mb-2 leading-tight">
                   {event.data.title}

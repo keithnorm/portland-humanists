@@ -4,10 +4,116 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex" />
-    <title>Content Manager</title>
+    <title>Portland Humanists - Content Manager</title>
+    <style>
+      /* Instructions banner styling */
+      #cms-instructions {
+        background: linear-gradient(135deg, #1e3a5f 0%, #2a4d7f 100%);
+        color: white;
+        padding: 2rem;
+        text-align: center;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      }
+
+      #cms-instructions h1 {
+        margin: 0 0 1rem 0;
+        font-size: 1.75rem;
+        font-weight: 600;
+      }
+
+      #cms-instructions .welcome-text {
+        font-size: 1.125rem;
+        margin-bottom: 1.5rem;
+        opacity: 0.95;
+      }
+
+      .instructions-box {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        padding: 1.5rem;
+        max-width: 600px;
+        margin: 1.5rem auto 0;
+        text-align: left;
+        backdrop-filter: blur(10px);
+      }
+
+      .instructions-box h2 {
+        margin: 0 0 1rem 0;
+        font-size: 1.25rem;
+        font-weight: 600;
+      }
+
+      .instructions-box ol {
+        margin: 0;
+        padding-left: 1.5rem;
+        line-height: 1.8;
+      }
+
+      .instructions-box li {
+        margin-bottom: 0.75rem;
+      }
+
+      .instructions-box a {
+        color: #f4b942;
+        text-decoration: underline;
+        font-weight: 500;
+      }
+
+      .instructions-box a:hover {
+        color: #ffcc66;
+      }
+
+      .contact-email {
+        color: #f4b942;
+        font-weight: 600;
+      }
+
+      /* Hide instructions once logged in */
+      body.cms-logged-in #cms-instructions {
+        display: none;
+      }
+    </style>
   </head>
   <body>
+    <!-- Instructions banner (shown before login) -->
+    <div id="cms-instructions">
+      <h1>🌟 Welcome to the Portland Humanists Website Manager</h1>
+      <p class="welcome-text">
+        This is where you can edit the website content, add new Sunday programs, and update pages.
+      </p>
+
+      <div class="instructions-box">
+        <h2>📝 First Time Here?</h2>
+        <ol>
+          <li>
+            <strong>Create a GitHub account</strong> (if you don't have one):
+            <br>
+            Visit <a href="https://github.com/signup" target="_blank">github.com/signup</a> and create a free account
+          </li>
+          <li>
+            <strong>Send your GitHub username</strong> to:
+            <br>
+            <span class="contact-email">keithnorm@gmail.com</span>
+          </li>
+          <li>
+            <strong>Wait for access</strong>: Once we add you, you'll receive an email from GitHub
+          </li>
+          <li>
+            <strong>Come back here</strong> and click "Login with GitHub" below
+          </li>
+        </ol>
+      </div>
+    </div>
+
     <!-- Include the script that builds the page and powers Decap CMS -->
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
+    <script>
+      // Hide instructions banner once user is logged in
+      CMS.init().then(() => {
+        document.body.classList.add('cms-logged-in');
+      });
+    </script>
   </body>
 </html>
