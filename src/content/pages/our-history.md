@@ -6,8 +6,7 @@ parent: about
 showInNav: true
 navOrder: 1
 ---
-
-## The Beginning
+## The Beginning - test!
 
 The Humanists of Greater Portland was founded in 1969 by a group of freethinkers who wanted to create a community for people who valued reason, science, and human welfare over supernatural beliefs.
 
