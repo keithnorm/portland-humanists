@@ -106,7 +106,7 @@ const currentPath = Astro.url.pathname;
   </div>
 
   <!-- Mobile menu -->
-  <div id="mobile-menu" class="md:hidden hidden">
+  <div id="mobile-menu" class="md:hidden hidden absolute top-full left-0 right-0 bg-white shadow-lg z-50">
     <div class="px-2 pt-2 pb-3 space-y-1">
       {allNavItems.map(item => (
         item.highlight ? (
