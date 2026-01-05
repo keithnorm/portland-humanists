@@ -95,10 +95,77 @@ const currentPath = Astro.url.pathname;
       ))}
     </div>
 
-    <button class="md:hidden p-2 text-neutral-700 hover:text-[#1e3a5f]">
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <button id="mobile-menu-button" class="md:hidden p-2 text-neutral-700 hover:text-[#1e3a5f]" aria-label="Toggle menu">
+      <svg id="menu-open-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+      <svg id="menu-close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
       </svg>
     </button>
   </div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="md:hidden hidden">
+    <div class="px-2 pt-2 pb-3 space-y-1">
+      {allNavItems.map(item => (
+        item.highlight ? (
+          <a
+            href={item.href}
+            class="block bg-[#1e3a5f] text-white px-3 py-2 rounded-lg font-medium text-center"
+          >
+            {item.label}
+          </a>
+        ) : item.children && item.children.length > 0 ? (
+          <div>
+            <a
+              href={item.href}
+              class={`block px-3 py-2 rounded-md text-base font-medium ${currentPath === item.href ? 'text-[#1e3a5f] bg-[#e8eef5]' : 'text-neutral-700 hover:text-[#1e3a5f] hover:bg-gray-50'}`}
+            >
+              {item.label}
+            </a>
+            <div class="pl-4 space-y-1">
+              {item.children.map(child => (
+                <a
+                  href={child.href}
+                  class={`block px-3 py-2 rounded-md text-sm ${currentPath === child.href ? 'text-[#1e3a5f] bg-[#e8eef5]' : 'text-neutral-600 hover:text-[#1e3a5f] hover:bg-gray-50'}`}
+                >
+                  {child.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <a
+            href={item.href}
+            class={`block px-3 py-2 rounded-md text-base font-medium ${currentPath === item.href ? 'text-[#1e3a5f] bg-[#e8eef5]' : 'text-neutral-700 hover:text-[#1e3a5f] hover:bg-gray-50'}`}
+          >
+            {item.label}
+          </a>
+        )
+      ))}
+    </div>
+  </div>
 </nav>
+
+<script>
+  // Mobile menu toggle
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const menuOpenIcon = document.getElementById('menu-open-icon');
+  const menuCloseIcon = document.getElementById('menu-close-icon');
+
+  mobileMenuButton?.addEventListener('click', () => {
+    const isHidden = mobileMenu?.classList.contains('hidden');
+
+    if (isHidden) {
+      mobileMenu?.classList.remove('hidden');
+      menuOpenIcon?.classList.add('hidden');
+      menuCloseIcon?.classList.remove('hidden');
+    } else {
+      mobileMenu?.classList.add('hidden');
+      menuOpenIcon?.classList.remove('hidden');
+      menuCloseIcon?.classList.add('hidden');
+    }
+  });
+</script>
