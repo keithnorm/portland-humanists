@@ -101,7 +101,7 @@
 
     <script>
       // Add instructions banner after CMS loads
-      window.addEventListener('DOMContentLoaded', function() {
+      setTimeout(() => {
         // Check if user is already logged in
         const checkLoginStatus = setInterval(function() {
           const loginButton = document.querySelector('[class*="AuthenticationPage"]');
@@ -122,7 +122,7 @@
 
         // Stop checking after 5 seconds
         setTimeout(() => clearInterval(checkLoginStatus), 5000);
-      });
+      }, 3000);
 
       function showInstructions() {
         const instructionsHTML = `
