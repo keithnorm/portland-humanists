@@ -3,7 +3,7 @@ backend:
   branch: main # Change to your default branch
 
 # For local development, uncomment the following line:
-local_backend: true
+local_backend: false
 
 media_folder: "public/uploads"
 public_folder: "/uploads"

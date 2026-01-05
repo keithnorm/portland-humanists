@@ -102,21 +102,46 @@ git push -u origin main
 
 4. They can then log in at `https://your-site.netlify.app/admin`
 
-### Step 5: Disable Local Mode
+### Step 5: Configure Decap for Production
 
-Once deployed, edit `public/admin/config.yml` and comment out the local backend line:
+**IMPORTANT:** Before the CMS will work in production, you need to disable local mode.
 
+#### Edit `public/admin/config.yml`
+
+Change this line from:
+```yaml
+local_backend: true
+```
+
+To this (commented out):
 ```yaml
 # For local development, uncomment the following line:
 # local_backend: true
 ```
 
-Commit and push this change:
+**Why?**
+- `local_backend: true` tells Decap to use the local `decap-server` proxy (for development)
+- In production, Decap needs to use Netlify's Git Gateway instead
+- When commented out, Decap automatically uses the `git-gateway` backend configured at the top of the file
+
+#### Commit and Deploy the Change
+
 ```bash
 git add public/admin/config.yml
 git commit -m "Disable local backend for production"
 git push
 ```
+
+Netlify will automatically rebuild your site with this change.
+
+#### Verify Production CMS Works
+
+1. Go to `https://your-site.netlify.app/admin`
+2. You should see a login screen (not the local CMS interface)
+3. Log in with your invited user credentials
+4. You can now edit content through the production CMS!
+
+**Note:** Changes made in production CMS create Git commits to your repository automatically.
 
 ---
 
