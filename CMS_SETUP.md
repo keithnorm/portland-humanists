@@ -75,73 +75,62 @@ git push -u origin main
 
 5. **Wait for deployment** - Your site will be live at `https://random-name-123.netlify.app`
 
-### Step 3: Enable Netlify Identity & Git Gateway
+### Step 3: Configure GitHub OAuth Authentication
 
-1. In Netlify, go to your site dashboard
+**Note:** We're using GitHub OAuth instead of Netlify Identity (which is deprecated). See [GITHUB_OAUTH_SETUP.md](GITHUB_OAUTH_SETUP.md) for detailed setup instructions.
 
-2. **Enable Identity:**
-   - Click "Identity" in the top menu
-   - Click "Enable Identity"
+**Quick steps:**
 
-3. **Enable Git Gateway:**
-   - Still in Identity, click "Settings and usage"
-   - Scroll down to "Services" → "Git Gateway"
-   - Click "Enable Git Gateway"
+1. **Create a GitHub OAuth App:**
+   - Go to https://github.com/settings/developers
+   - Create new OAuth App
+   - Homepage URL: `https://your-site.netlify.app`
+   - Callback URL: `https://api.netlify.com/auth/done`
+   - Save the Client ID and Client Secret
 
-4. **Configure Registration (Optional):**
-   - Under Identity → Settings → Registration preferences
-   - Set to "Invite only" (recommended)
+2. **Add OAuth to Netlify:**
+   - In Netlify dashboard → Access & security → OAuth
+   - Install GitHub provider
+   - Enter your Client ID and Client Secret
 
-### Step 4: Invite Users
+### Step 4: Grant Repository Access
 
-1. In Netlify Identity, click "Invite users"
+To give someone CMS access:
 
-2. Enter email addresses for people who should have CMS access
+1. Go to your GitHub repository settings
+2. Click "Collaborators" → "Add people"
+3. Invite them with "Write" permission
+4. They accept the invitation
+5. They can now log in at `https://your-site.netlify.app/admin` with their GitHub account
 
-3. They'll receive an invitation email to set up their account
-
-4. They can then log in at `https://your-site.netlify.app/admin`
+**That's it!** No invitation emails or password management needed.
 
 ### Step 5: Configure Decap for Production
 
-**IMPORTANT:** Before the CMS will work in production, you need to disable local mode.
+**IMPORTANT:** The `public/admin/config.yml` is already configured correctly for production (using GitHub backend).
 
-#### Edit `public/admin/config.yml`
-
-Change this line from:
-```yaml
-local_backend: true
-```
-
-To this (commented out):
-```yaml
-# For local development, uncomment the following line:
-# local_backend: true
-```
-
-**Why?**
-- `local_backend: true` tells Decap to use the local `decap-server` proxy (for development)
-- In production, Decap needs to use Netlify's Git Gateway instead
-- When commented out, Decap automatically uses the `git-gateway` backend configured at the top of the file
-
-#### Commit and Deploy the Change
-
-```bash
-git add public/admin/config.yml
-git commit -m "Disable local backend for production"
-git push
-```
-
-Netlify will automatically rebuild your site with this change.
+For local development, uncomment `local_backend: true` in the config file. Remember to comment it back out before pushing to production!
 
 #### Verify Production CMS Works
 
-1. Go to `https://your-site.netlify.app/admin`
-2. You should see a login screen (not the local CMS interface)
-3. Log in with your invited user credentials
-4. You can now edit content through the production CMS!
+1. Commit and push your changes:
+   ```bash
+   git add .
+   git commit -m "Configure GitHub OAuth for Decap CMS"
+   git push
+   ```
 
-**Note:** Changes made in production CMS create Git commits to your repository automatically.
+2. Wait for Netlify to deploy (check the Deploys tab)
+
+3. Go to `https://your-site.netlify.app/admin`
+
+4. Click "Login with GitHub"
+
+5. Authorize the OAuth app
+
+6. You're in! You can now edit content through the CMS.
+
+**Note:** Changes made in the CMS create Git commits to your repository automatically (authored by your GitHub account).
 
 ---
 

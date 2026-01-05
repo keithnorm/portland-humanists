@@ -1,9 +1,10 @@
 backend:
-  name: git-gateway
-  branch: main # Change to your default branch
+  name: github
+  repo: keithnorm/portland-humanists
+  branch: main
 
-# For local development, uncomment the following line:
-local_backend: false
+# For local development with decap-server, uncomment the following line:
+# local_backend: true
 
 media_folder: "public/uploads"
 public_folder: "/uploads"
