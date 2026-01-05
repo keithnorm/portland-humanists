@@ -1,0 +1,91 @@
+backend:
+  name: git-gateway
+  branch: main # Change to your default branch
+
+# For local development, uncomment the following line:
+local_backend: true
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+collections:
+  # Sunday Events/Programs
+  - name: "events"
+    label: "Sunday Programs"
+    folder: "src/content/events"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Publish Date", name: "date", widget: "datetime"}
+      - {label: "Presenter Name", name: "presenter", widget: "string"}
+      - {label: "Presenter Title", name: "presenterTitle", widget: "string"}
+      - {label: "Start Time", name: "startTime", widget: "datetime", date_format: "YYYY-MM-DD", time_format: "HH:mm", format: "YYYY-MM-DD HH:mm"}
+      - {label: "End Time", name: "endTime", widget: "datetime", date_format: "YYYY-MM-DD", time_format: "HH:mm", format: "YYYY-MM-DD HH:mm"}
+      - {label: "Location", name: "location", widget: "string", default: "Friendly House & Zoom"}
+      - {label: "Zoom Link", name: "zoomLink", widget: "string", required: false}
+      - {label: "Description", name: "description", widget: "text"}
+      - {label: "Featured Image", name: "image", widget: "image", required: false}
+      - {label: "YouTube Video ID", name: "youtubeId", widget: "string", required: false, hint: "Add this after the event is recorded and uploaded"}
+      - {label: "Status", name: "status", widget: "select", options: ["upcoming", "past"], default: "upcoming"}
+      - {label: "Body", name: "body", widget: "markdown", required: false, hint: "Additional content about the program"}
+
+  # Static Pages
+  - name: "pages"
+    label: "Pages"
+    folder: "src/content/pages"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Description", name: "description", widget: "text"}
+      - {label: "Page Layout", name: "pageLayout", widget: "select", options: ["standard", "about"], default: "standard", hint: "Choose 'about' for pages that need the Ten Commitments grid"}
+      - {label: "Parent Page", name: "parent", widget: "string", required: false, hint: "For sub-pages: enter the parent page slug (e.g., 'about' to make this a child of /about). Leave blank for top-level pages."}
+      - {label: "Show in Navigation", name: "showInNav", widget: "boolean", default: true, hint: "Uncheck to hide from navigation menu"}
+      - {label: "Navigation Order", name: "navOrder", widget: "number", default: 999, hint: "Lower numbers appear first in navigation (e.g., 1, 2, 3...)"}
+      - {label: "Hero Gradient", name: "heroGradient", widget: "string", required: false, default: "bg-gradient-to-br from-[#1e3a5f] to-[#2a4d7f]", hint: "Tailwind CSS classes for hero background"}
+      - {label: "Body", name: "body", widget: "markdown"}
+      - label: "Ten Commitments"
+        name: "tenCommitments"
+        widget: "list"
+        required: false
+        hint: "Only used with 'about' layout"
+        fields:
+          - {label: "Title", name: "title", widget: "string"}
+          - {label: "Description", name: "description", widget: "text"}
+      - label: "Contact Information"
+        name: "contactInfo"
+        widget: "object"
+        required: false
+        hint: "Only used with 'about' layout"
+        fields:
+          - {label: "Email", name: "email", widget: "string", required: false}
+          - {label: "Location Name", name: "location", widget: "string", required: false}
+          - {label: "Address", name: "address", widget: "text", required: false}
+
+  # Site Settings
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - label: "General Settings"
+        name: "general"
+        file: "src/content/settings/general.json"
+        fields:
+          - {label: "Site Title", name: "siteTitle", widget: "string"}
+          - {label: "Site Description", name: "siteDescription", widget: "text"}
+          - {label: "Contact Email", name: "contactEmail", widget: "string"}
+          - label: "Social Media Links"
+            name: "socialMedia"
+            widget: "object"
+            fields:
+              - {label: "Facebook", name: "facebook", widget: "string", required: false}
+              - {label: "YouTube", name: "youtube", widget: "string", required: false}
+              - {label: "Meetup", name: "meetup", widget: "string", required: false}
+          - label: "Meeting Information"
+            name: "meetingInfo"
+            widget: "object"
+            fields:
+              - {label: "Regular Meeting Time", name: "time", widget: "string", default: "10:00 AM - 12:00 PM PST"}
+              - {label: "Location Name", name: "locationName", widget: "string", default: "Friendly House"}
+              - {label: "Location Address", name: "locationAddress", widget: "text"}
+              - {label: "Default Zoom Link", name: "defaultZoomLink", widget: "string", required: false}

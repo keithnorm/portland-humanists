@@ -1,0 +1,104 @@
+---
+import { getCollection } from 'astro:content';
+
+// Get all pages that should show in navigation
+const allPages = await getCollection('pages');
+const navPages = allPages
+  .filter(page => page.data.showInNav !== false)
+  .sort((a, b) => (a.data.navOrder || 999) - (b.data.navOrder || 999));
+
+// Build navigation structure with parent/child relationships
+const topLevelPages = navPages.filter(page => !page.data.parent);
+const pagesByParent = navPages.reduce((acc, page) => {
+  if (page.data.parent) {
+    if (!acc[page.data.parent]) acc[page.data.parent] = [];
+    acc[page.data.parent].push(page);
+  }
+  return acc;
+}, {} as Record<string, typeof navPages>);
+
+// Static navigation items (hardcoded pages)
+const staticNavItems = [
+  { label: 'Home', href: '/', order: 1 },
+  { label: 'Events', href: '/events', order: 3 },
+  { label: 'Recordings', href: '/recordings', order: 4 },
+  { label: 'Join Us', href: '/join', order: 5, highlight: true },
+];
+
+// Combine static and dynamic pages, sorting by order
+const allNavItems = [
+  ...staticNavItems,
+  ...topLevelPages.map(page => ({
+    label: page.data.title,
+    href: `/${page.slug}`,
+    order: page.data.navOrder || 999,
+    children: pagesByParent[page.slug]?.map(child => ({
+      label: child.data.title,
+      href: `/${child.slug}`,
+    })),
+  })),
+].sort((a, b) => a.order - b.order);
+
+const currentPath = Astro.url.pathname;
+---
+
+<nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="flex justify-between items-center h-20">
+    <div class="flex items-center">
+      <a href="/" class="hover:opacity-80 transition-opacity">
+        <img src="/logo.png" alt="Humanists of Greater Portland" class="h-20 w-auto" />
+      </a>
+    </div>
+
+    <div class="hidden md:flex items-center gap-8">
+      {allNavItems.map(item => (
+        item.highlight ? (
+          <a
+            href={item.href}
+            class="bg-[#1e3a5f] text-white px-4 py-2 rounded-lg hover:bg-[#2a4d7f] transition-colors font-medium"
+          >
+            {item.label}
+          </a>
+        ) : item.children && item.children.length > 0 ? (
+          <div class="relative group">
+            <a
+              href={item.href}
+              class={`text-neutral-700 hover:text-[#1e3a5f] transition-colors font-medium ${currentPath === item.href ? 'text-[#1e3a5f]' : ''}`}
+            >
+              {item.label}
+              <svg class="w-4 h-4 inline ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </a>
+            <!-- Dropdown menu -->
+            <div class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+              <div class="py-1">
+                {item.children.map(child => (
+                  <a
+                    href={child.href}
+                    class={`block px-4 py-2 text-sm text-neutral-700 hover:bg-[#e8eef5] hover:text-[#1e3a5f] ${currentPath === child.href ? 'bg-[#e8eef5] text-[#1e3a5f]' : ''}`}
+                  >
+                    {child.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        ) : (
+          <a
+            href={item.href}
+            class={`text-neutral-700 hover:text-[#1e3a5f] transition-colors font-medium ${currentPath === item.href ? 'text-[#1e3a5f]' : ''}`}
+          >
+            {item.label}
+          </a>
+        )
+      ))}
+    </div>
+
+    <button class="md:hidden p-2 text-neutral-700 hover:text-[#1e3a5f]">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </div>
+</nav>

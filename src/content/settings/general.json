@@ -1,0 +1,16 @@
+{
+  "siteTitle": "Humanists of Greater Portland",
+  "siteDescription": "A community promoting human well-being, science and reason, secularism, and humanist values in the Portland metro area.",
+  "contactEmail": "info@portlandhumanists.org",
+  "socialMedia": {
+    "facebook": "https://facebook.com/portlandhumanists",
+    "youtube": "https://youtube.com/@portlandhumanists",
+    "meetup": "https://meetup.com/portland-humanists"
+  },
+  "meetingInfo": {
+    "time": "10:00 AM - 12:00 PM PST",
+    "locationName": "Friendly House",
+    "locationAddress": "1737 NW 26th Ave, Portland, OR 97210",
+    "defaultZoomLink": "https://zoom.us/j/example"
+  }
+}

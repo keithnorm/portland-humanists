@@ -1,0 +1,495 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/global.css';
+---
+
+<BaseLayout title="Join Us - Humanists of Greater Portland">
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-br from-[#1e3a5f] to-[#2a4d7f] text-white py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">Join Our Community</h1>
+      <p class="text-xl text-[#c8d9ec]">
+        Become a member and support our mission to promote humanist values in Portland
+      </p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <section class="py-16 bg-neutral-50">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-5 gap-12">
+        <!-- Benefits Sidebar -->
+        <div class="md:col-span-2">
+          <div class="bg-white rounded-xl p-8 shadow-sm sticky top-24">
+            <h2 class="text-2xl font-bold text-neutral-900 mb-6">Member Benefits</h2>
+
+            <div class="space-y-4">
+              <div class="flex gap-3">
+                <div class="flex-shrink-0">
+                  <svg class="w-6 h-6 text-[#1e3a5f]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-neutral-900">Access to All Programs</h3>
+                  <p class="text-sm text-neutral-600">Join our weekly Sunday programs and special events</p>
+                </div>
+              </div>
+
+              <div class="flex gap-3">
+                <div class="flex-shrink-0">
+                  <svg class="w-6 h-6 text-[#1e3a5f]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-neutral-900">Member Newsletter</h3>
+                  <p class="text-sm text-neutral-600">Stay informed with our monthly updates</p>
+                </div>
+              </div>
+
+              <div class="flex gap-3">
+                <div class="flex-shrink-0">
+                  <svg class="w-6 h-6 text-[#1e3a5f]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-neutral-900">Discussion Forums</h3>
+                  <p class="text-sm text-neutral-600">Connect with fellow humanists online</p>
+                </div>
+              </div>
+
+              <div class="flex gap-3">
+                <div class="flex-shrink-0">
+                  <svg class="w-6 h-6 text-[#1e3a5f]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-neutral-900">Support Our Mission</h3>
+                  <p class="text-sm text-neutral-600">Fund scholarships and community outreach</p>
+                </div>
+              </div>
+
+              <div class="flex gap-3">
+                <div class="flex-shrink-0">
+                  <svg class="w-6 h-6 text-[#1e3a5f]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-neutral-900">Voting Rights</h3>
+                  <p class="text-sm text-neutral-600">Voice in organizational decisions</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Membership Form -->
+        <div class="md:col-span-3">
+          <div class="bg-white rounded-xl p-8 shadow-sm">
+            <h2 class="text-2xl font-bold text-neutral-900 mb-6">Membership Information</h2>
+
+            <form id="membershipForm" class="space-y-6">
+              <!-- Philosophical Agreement -->
+              <div class="bg-[#f4f7fb] p-6 rounded-lg">
+                <label class="flex items-start gap-3">
+                  <input
+                    type="checkbox"
+                    name="agreePhilosophy"
+                    required
+                    class="mt-1"
+                  />
+                  <div>
+                    <div class="font-medium text-neutral-900">Philosophical Agreement <span class="text-red-500">*</span></div>
+                    <div class="text-sm text-neutral-700 mt-1">
+                      I am in general agreement with the philosophy of secular humanism as expressed in Humanist Manifesto III
+                    </div>
+                  </div>
+                </label>
+              </div>
+
+              <!-- Personal Information -->
+              <div>
+                <h3 class="text-lg font-semibold text-neutral-900 mb-4 pb-2 border-b">Personal Information</h3>
+
+                <div class="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label for="firstName" class="block text-sm font-medium text-neutral-700 mb-2">
+                      First Name <span class="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="firstName"
+                      name="firstName"
+                      required
+                      class="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                  </div>
+
+                  <div>
+                    <label for="lastName" class="block text-sm font-medium text-neutral-700 mb-2">
+                      Last Name <span class="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="lastName"
+                      name="lastName"
+                      required
+                      class="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                  </div>
+                </div>
+
+                <div class="mt-4">
+                  <label for="email" class="block text-sm font-medium text-neutral-700 mb-2">
+                    Email Address <span class="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                    class="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+                </div>
+
+                <div class="mt-4">
+                  <label for="phone" class="block text-sm font-medium text-neutral-700 mb-2">
+                    Phone Number
+                  </label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    class="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+                </div>
+
+                <div class="mt-4">
+                  <label for="address" class="block text-sm font-medium text-neutral-700 mb-2">
+                    Mailing Address
+                  </label>
+                  <input
+                    type="text"
+                    id="address"
+                    name="address"
+                    placeholder="Street Address"
+                    class="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent mb-2"
+                  />
+                  <div class="grid md:grid-cols-3 gap-2">
+                    <input
+                      type="text"
+                      id="city"
+                      name="city"
+                      placeholder="City"
+                      class="px-4 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                    <input
+                      type="text"
+                      id="state"
+                      name="state"
+                      placeholder="State"
+                      class="px-4 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                    <input
+                      type="text"
+                      id="zip"
+                      name="zip"
+                      placeholder="ZIP"
+                      class="px-4 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Membership Type -->
+              <div>
+                <h3 class="text-lg font-semibold text-neutral-900 mb-4 pb-2 border-b">Membership Level</h3>
+
+                <div class="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-4">
+                  <p class="text-sm text-amber-900">
+                    <strong>Note:</strong> All contributions are tax-deductible donations. There is no required minimum — pay only what you can afford.
+                  </p>
+                </div>
+
+                <div class="space-y-3">
+                  <label class="flex items-start gap-3 p-4 border-2 border-neutral-200 rounded-lg cursor-pointer hover:border-blue-500 transition-colors">
+                    <input
+                      type="radio"
+                      name="membershipType"
+                      value="individual"
+                      checked
+                      class="mt-1"
+                    />
+                    <div class="flex-1">
+                      <div class="flex justify-between items-start">
+                        <div>
+                          <div class="font-semibold text-neutral-900">Individual Membership</div>
+                          <div class="text-sm text-neutral-600">For single members</div>
+                        </div>
+                        <div class="text-base font-semibold text-[#1e3a5f]">$50 - $250</div>
+                      </div>
+                    </div>
+                  </label>
+
+                  <label class="flex items-start gap-3 p-4 border-2 border-neutral-200 rounded-lg cursor-pointer hover:border-blue-500 transition-colors">
+                    <input
+                      type="radio"
+                      name="membershipType"
+                      value="joint"
+                      class="mt-1"
+                    />
+                    <div class="flex-1">
+                      <div class="flex justify-between items-start">
+                        <div>
+                          <div class="font-semibold text-neutral-900">Joint Membership</div>
+                          <div class="text-sm text-neutral-600">For couples and families</div>
+                        </div>
+                        <div class="text-base font-semibold text-[#1e3a5f]">$90 - $300</div>
+                      </div>
+                    </div>
+                  </label>
+
+                  <label class="flex items-start gap-3 p-4 border-2 border-neutral-200 rounded-lg cursor-pointer hover:border-blue-500 transition-colors">
+                    <input
+                      type="radio"
+                      name="membershipType"
+                      value="limited"
+                      class="mt-1"
+                    />
+                    <div class="flex-1">
+                      <div class="flex justify-between items-start">
+                        <div>
+                          <div class="font-semibold text-neutral-900">Limited Income</div>
+                          <div class="text-sm text-neutral-600">Pay what you can afford</div>
+                        </div>
+                        <div class="text-base font-semibold text-[#1e3a5f]">Any amount</div>
+                      </div>
+                    </div>
+                  </label>
+
+                  <label class="flex items-start gap-3 p-4 border-2 border-neutral-200 rounded-lg cursor-pointer hover:border-blue-500 transition-colors">
+                    <input
+                      type="radio"
+                      name="membershipType"
+                      value="newsletter"
+                      class="mt-1"
+                    />
+                    <div class="flex-1">
+                      <div class="flex justify-between items-start">
+                        <div>
+                          <div class="font-semibold text-neutral-900">Newsletter Only</div>
+                          <div class="text-sm text-neutral-600">Receive newsletter without membership</div>
+                        </div>
+                        <div class="text-base font-semibold text-[#1e3a5f]">$12</div>
+                      </div>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Membership Amount -->
+              <div>
+                <label for="membershipAmount" class="block text-sm font-medium text-neutral-700 mb-2">
+                  Membership Amount <span class="text-red-500">*</span>
+                </label>
+                <div class="relative">
+                  <span class="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-500">$</span>
+                  <input
+                    type="number"
+                    id="membershipAmount"
+                    name="membershipAmount"
+                    min="0"
+                    step="1"
+                    placeholder="50.00"
+                    required
+                    class="w-full pl-8 pr-4 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+                </div>
+                <p class="text-sm text-neutral-500 mt-1">
+                  Enter an amount within the suggested range for your membership type
+                </p>
+              </div>
+
+              <!-- Lifetime Membership -->
+              <div class="bg-neutral-50 p-4 rounded-lg">
+                <label class="flex items-start gap-3">
+                  <input
+                    type="checkbox"
+                    name="lifetimeMember"
+                    class="mt-1"
+                  />
+                  <div>
+                    <div class="font-medium text-neutral-900">Lifetime Membership</div>
+                    <div class="text-sm text-neutral-600 mt-1">
+                      Check this box if you have been a continuous member for 5+ years and wish to be designated as a Lifetime Member
+                    </div>
+                  </div>
+                </label>
+              </div>
+
+              <!-- Communication Preferences -->
+              <div>
+                <h3 class="text-lg font-semibold text-neutral-900 mb-4 pb-2 border-b">Communication Preferences</h3>
+
+                <div class="space-y-3">
+                  <label class="flex items-start gap-3">
+                    <input
+                      type="checkbox"
+                      name="newsletter"
+                      checked
+                      class="mt-1"
+                    />
+                    <div>
+                      <div class="font-medium text-neutral-900">Email Newsletter</div>
+                      <div class="text-sm text-neutral-600">Receive our newsletter with program updates</div>
+                    </div>
+                  </label>
+
+                  <label class="flex items-start gap-3">
+                    <input
+                      type="checkbox"
+                      name="eventNotifications"
+                      checked
+                      class="mt-1"
+                    />
+                    <div>
+                      <div class="font-medium text-neutral-900">Event Notifications</div>
+                      <div class="text-sm text-neutral-600">Get reminders about upcoming Sunday programs</div>
+                    </div>
+                  </label>
+
+                  <label class="flex items-start gap-3">
+                    <input
+                      type="checkbox"
+                      name="volunteer"
+                      class="mt-1"
+                    />
+                    <div>
+                      <div class="font-medium text-neutral-900">Volunteer Opportunities</div>
+                      <div class="text-sm text-neutral-600">I'm interested in volunteering</div>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Submit Section -->
+              <div class="pt-6">
+                <div id="totalAmount" class="bg-[#f4f7fb] rounded-lg p-4 mb-6">
+                  <div class="flex justify-between items-center">
+                    <span class="text-neutral-700 font-medium">Total Amount:</span>
+                    <span class="text-2xl font-bold text-[#1e3a5f]">$40.00</span>
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  class="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
+                >
+                  Continue to Payment
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+
+                <p class="text-sm text-neutral-500 text-center mt-4">
+                  Secure payment processing powered by PayPal
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Info Section -->
+  <section class="py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl font-bold text-neutral-900 mb-4">Questions About Membership?</h2>
+      <p class="text-lg text-neutral-600 mb-6">
+        We're here to help! Contact us at <a href="mailto:membership@portlandhumanists.org" class="text-[#1e3a5f] hover:text-[#1e3a5f] font-medium">membership@portlandhumanists.org</a>
+      </p>
+      <p class="text-neutral-600">
+        All memberships are for one year from the date of joining and are tax-deductible to the extent allowed by law.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  // Calculate total dynamically
+  const form = document.getElementById('membershipForm') as HTMLFormElement;
+  const membershipAmountInput = document.getElementById('membershipAmount') as HTMLInputElement;
+  const totalAmountDiv = document.getElementById('totalAmount');
+
+  const suggestedRanges: Record<string, string> = {
+    individual: '$50 - $250',
+    joint: '$90 - $300',
+    limited: 'Any amount',
+    newsletter: '$12'
+  };
+
+  function updateTotal() {
+    const amount = parseFloat(membershipAmountInput?.value || '0');
+
+    if (totalAmountDiv) {
+      totalAmountDiv.innerHTML = `
+        <div class="flex justify-between items-center">
+          <span class="text-neutral-700 font-medium">Total Amount:</span>
+          <span class="text-2xl font-bold text-[#1e3a5f]">$${amount.toFixed(2)}</span>
+        </div>
+      `;
+    }
+  }
+
+  // Update placeholder when membership type changes
+  form?.querySelectorAll('input[name="membershipType"]').forEach(input => {
+    input.addEventListener('change', (e) => {
+      const target = e.target as HTMLInputElement;
+      const type = target.value;
+
+      // Update placeholder based on selection
+      if (membershipAmountInput) {
+        switch(type) {
+          case 'individual':
+            membershipAmountInput.placeholder = '50.00';
+            break;
+          case 'joint':
+            membershipAmountInput.placeholder = '90.00';
+            break;
+          case 'newsletter':
+            membershipAmountInput.placeholder = '12.00';
+            membershipAmountInput.value = '12';
+            updateTotal();
+            break;
+          case 'limited':
+            membershipAmountInput.placeholder = '0.00';
+            break;
+        }
+      }
+    });
+  });
+
+  membershipAmountInput?.addEventListener('input', updateTotal);
+
+  // Initial update
+  updateTotal();
+
+  // Handle form submission
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    // In production, this would:
+    // 1. Validate the form data
+    // 2. Send to your backend/serverless function
+    // 3. Process payment via PayPal/Stripe
+    // 4. Create member record in CMS
+    // 5. Send confirmation email
+
+    alert('Form submitted! In production, this would redirect to payment processing.');
+  });
+</script>
