@@ -52,3 +52,60 @@ fragment SettingsParts on Settings {
     defaultZoomLink
   }
 }
+
+fragment JoinParts on Join {
+  __typename
+  heroHeading
+  heroTagline
+  benefitsHeading
+  benefits {
+    __typename
+    title
+    description
+  }
+  personalInfoHeading
+  personalFields {
+    __typename
+    label
+    fieldName
+    fieldType
+    required
+    placeholder
+  }
+  philosophyText
+  membershipNote
+  membershipTiers {
+    __typename
+    tierName
+    tierSubtitle
+    priceRange
+  }
+  communicationPrefsHeading
+  communicationFields {
+    __typename
+    label
+    description
+    fieldName
+    defaultChecked
+  }
+  questionsHeading
+  questionsBody
+  membershipEmail
+  questionsFootnote
+}
+
+fragment HomepageParts on Homepage {
+  __typename
+  heroHeading
+  heroTagline
+  humanismHeading
+  humanismBody1
+  humanismBody2
+  features {
+    __typename
+    title
+    description
+  }
+  ctaHeading
+  ctaBody
+}

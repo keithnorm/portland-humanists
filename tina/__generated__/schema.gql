@@ -60,12 +60,18 @@ type Query {
   pagesConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: PagesFilter): PagesConnection!
   settings(relativePath: String): Settings!
   settingsConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: SettingsFilter): SettingsConnection!
+  join(relativePath: String): Join!
+  joinConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: JoinFilter): JoinConnection!
+  homepage(relativePath: String): Homepage!
+  homepageConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: HomepageFilter): HomepageConnection!
 }
 
 input DocumentFilter {
   events: EventsFilter
   pages: PagesFilter
   settings: SettingsFilter
+  join: JoinFilter
+  homepage: HomepageFilter
 }
 
 type DocumentConnectionEdges {
@@ -91,7 +97,7 @@ type Collection {
   documents(before: String, after: String, first: Float, last: Float, sort: String, filter: DocumentFilter, folder: String): DocumentConnection!
 }
 
-union DocumentNode = Events | Pages | Settings | Folder
+union DocumentNode = Events | Pages | Settings | Join | Homepage | Folder
 
 type Events implements Node & Document {
   title: String!
@@ -288,6 +294,154 @@ type SettingsConnection implements Connection {
   edges: [SettingsConnectionEdges]
 }
 
+type JoinBenefits {
+  title: String!
+  description: String!
+}
+
+type JoinPersonalFields {
+  label: String!
+  fieldName: String!
+  fieldType: String
+  required: Boolean
+  placeholder: String
+}
+
+type JoinMembershipTiers {
+  tierName: String!
+  tierSubtitle: String
+  priceRange: String
+}
+
+type JoinCommunicationFields {
+  label: String!
+  description: String
+  fieldName: String!
+  defaultChecked: Boolean
+}
+
+type Join implements Node & Document {
+  heroHeading: String!
+  heroTagline: String!
+  benefitsHeading: String
+  benefits: [JoinBenefits]
+  personalInfoHeading: String
+  personalFields: [JoinPersonalFields]
+  philosophyText: String
+  membershipNote: String
+  membershipTiers: [JoinMembershipTiers]
+  communicationPrefsHeading: String
+  communicationFields: [JoinCommunicationFields]
+  questionsHeading: String
+  questionsBody: String
+  membershipEmail: String
+  questionsFootnote: String
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+input JoinBenefitsFilter {
+  title: StringFilter
+  description: StringFilter
+}
+
+input JoinPersonalFieldsFilter {
+  label: StringFilter
+  fieldName: StringFilter
+  fieldType: StringFilter
+  required: BooleanFilter
+  placeholder: StringFilter
+}
+
+input JoinMembershipTiersFilter {
+  tierName: StringFilter
+  tierSubtitle: StringFilter
+  priceRange: StringFilter
+}
+
+input JoinCommunicationFieldsFilter {
+  label: StringFilter
+  description: StringFilter
+  fieldName: StringFilter
+  defaultChecked: BooleanFilter
+}
+
+input JoinFilter {
+  heroHeading: StringFilter
+  heroTagline: StringFilter
+  benefitsHeading: StringFilter
+  benefits: JoinBenefitsFilter
+  personalInfoHeading: StringFilter
+  personalFields: JoinPersonalFieldsFilter
+  philosophyText: StringFilter
+  membershipNote: StringFilter
+  membershipTiers: JoinMembershipTiersFilter
+  communicationPrefsHeading: StringFilter
+  communicationFields: JoinCommunicationFieldsFilter
+  questionsHeading: StringFilter
+  questionsBody: StringFilter
+  membershipEmail: StringFilter
+  questionsFootnote: StringFilter
+}
+
+type JoinConnectionEdges {
+  cursor: String!
+  node: Join
+}
+
+type JoinConnection implements Connection {
+  pageInfo: PageInfo!
+  totalCount: Float!
+  edges: [JoinConnectionEdges]
+}
+
+type HomepageFeatures {
+  title: String!
+  description: String!
+}
+
+type Homepage implements Node & Document {
+  heroHeading: String!
+  heroTagline: String!
+  humanismHeading: String
+  humanismBody1: String
+  humanismBody2: String
+  features: [HomepageFeatures]
+  ctaHeading: String
+  ctaBody: String
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+input HomepageFeaturesFilter {
+  title: StringFilter
+  description: StringFilter
+}
+
+input HomepageFilter {
+  heroHeading: StringFilter
+  heroTagline: StringFilter
+  humanismHeading: StringFilter
+  humanismBody1: StringFilter
+  humanismBody2: StringFilter
+  features: HomepageFeaturesFilter
+  ctaHeading: StringFilter
+  ctaBody: StringFilter
+}
+
+type HomepageConnectionEdges {
+  cursor: String!
+  node: Homepage
+}
+
+type HomepageConnection implements Connection {
+  pageInfo: PageInfo!
+  totalCount: Float!
+  edges: [HomepageConnectionEdges]
+}
+
 type Mutation {
   addPendingDocument(collection: String!, relativePath: String!, template: String): DocumentNode!
   updateDocument(collection: String, relativePath: String!, params: DocumentUpdateMutation!): DocumentNode!
@@ -300,12 +454,18 @@ type Mutation {
   createPages(relativePath: String!, params: PagesMutation!): Pages!
   updateSettings(relativePath: String!, params: SettingsMutation!): Settings!
   createSettings(relativePath: String!, params: SettingsMutation!): Settings!
+  updateJoin(relativePath: String!, params: JoinMutation!): Join!
+  createJoin(relativePath: String!, params: JoinMutation!): Join!
+  updateHomepage(relativePath: String!, params: HomepageMutation!): Homepage!
+  createHomepage(relativePath: String!, params: HomepageMutation!): Homepage!
 }
 
 input DocumentUpdateMutation {
   events: EventsMutation
   pages: PagesMutation
   settings: SettingsMutation
+  join: JoinMutation
+  homepage: HomepageMutation
   relativePath: String
 }
 
@@ -313,6 +473,8 @@ input DocumentMutation {
   events: EventsMutation
   pages: PagesMutation
   settings: SettingsMutation
+  join: JoinMutation
+  homepage: HomepageMutation
 }
 
 input EventsMutation {
@@ -368,6 +530,66 @@ input SettingsMutation {
   contactEmail: String
   socialMedia: SettingsSocialMediaMutation
   meetingInfo: SettingsMeetingInfoMutation
+}
+
+input JoinBenefitsMutation {
+  title: String
+  description: String
+}
+
+input JoinPersonalFieldsMutation {
+  label: String
+  fieldName: String
+  fieldType: String
+  required: Boolean
+  placeholder: String
+}
+
+input JoinMembershipTiersMutation {
+  tierName: String
+  tierSubtitle: String
+  priceRange: String
+}
+
+input JoinCommunicationFieldsMutation {
+  label: String
+  description: String
+  fieldName: String
+  defaultChecked: Boolean
+}
+
+input JoinMutation {
+  heroHeading: String
+  heroTagline: String
+  benefitsHeading: String
+  benefits: [JoinBenefitsMutation]
+  personalInfoHeading: String
+  personalFields: [JoinPersonalFieldsMutation]
+  philosophyText: String
+  membershipNote: String
+  membershipTiers: [JoinMembershipTiersMutation]
+  communicationPrefsHeading: String
+  communicationFields: [JoinCommunicationFieldsMutation]
+  questionsHeading: String
+  questionsBody: String
+  membershipEmail: String
+  questionsFootnote: String
+}
+
+input HomepageFeaturesMutation {
+  title: String
+  description: String
+}
+
+input HomepageMutation {
+  heroHeading: String
+  heroTagline: String
+  humanismHeading: String
+  humanismBody1: String
+  humanismBody2: String
+  features: [HomepageFeaturesMutation]
+  ctaHeading: String
+  ctaBody: String
 }
 
 schema {

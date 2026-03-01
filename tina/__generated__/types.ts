@@ -88,6 +88,10 @@ export type Query = {
   pagesConnection: PagesConnection;
   settings: Settings;
   settingsConnection: SettingsConnection;
+  join: Join;
+  joinConnection: JoinConnection;
+  homepage: Homepage;
+  homepageConnection: HomepageConnection;
 };
 
 
@@ -156,10 +160,42 @@ export type QuerySettingsConnectionArgs = {
   filter?: InputMaybe<SettingsFilter>;
 };
 
+
+export type QueryJoinArgs = {
+  relativePath?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryJoinConnectionArgs = {
+  before?: InputMaybe<Scalars['String']['input']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Float']['input']>;
+  last?: InputMaybe<Scalars['Float']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  filter?: InputMaybe<JoinFilter>;
+};
+
+
+export type QueryHomepageArgs = {
+  relativePath?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryHomepageConnectionArgs = {
+  before?: InputMaybe<Scalars['String']['input']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Float']['input']>;
+  last?: InputMaybe<Scalars['Float']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  filter?: InputMaybe<HomepageFilter>;
+};
+
 export type DocumentFilter = {
   events?: InputMaybe<EventsFilter>;
   pages?: InputMaybe<PagesFilter>;
   settings?: InputMaybe<SettingsFilter>;
+  join?: InputMaybe<JoinFilter>;
+  homepage?: InputMaybe<HomepageFilter>;
 };
 
 export type DocumentConnectionEdges = {
@@ -199,7 +235,7 @@ export type CollectionDocumentsArgs = {
   folder?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type DocumentNode = Events | Pages | Settings | Folder;
+export type DocumentNode = Events | Pages | Settings | Join | Homepage | Folder;
 
 export type Events = Node & Document & {
   __typename?: 'Events';
@@ -408,6 +444,165 @@ export type SettingsConnection = Connection & {
   edges?: Maybe<Array<Maybe<SettingsConnectionEdges>>>;
 };
 
+export type JoinBenefits = {
+  __typename?: 'JoinBenefits';
+  title: Scalars['String']['output'];
+  description: Scalars['String']['output'];
+};
+
+export type JoinPersonalFields = {
+  __typename?: 'JoinPersonalFields';
+  label: Scalars['String']['output'];
+  fieldName: Scalars['String']['output'];
+  fieldType?: Maybe<Scalars['String']['output']>;
+  required?: Maybe<Scalars['Boolean']['output']>;
+  placeholder?: Maybe<Scalars['String']['output']>;
+};
+
+export type JoinMembershipTiers = {
+  __typename?: 'JoinMembershipTiers';
+  tierName: Scalars['String']['output'];
+  tierSubtitle?: Maybe<Scalars['String']['output']>;
+  priceRange?: Maybe<Scalars['String']['output']>;
+};
+
+export type JoinCommunicationFields = {
+  __typename?: 'JoinCommunicationFields';
+  label: Scalars['String']['output'];
+  description?: Maybe<Scalars['String']['output']>;
+  fieldName: Scalars['String']['output'];
+  defaultChecked?: Maybe<Scalars['Boolean']['output']>;
+};
+
+export type Join = Node & Document & {
+  __typename?: 'Join';
+  heroHeading: Scalars['String']['output'];
+  heroTagline: Scalars['String']['output'];
+  benefitsHeading?: Maybe<Scalars['String']['output']>;
+  benefits?: Maybe<Array<Maybe<JoinBenefits>>>;
+  personalInfoHeading?: Maybe<Scalars['String']['output']>;
+  personalFields?: Maybe<Array<Maybe<JoinPersonalFields>>>;
+  philosophyText?: Maybe<Scalars['String']['output']>;
+  membershipNote?: Maybe<Scalars['String']['output']>;
+  membershipTiers?: Maybe<Array<Maybe<JoinMembershipTiers>>>;
+  communicationPrefsHeading?: Maybe<Scalars['String']['output']>;
+  communicationFields?: Maybe<Array<Maybe<JoinCommunicationFields>>>;
+  questionsHeading?: Maybe<Scalars['String']['output']>;
+  questionsBody?: Maybe<Scalars['String']['output']>;
+  membershipEmail?: Maybe<Scalars['String']['output']>;
+  questionsFootnote?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  _sys: SystemInfo;
+  _values: Scalars['JSON']['output'];
+};
+
+export type JoinBenefitsFilter = {
+  title?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+};
+
+export type JoinPersonalFieldsFilter = {
+  label?: InputMaybe<StringFilter>;
+  fieldName?: InputMaybe<StringFilter>;
+  fieldType?: InputMaybe<StringFilter>;
+  required?: InputMaybe<BooleanFilter>;
+  placeholder?: InputMaybe<StringFilter>;
+};
+
+export type JoinMembershipTiersFilter = {
+  tierName?: InputMaybe<StringFilter>;
+  tierSubtitle?: InputMaybe<StringFilter>;
+  priceRange?: InputMaybe<StringFilter>;
+};
+
+export type JoinCommunicationFieldsFilter = {
+  label?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  fieldName?: InputMaybe<StringFilter>;
+  defaultChecked?: InputMaybe<BooleanFilter>;
+};
+
+export type JoinFilter = {
+  heroHeading?: InputMaybe<StringFilter>;
+  heroTagline?: InputMaybe<StringFilter>;
+  benefitsHeading?: InputMaybe<StringFilter>;
+  benefits?: InputMaybe<JoinBenefitsFilter>;
+  personalInfoHeading?: InputMaybe<StringFilter>;
+  personalFields?: InputMaybe<JoinPersonalFieldsFilter>;
+  philosophyText?: InputMaybe<StringFilter>;
+  membershipNote?: InputMaybe<StringFilter>;
+  membershipTiers?: InputMaybe<JoinMembershipTiersFilter>;
+  communicationPrefsHeading?: InputMaybe<StringFilter>;
+  communicationFields?: InputMaybe<JoinCommunicationFieldsFilter>;
+  questionsHeading?: InputMaybe<StringFilter>;
+  questionsBody?: InputMaybe<StringFilter>;
+  membershipEmail?: InputMaybe<StringFilter>;
+  questionsFootnote?: InputMaybe<StringFilter>;
+};
+
+export type JoinConnectionEdges = {
+  __typename?: 'JoinConnectionEdges';
+  cursor: Scalars['String']['output'];
+  node?: Maybe<Join>;
+};
+
+export type JoinConnection = Connection & {
+  __typename?: 'JoinConnection';
+  pageInfo: PageInfo;
+  totalCount: Scalars['Float']['output'];
+  edges?: Maybe<Array<Maybe<JoinConnectionEdges>>>;
+};
+
+export type HomepageFeatures = {
+  __typename?: 'HomepageFeatures';
+  title: Scalars['String']['output'];
+  description: Scalars['String']['output'];
+};
+
+export type Homepage = Node & Document & {
+  __typename?: 'Homepage';
+  heroHeading: Scalars['String']['output'];
+  heroTagline: Scalars['String']['output'];
+  humanismHeading?: Maybe<Scalars['String']['output']>;
+  humanismBody1?: Maybe<Scalars['String']['output']>;
+  humanismBody2?: Maybe<Scalars['String']['output']>;
+  features?: Maybe<Array<Maybe<HomepageFeatures>>>;
+  ctaHeading?: Maybe<Scalars['String']['output']>;
+  ctaBody?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  _sys: SystemInfo;
+  _values: Scalars['JSON']['output'];
+};
+
+export type HomepageFeaturesFilter = {
+  title?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+};
+
+export type HomepageFilter = {
+  heroHeading?: InputMaybe<StringFilter>;
+  heroTagline?: InputMaybe<StringFilter>;
+  humanismHeading?: InputMaybe<StringFilter>;
+  humanismBody1?: InputMaybe<StringFilter>;
+  humanismBody2?: InputMaybe<StringFilter>;
+  features?: InputMaybe<HomepageFeaturesFilter>;
+  ctaHeading?: InputMaybe<StringFilter>;
+  ctaBody?: InputMaybe<StringFilter>;
+};
+
+export type HomepageConnectionEdges = {
+  __typename?: 'HomepageConnectionEdges';
+  cursor: Scalars['String']['output'];
+  node?: Maybe<Homepage>;
+};
+
+export type HomepageConnection = Connection & {
+  __typename?: 'HomepageConnection';
+  pageInfo: PageInfo;
+  totalCount: Scalars['Float']['output'];
+  edges?: Maybe<Array<Maybe<HomepageConnectionEdges>>>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   addPendingDocument: DocumentNode;
@@ -421,6 +616,10 @@ export type Mutation = {
   createPages: Pages;
   updateSettings: Settings;
   createSettings: Settings;
+  updateJoin: Join;
+  createJoin: Join;
+  updateHomepage: Homepage;
+  createHomepage: Homepage;
 };
 
 
@@ -492,10 +691,36 @@ export type MutationCreateSettingsArgs = {
   params: SettingsMutation;
 };
 
+
+export type MutationUpdateJoinArgs = {
+  relativePath: Scalars['String']['input'];
+  params: JoinMutation;
+};
+
+
+export type MutationCreateJoinArgs = {
+  relativePath: Scalars['String']['input'];
+  params: JoinMutation;
+};
+
+
+export type MutationUpdateHomepageArgs = {
+  relativePath: Scalars['String']['input'];
+  params: HomepageMutation;
+};
+
+
+export type MutationCreateHomepageArgs = {
+  relativePath: Scalars['String']['input'];
+  params: HomepageMutation;
+};
+
 export type DocumentUpdateMutation = {
   events?: InputMaybe<EventsMutation>;
   pages?: InputMaybe<PagesMutation>;
   settings?: InputMaybe<SettingsMutation>;
+  join?: InputMaybe<JoinMutation>;
+  homepage?: InputMaybe<HomepageMutation>;
   relativePath?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -503,6 +728,8 @@ export type DocumentMutation = {
   events?: InputMaybe<EventsMutation>;
   pages?: InputMaybe<PagesMutation>;
   settings?: InputMaybe<SettingsMutation>;
+  join?: InputMaybe<JoinMutation>;
+  homepage?: InputMaybe<HomepageMutation>;
 };
 
 export type EventsMutation = {
@@ -560,11 +787,75 @@ export type SettingsMutation = {
   meetingInfo?: InputMaybe<SettingsMeetingInfoMutation>;
 };
 
+export type JoinBenefitsMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type JoinPersonalFieldsMutation = {
+  label?: InputMaybe<Scalars['String']['input']>;
+  fieldName?: InputMaybe<Scalars['String']['input']>;
+  fieldType?: InputMaybe<Scalars['String']['input']>;
+  required?: InputMaybe<Scalars['Boolean']['input']>;
+  placeholder?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type JoinMembershipTiersMutation = {
+  tierName?: InputMaybe<Scalars['String']['input']>;
+  tierSubtitle?: InputMaybe<Scalars['String']['input']>;
+  priceRange?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type JoinCommunicationFieldsMutation = {
+  label?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  fieldName?: InputMaybe<Scalars['String']['input']>;
+  defaultChecked?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type JoinMutation = {
+  heroHeading?: InputMaybe<Scalars['String']['input']>;
+  heroTagline?: InputMaybe<Scalars['String']['input']>;
+  benefitsHeading?: InputMaybe<Scalars['String']['input']>;
+  benefits?: InputMaybe<Array<InputMaybe<JoinBenefitsMutation>>>;
+  personalInfoHeading?: InputMaybe<Scalars['String']['input']>;
+  personalFields?: InputMaybe<Array<InputMaybe<JoinPersonalFieldsMutation>>>;
+  philosophyText?: InputMaybe<Scalars['String']['input']>;
+  membershipNote?: InputMaybe<Scalars['String']['input']>;
+  membershipTiers?: InputMaybe<Array<InputMaybe<JoinMembershipTiersMutation>>>;
+  communicationPrefsHeading?: InputMaybe<Scalars['String']['input']>;
+  communicationFields?: InputMaybe<Array<InputMaybe<JoinCommunicationFieldsMutation>>>;
+  questionsHeading?: InputMaybe<Scalars['String']['input']>;
+  questionsBody?: InputMaybe<Scalars['String']['input']>;
+  membershipEmail?: InputMaybe<Scalars['String']['input']>;
+  questionsFootnote?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type HomepageFeaturesMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type HomepageMutation = {
+  heroHeading?: InputMaybe<Scalars['String']['input']>;
+  heroTagline?: InputMaybe<Scalars['String']['input']>;
+  humanismHeading?: InputMaybe<Scalars['String']['input']>;
+  humanismBody1?: InputMaybe<Scalars['String']['input']>;
+  humanismBody2?: InputMaybe<Scalars['String']['input']>;
+  features?: InputMaybe<Array<InputMaybe<HomepageFeaturesMutation>>>;
+  ctaHeading?: InputMaybe<Scalars['String']['input']>;
+  ctaBody?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type EventsPartsFragment = { __typename: 'Events', title: string, date: string, presenter: string, presenterTitle: string, startTime: string, endTime: string, location: string, zoomLink?: string | null, description: string, image?: string | null, youtubeId?: string | null, status: string, body?: any | null };
 
 export type PagesPartsFragment = { __typename: 'Pages', title: string, description: string, pageLayout?: string | null, parent?: string | null, showInNav?: boolean | null, navOrder?: number | null, heroGradient?: string | null, body?: any | null, contactInfo?: { __typename: 'PagesContactInfo', email?: string | null, location?: string | null, address?: string | null } | null };
 
 export type SettingsPartsFragment = { __typename: 'Settings', siteTitle: string, siteDescription: string, contactEmail: string, socialMedia?: { __typename: 'SettingsSocialMedia', facebook?: string | null, youtube?: string | null, meetup?: string | null } | null, meetingInfo?: { __typename: 'SettingsMeetingInfo', time?: string | null, locationName?: string | null, locationAddress?: string | null, defaultZoomLink?: string | null } | null };
+
+export type JoinPartsFragment = { __typename: 'Join', heroHeading: string, heroTagline: string, benefitsHeading?: string | null, personalInfoHeading?: string | null, philosophyText?: string | null, membershipNote?: string | null, communicationPrefsHeading?: string | null, questionsHeading?: string | null, questionsBody?: string | null, membershipEmail?: string | null, questionsFootnote?: string | null, benefits?: Array<{ __typename: 'JoinBenefits', title: string, description: string } | null> | null, personalFields?: Array<{ __typename: 'JoinPersonalFields', label: string, fieldName: string, fieldType?: string | null, required?: boolean | null, placeholder?: string | null } | null> | null, membershipTiers?: Array<{ __typename: 'JoinMembershipTiers', tierName: string, tierSubtitle?: string | null, priceRange?: string | null } | null> | null, communicationFields?: Array<{ __typename: 'JoinCommunicationFields', label: string, description?: string | null, fieldName: string, defaultChecked?: boolean | null } | null> | null };
+
+export type HomepagePartsFragment = { __typename: 'Homepage', heroHeading: string, heroTagline: string, humanismHeading?: string | null, humanismBody1?: string | null, humanismBody2?: string | null, ctaHeading?: string | null, ctaBody?: string | null, features?: Array<{ __typename: 'HomepageFeatures', title: string, description: string } | null> | null };
 
 export type EventsQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
@@ -623,6 +914,44 @@ export type SettingsConnectionQueryVariables = Exact<{
 
 export type SettingsConnectionQuery = { __typename?: 'Query', settingsConnection: { __typename?: 'SettingsConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'SettingsConnectionEdges', cursor: string, node?: { __typename: 'Settings', id: string, siteTitle: string, siteDescription: string, contactEmail: string, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, socialMedia?: { __typename: 'SettingsSocialMedia', facebook?: string | null, youtube?: string | null, meetup?: string | null } | null, meetingInfo?: { __typename: 'SettingsMeetingInfo', time?: string | null, locationName?: string | null, locationAddress?: string | null, defaultZoomLink?: string | null } | null } | null } | null> | null } };
 
+export type JoinQueryVariables = Exact<{
+  relativePath: Scalars['String']['input'];
+}>;
+
+
+export type JoinQuery = { __typename?: 'Query', join: { __typename: 'Join', id: string, heroHeading: string, heroTagline: string, benefitsHeading?: string | null, personalInfoHeading?: string | null, philosophyText?: string | null, membershipNote?: string | null, communicationPrefsHeading?: string | null, questionsHeading?: string | null, questionsBody?: string | null, membershipEmail?: string | null, questionsFootnote?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, benefits?: Array<{ __typename: 'JoinBenefits', title: string, description: string } | null> | null, personalFields?: Array<{ __typename: 'JoinPersonalFields', label: string, fieldName: string, fieldType?: string | null, required?: boolean | null, placeholder?: string | null } | null> | null, membershipTiers?: Array<{ __typename: 'JoinMembershipTiers', tierName: string, tierSubtitle?: string | null, priceRange?: string | null } | null> | null, communicationFields?: Array<{ __typename: 'JoinCommunicationFields', label: string, description?: string | null, fieldName: string, defaultChecked?: boolean | null } | null> | null } };
+
+export type JoinConnectionQueryVariables = Exact<{
+  before?: InputMaybe<Scalars['String']['input']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Float']['input']>;
+  last?: InputMaybe<Scalars['Float']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  filter?: InputMaybe<JoinFilter>;
+}>;
+
+
+export type JoinConnectionQuery = { __typename?: 'Query', joinConnection: { __typename?: 'JoinConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'JoinConnectionEdges', cursor: string, node?: { __typename: 'Join', id: string, heroHeading: string, heroTagline: string, benefitsHeading?: string | null, personalInfoHeading?: string | null, philosophyText?: string | null, membershipNote?: string | null, communicationPrefsHeading?: string | null, questionsHeading?: string | null, questionsBody?: string | null, membershipEmail?: string | null, questionsFootnote?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, benefits?: Array<{ __typename: 'JoinBenefits', title: string, description: string } | null> | null, personalFields?: Array<{ __typename: 'JoinPersonalFields', label: string, fieldName: string, fieldType?: string | null, required?: boolean | null, placeholder?: string | null } | null> | null, membershipTiers?: Array<{ __typename: 'JoinMembershipTiers', tierName: string, tierSubtitle?: string | null, priceRange?: string | null } | null> | null, communicationFields?: Array<{ __typename: 'JoinCommunicationFields', label: string, description?: string | null, fieldName: string, defaultChecked?: boolean | null } | null> | null } | null } | null> | null } };
+
+export type HomepageQueryVariables = Exact<{
+  relativePath: Scalars['String']['input'];
+}>;
+
+
+export type HomepageQuery = { __typename?: 'Query', homepage: { __typename: 'Homepage', id: string, heroHeading: string, heroTagline: string, humanismHeading?: string | null, humanismBody1?: string | null, humanismBody2?: string | null, ctaHeading?: string | null, ctaBody?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, features?: Array<{ __typename: 'HomepageFeatures', title: string, description: string } | null> | null } };
+
+export type HomepageConnectionQueryVariables = Exact<{
+  before?: InputMaybe<Scalars['String']['input']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Float']['input']>;
+  last?: InputMaybe<Scalars['Float']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  filter?: InputMaybe<HomepageFilter>;
+}>;
+
+
+export type HomepageConnectionQuery = { __typename?: 'Query', homepageConnection: { __typename?: 'HomepageConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'HomepageConnectionEdges', cursor: string, node?: { __typename: 'Homepage', id: string, heroHeading: string, heroTagline: string, humanismHeading?: string | null, humanismBody1?: string | null, humanismBody2?: string | null, ctaHeading?: string | null, ctaBody?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, features?: Array<{ __typename: 'HomepageFeatures', title: string, description: string } | null> | null } | null } | null> | null } };
+
 export const EventsPartsFragmentDoc = gql`
     fragment EventsParts on Events {
   __typename
@@ -679,6 +1008,65 @@ export const SettingsPartsFragmentDoc = gql`
     locationAddress
     defaultZoomLink
   }
+}
+    `;
+export const JoinPartsFragmentDoc = gql`
+    fragment JoinParts on Join {
+  __typename
+  heroHeading
+  heroTagline
+  benefitsHeading
+  benefits {
+    __typename
+    title
+    description
+  }
+  personalInfoHeading
+  personalFields {
+    __typename
+    label
+    fieldName
+    fieldType
+    required
+    placeholder
+  }
+  philosophyText
+  membershipNote
+  membershipTiers {
+    __typename
+    tierName
+    tierSubtitle
+    priceRange
+  }
+  communicationPrefsHeading
+  communicationFields {
+    __typename
+    label
+    description
+    fieldName
+    defaultChecked
+  }
+  questionsHeading
+  questionsBody
+  membershipEmail
+  questionsFootnote
+}
+    `;
+export const HomepagePartsFragmentDoc = gql`
+    fragment HomepageParts on Homepage {
+  __typename
+  heroHeading
+  heroTagline
+  humanismHeading
+  humanismBody1
+  humanismBody2
+  features {
+    __typename
+    title
+    description
+  }
+  ctaHeading
+  ctaBody
 }
     `;
 export const EventsDocument = gql`
@@ -852,6 +1240,120 @@ export const SettingsConnectionDocument = gql`
   }
 }
     ${SettingsPartsFragmentDoc}`;
+export const JoinDocument = gql`
+    query join($relativePath: String!) {
+  join(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...JoinParts
+  }
+}
+    ${JoinPartsFragmentDoc}`;
+export const JoinConnectionDocument = gql`
+    query joinConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: JoinFilter) {
+  joinConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...JoinParts
+      }
+    }
+  }
+}
+    ${JoinPartsFragmentDoc}`;
+export const HomepageDocument = gql`
+    query homepage($relativePath: String!) {
+  homepage(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...HomepageParts
+  }
+}
+    ${HomepagePartsFragmentDoc}`;
+export const HomepageConnectionDocument = gql`
+    query homepageConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: HomepageFilter) {
+  homepageConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...HomepageParts
+      }
+    }
+  }
+}
+    ${HomepagePartsFragmentDoc}`;
 export type Requester<C= {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) => Promise<R>
   export function getSdk<C>(requester: Requester<C>) {
     return {
@@ -872,6 +1374,18 @@ export type Requester<C= {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) 
       },
     settingsConnection(variables?: SettingsConnectionQueryVariables, options?: C): Promise<{data: SettingsConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: SettingsConnectionQueryVariables, query: string}> {
         return requester<{data: SettingsConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: SettingsConnectionQueryVariables, query: string}, SettingsConnectionQueryVariables>(SettingsConnectionDocument, variables, options);
+      },
+    join(variables: JoinQueryVariables, options?: C): Promise<{data: JoinQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: JoinQueryVariables, query: string}> {
+        return requester<{data: JoinQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: JoinQueryVariables, query: string}, JoinQueryVariables>(JoinDocument, variables, options);
+      },
+    joinConnection(variables?: JoinConnectionQueryVariables, options?: C): Promise<{data: JoinConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: JoinConnectionQueryVariables, query: string}> {
+        return requester<{data: JoinConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: JoinConnectionQueryVariables, query: string}, JoinConnectionQueryVariables>(JoinConnectionDocument, variables, options);
+      },
+    homepage(variables: HomepageQueryVariables, options?: C): Promise<{data: HomepageQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: HomepageQueryVariables, query: string}> {
+        return requester<{data: HomepageQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: HomepageQueryVariables, query: string}, HomepageQueryVariables>(HomepageDocument, variables, options);
+      },
+    homepageConnection(variables?: HomepageConnectionQueryVariables, options?: C): Promise<{data: HomepageConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: HomepageConnectionQueryVariables, query: string}> {
+        return requester<{data: HomepageConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: HomepageConnectionQueryVariables, query: string}, HomepageConnectionQueryVariables>(HomepageConnectionDocument, variables, options);
       }
     };
   }
@@ -920,7 +1434,7 @@ export const ExperimentalGetTinaClient = () =>
   getSdk(
     generateRequester(
       createClient({
-        url: "http://localhost:4001/graphql",
+        url: "https://content.tinajs.io/2.1/content/d3fb1e42-f55a-488c-b542-05cf88701448/github/main",
         queries,
       })
     )

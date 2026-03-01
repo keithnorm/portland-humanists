@@ -23,6 +23,7 @@ var config_default = defineConfig({
         path: "src/content/events",
         format: "md",
         ui: {
+          router: ({ document }) => `/events/${document._sys.filename}`,
           filename: {
             readonly: false,
             slugify: (values) => {
@@ -132,6 +133,9 @@ var config_default = defineConfig({
         label: "Pages",
         path: "src/content/pages",
         format: "md",
+        ui: {
+          router: ({ document }) => `/${document._sys.filename}`
+        },
         fields: [
           {
             type: "string",
@@ -313,6 +317,159 @@ var config_default = defineConfig({
                 label: "Default Zoom Link"
               }
             ]
+          }
+        ]
+      },
+      // Join Page
+      {
+        name: "join",
+        label: "Join Page",
+        path: "src/content/join",
+        format: "json",
+        ui: {
+          allowedActions: { create: false, delete: false },
+          router: () => "/join"
+        },
+        match: { include: "join" },
+        fields: [
+          { type: "string", name: "heroHeading", label: "Hero Heading", required: true },
+          { type: "string", name: "heroTagline", label: "Hero Tagline", required: true, ui: { component: "textarea" } },
+          { type: "string", name: "benefitsHeading", label: "Benefits Heading" },
+          {
+            type: "object",
+            name: "benefits",
+            label: "Member Benefits",
+            list: true,
+            ui: { description: "Checkmark items in the sidebar" },
+            fields: [
+              { type: "string", name: "title", label: "Title", required: true },
+              { type: "string", name: "description", label: "Description", required: true, ui: { component: "textarea" } }
+            ]
+          },
+          { type: "string", name: "personalInfoHeading", label: "Personal Info Section Heading" },
+          {
+            type: "object",
+            name: "personalFields",
+            label: "Personal Info Form Fields",
+            list: true,
+            ui: { description: "Add, remove, or reorder fields in the Personal Information section" },
+            fields: [
+              { type: "string", name: "label", label: "Field Label", required: true },
+              { type: "string", name: "fieldName", label: "Field Name (no spaces)", required: true, ui: { description: "Internal name used for form submission, e.g. firstName, zipCode" } },
+              {
+                type: "string",
+                name: "fieldType",
+                label: "Field Type",
+                options: [
+                  { label: "Text", value: "text" },
+                  { label: "Email", value: "email" },
+                  { label: "Phone", value: "tel" },
+                  { label: "Number", value: "number" },
+                  { label: "Long Text", value: "textarea" }
+                ]
+              },
+              { type: "boolean", name: "required", label: "Required" },
+              { type: "string", name: "placeholder", label: "Placeholder Text" }
+            ]
+          },
+          { type: "string", name: "philosophyText", label: "Philosophical Agreement Text", ui: { component: "textarea" } },
+          { type: "string", name: "membershipNote", label: "Membership Note (amber box)", ui: { component: "textarea" } },
+          {
+            type: "object",
+            name: "membershipTiers",
+            label: "Membership Tiers",
+            list: true,
+            ui: { description: "The radio button options for membership level" },
+            fields: [
+              { type: "string", name: "tierName", label: "Tier Name", required: true },
+              { type: "string", name: "tierSubtitle", label: "Subtitle" },
+              { type: "string", name: "priceRange", label: "Price Range" }
+            ]
+          },
+          { type: "string", name: "communicationPrefsHeading", label: "Communication Preferences Heading" },
+          {
+            type: "object",
+            name: "communicationFields",
+            label: "Communication Preference Checkboxes",
+            list: true,
+            ui: { description: "Add or remove communication preference checkboxes" },
+            fields: [
+              { type: "string", name: "label", label: "Label", required: true },
+              { type: "string", name: "description", label: "Description" },
+              { type: "string", name: "fieldName", label: "Field Name (no spaces)", required: true },
+              { type: "boolean", name: "defaultChecked", label: "Checked by default" }
+            ]
+          },
+          { type: "string", name: "questionsHeading", label: "Questions Section Heading" },
+          { type: "string", name: "questionsBody", label: "Questions Body Text (before email link)", ui: { component: "textarea" } },
+          { type: "string", name: "membershipEmail", label: "Membership Email Address" },
+          { type: "string", name: "questionsFootnote", label: "Questions Footnote", ui: { component: "textarea" } }
+        ]
+      },
+      // Homepage content
+      {
+        name: "homepage",
+        label: "Homepage",
+        path: "src/content/homepage",
+        format: "json",
+        ui: {
+          allowedActions: { create: false, delete: false },
+          router: () => "/"
+        },
+        match: { include: "home" },
+        fields: [
+          {
+            type: "string",
+            name: "heroHeading",
+            label: "Hero Heading",
+            required: true
+          },
+          {
+            type: "string",
+            name: "heroTagline",
+            label: "Hero Tagline",
+            required: true,
+            ui: { component: "textarea" }
+          },
+          {
+            type: "string",
+            name: "humanismHeading",
+            label: '"What is Humanism?" Heading'
+          },
+          {
+            type: "string",
+            name: "humanismBody1",
+            label: "Humanism Paragraph 1",
+            ui: { component: "textarea" }
+          },
+          {
+            type: "string",
+            name: "humanismBody2",
+            label: "Humanism Paragraph 2",
+            ui: { component: "textarea" }
+          },
+          {
+            type: "object",
+            name: "features",
+            label: "Feature Cards",
+            list: true,
+            ui: { description: "The three value cards (Science & Reason, Community, Compassion)" },
+            fields: [
+              { type: "string", name: "title", label: "Title", required: true },
+              { type: "string", name: "description", label: "Description", required: true, ui: { component: "textarea" } }
+            ]
+          },
+          {
+            type: "string",
+            name: "ctaHeading",
+            label: "CTA Heading",
+            ui: { description: "The 'Ready to Join' section heading" }
+          },
+          {
+            type: "string",
+            name: "ctaBody",
+            label: "CTA Body",
+            ui: { component: "textarea" }
           }
         ]
       }
