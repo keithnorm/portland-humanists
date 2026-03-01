@@ -38,8 +38,10 @@ This guide walks you through setting up GitHub OAuth authentication for Decap CM
 
 4. **Save your credentials:**
    - You'll see a **Client ID** - copy this
+   Ov23lik7Q2Z7rbBqAGRY
    - Click **"Generate a new client secret"**
    - Copy the **Client Secret** immediately (you can't see it again!)
+   49367a576ae83d5062e67a04d64afb580edae591
 
 ---
 

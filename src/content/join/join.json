@@ -1,0 +1,41 @@
+{
+  "heroHeading": "Join Our Community",
+  "heroTagline": "Become a member and support our mission to promote humanist values in Portland",
+  "benefitsHeading": "Member Benefits",
+  "benefits": [
+    { "title": "Access to All Programs", "description": "Join our weekly Sunday programs and special events" },
+    { "title": "Member Newsletter", "description": "Stay informed with our monthly updates" },
+    { "title": "Discussion Forums", "description": "Connect with fellow humanists online" },
+    { "title": "Support Our Mission", "description": "Fund scholarships and community outreach" },
+    { "title": "Voting Rights", "description": "Voice in organizational decisions" }
+  ],
+  "personalInfoHeading": "Personal Information",
+  "personalFields": [
+    { "label": "First Name", "fieldName": "firstName", "fieldType": "text", "required": true, "placeholder": "" },
+    { "label": "Last Name", "fieldName": "lastName", "fieldType": "text", "required": true, "placeholder": "" },
+    { "label": "Email Address", "fieldName": "email", "fieldType": "email", "required": true, "placeholder": "" },
+    { "label": "Phone Number", "fieldName": "phone", "fieldType": "tel", "required": false, "placeholder": "" },
+    { "label": "Street Address", "fieldName": "address", "fieldType": "text", "required": false, "placeholder": "Street Address" },
+    { "label": "City", "fieldName": "city", "fieldType": "text", "required": false, "placeholder": "City" },
+    { "label": "State", "fieldName": "state", "fieldType": "text", "required": false, "placeholder": "State" },
+    { "label": "ZIP Code", "fieldName": "zip", "fieldType": "text", "required": false, "placeholder": "ZIP" }
+  ],
+  "philosophyText": "I am in general agreement with the philosophy of secular humanism as expressed in Humanist Manifesto III",
+  "membershipNote": "All contributions are tax-deductible donations. There is no required minimum — pay only what you can afford.",
+  "membershipTiers": [
+    { "tierName": "Individual Membership", "tierSubtitle": "For single members", "priceRange": "$50 - $250" },
+    { "tierName": "Joint Membership", "tierSubtitle": "For couples and families", "priceRange": "$90 - $300" },
+    { "tierName": "Limited Income", "tierSubtitle": "Pay what you can afford", "priceRange": "Any amount" },
+    { "tierName": "Newsletter Only", "tierSubtitle": "Receive newsletter without membership", "priceRange": "$12" }
+  ],
+  "communicationPrefsHeading": "Communication Preferences",
+  "communicationFields": [
+    { "label": "Email Newsletter", "description": "Receive our newsletter with program updates", "fieldName": "newsletter", "defaultChecked": true },
+    { "label": "Event Notifications", "description": "Get reminders about upcoming Sunday programs", "fieldName": "eventNotifications", "defaultChecked": true },
+    { "label": "Volunteer Opportunities", "description": "I'm interested in volunteering", "fieldName": "volunteer", "defaultChecked": false }
+  ],
+  "questionsHeading": "Questions About Membership?",
+  "questionsBody": "We're here to help! Contact us at",
+  "membershipEmail": "membership@portlandhumanists.org",
+  "questionsFootnote": "All memberships are for one year from the date of joining and are tax-deductible to the extent allowed by law."
+}
