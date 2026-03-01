@@ -81,11 +81,14 @@ If the build fails with a Tina auth error, double-check that `TINA_TOKEN` is set
 
 ## 5. Post-deploy — test visual editing
 
-1. Visit your live site URL (e.g. `https://portland-humanists.netlify.app/about`)
-2. You should see a **Tina** pencil/edit icon in the bottom-left corner
-3. Click it → Tina admin sidebar opens on the right
-4. Edit a field → the page updates live
-5. Click **Save** → Tina commits the change to the `main` branch → Netlify redeploys automatically (takes ~1–2 min)
+The edit experience lives entirely inside the Tina admin — regular visitors never see any edit UI.
+
+1. Go to `https://your-site.netlify.app/admin/index.html`
+2. Log in with your Tina Cloud credentials
+3. Navigate to **Pages → About** in the left sidebar
+4. The admin shows a live preview of the page on the right — click on any text to highlight the matching field
+5. Edit the field → the preview updates live
+6. Click **Save** → Tina commits the change to the `main` branch on GitHub → Netlify redeploys automatically (~1–2 min)
 
 ---
 
