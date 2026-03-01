@@ -1,15 +1,14 @@
-# Netlify configuration for Astro + Decap CMS
+# Netlify configuration for Astro + TinaCMS
+# Required env vars (set in Netlify dashboard → Site settings → Environment variables):
+#   TINA_PUBLIC_CLIENT_ID  — from app.tina.io project settings
+#   TINA_TOKEN             — from app.tina.io project settings (keep secret)
 
 [build]
   command = "npm run build"
   publish = "dist"
 
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
 
-# Decap CMS configuration
+# TinaCMS admin security headers
 [[headers]]
   for = "/admin/*"
   [headers.values]

@@ -1,1 +1,45 @@
 @import "tailwindcss";
+
+/* Prose styles for page body content rendered via TinaMarkdown React island.
+   Must be global (not Astro-scoped) to reach inside the React component. */
+.prose h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #171717;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.prose h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #171717;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.prose p {
+  color: #404040;
+  line-height: 1.75;
+  margin-bottom: 1rem;
+}
+
+.prose ul {
+  list-style-type: disc;
+  list-style-position: inside;
+  color: #404040;
+  margin-bottom: 1rem;
+}
+
+.prose li {
+  margin-bottom: 0.5rem;
+}
+
+.prose a {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+.prose a:hover {
+  color: #1d4ed8;
+}

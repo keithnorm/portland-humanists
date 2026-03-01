@@ -1,0 +1,54 @@
+fragment EventsParts on Events {
+  __typename
+  title
+  date
+  presenter
+  presenterTitle
+  startTime
+  endTime
+  location
+  zoomLink
+  description
+  image
+  youtubeId
+  status
+  body
+}
+
+fragment PagesParts on Pages {
+  __typename
+  title
+  description
+  pageLayout
+  parent
+  showInNav
+  navOrder
+  heroGradient
+  body
+  contactInfo {
+    __typename
+    email
+    location
+    address
+  }
+}
+
+fragment SettingsParts on Settings {
+  __typename
+  siteTitle
+  siteDescription
+  contactEmail
+  socialMedia {
+    __typename
+    facebook
+    youtube
+    meetup
+  }
+  meetingInfo {
+    __typename
+    time
+    locationName
+    locationAddress
+    defaultZoomLink
+  }
+}

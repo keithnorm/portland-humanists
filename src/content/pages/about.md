@@ -5,27 +5,6 @@ pageLayout: about
 showInNav: true
 navOrder: 2
 heroGradient: bg-gradient-to-br from-[#1e3a5f] to-[#2a4d7f]
-tenCommitments:
-  - title: Critical Thinking
-    description: Use reason, evidence, and the scientific method to understand the world
-  - title: Ethical Development
-    description: Ground values in human welfare and use experience to test moral principles
-  - title: Fulfillment & Creativity
-    description: Seek personal growth and development through creative expression
-  - title: Altruism & Community
-    description: Work to improve the welfare of all people and protect the environment
-  - title: Global Awareness
-    description: Think globally and act with awareness of worldwide consequences
-  - title: Peaceful Resolution
-    description: Resolve differences through dialogue, negotiation, and compromise
-  - title: Democracy & Freedom
-    description: Support democratic principles and protect human rights
-  - title: Separation of Church & State
-    description: Maintain government neutrality in matters of religion
-  - title: World Community
-    description: Work toward a world of mutual care and concern
-  - title: Humane Treatment
-    description: Treat all people with respect, kindness, and dignity
 contactInfo:
   email: info@portlandhumanists.org
   location: Friendly House
@@ -68,3 +47,16 @@ Every Sunday from 10:00 AM to 12:00 PM, we gather at Friendly House in Portland 
 ## Get Involved
 
 Whether you're a lifelong humanist or just curious about our philosophy, we invite you to join us. Attend a Sunday program, become a member, or simply connect with us to learn more.
+
+## The Ten Commitments of Humanism
+
+1. **Critical Thinking** — Use reason, evidence, and the scientific method to understand the world
+2. **Ethical Development** — Ground values in human welfare and use experience to test moral principles
+3. **Fulfillment & Creativity** — Seek personal growth and development through creative expression
+4. **Altruism & Community** — Work to improve the welfare of all people and protect the environment
+5. **Global Awareness** — Think globally and act with awareness of worldwide consequences
+6. **Peaceful Resolution** — Resolve differences through dialogue, negotiation, and compromise
+7. **Democracy & Freedom** — Support democratic principles and protect human rights
+8. **Separation of Church & State** — Maintain government neutrality in matters of religion
+9. **World Community** — Work toward a world of mutual care and concern
+10. **Humane Treatment** — Treat all people with respect, kindness, and dignity

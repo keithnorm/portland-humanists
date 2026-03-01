@@ -1,0 +1,324 @@
+// tina/config.ts
+import { defineConfig } from "tinacms";
+var config_default = defineConfig({
+  branch: "main",
+  clientId: "d3fb1e42-f55a-488c-b542-05cf88701448",
+  token: process.env.TINA_TOKEN,
+  build: {
+    outputFolder: "admin",
+    publicFolder: "public"
+  },
+  media: {
+    tina: {
+      mediaRoot: "uploads",
+      publicFolder: "public"
+    }
+  },
+  schema: {
+    collections: [
+      // Sunday Programs / Events
+      {
+        name: "events",
+        label: "Sunday Programs",
+        path: "src/content/events",
+        format: "md",
+        ui: {
+          filename: {
+            readonly: false,
+            slugify: (values) => {
+              const date = values?.date ? new Date(values.date).toISOString().split("T")[0] : "undated";
+              const slug = (values?.title ?? "program").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+              return `${date}-${slug}`;
+            }
+          }
+        },
+        fields: [
+          {
+            type: "string",
+            name: "title",
+            label: "Title",
+            required: true
+          },
+          {
+            type: "datetime",
+            name: "date",
+            label: "Publish Date",
+            required: true
+          },
+          {
+            type: "string",
+            name: "presenter",
+            label: "Presenter Name",
+            required: true
+          },
+          {
+            type: "string",
+            name: "presenterTitle",
+            label: "Presenter Title",
+            required: true
+          },
+          {
+            type: "string",
+            name: "startTime",
+            label: "Start Time",
+            required: true,
+            ui: {
+              description: "Format: YYYY-MM-DD HH:mm (e.g. 2025-03-02 10:00)"
+            }
+          },
+          {
+            type: "string",
+            name: "endTime",
+            label: "End Time",
+            required: true,
+            ui: {
+              description: "Format: YYYY-MM-DD HH:mm (e.g. 2025-03-02 12:00)"
+            }
+          },
+          {
+            type: "string",
+            name: "location",
+            label: "Location",
+            required: true
+          },
+          {
+            type: "string",
+            name: "zoomLink",
+            label: "Zoom Link"
+          },
+          {
+            type: "string",
+            name: "description",
+            label: "Description",
+            required: true,
+            ui: {
+              component: "textarea"
+            }
+          },
+          {
+            type: "image",
+            name: "image",
+            label: "Featured Image"
+          },
+          {
+            type: "string",
+            name: "youtubeId",
+            label: "YouTube Video ID",
+            ui: {
+              description: "Add after the event is recorded and uploaded to YouTube"
+            }
+          },
+          {
+            type: "string",
+            name: "status",
+            label: "Status",
+            required: true,
+            options: [
+              { label: "Upcoming", value: "upcoming" },
+              { label: "Past", value: "past" }
+            ]
+          },
+          {
+            type: "rich-text",
+            name: "body",
+            label: "Body",
+            isBody: true
+          }
+        ]
+      },
+      // Static Pages
+      {
+        name: "pages",
+        label: "Pages",
+        path: "src/content/pages",
+        format: "md",
+        fields: [
+          {
+            type: "string",
+            name: "title",
+            label: "Title",
+            required: true
+          },
+          {
+            type: "string",
+            name: "description",
+            label: "Description",
+            required: true,
+            ui: {
+              component: "textarea"
+            }
+          },
+          {
+            type: "string",
+            name: "pageLayout",
+            label: "Page Layout",
+            options: [
+              { label: "Standard", value: "standard" },
+              { label: "About", value: "about" }
+            ],
+            ui: {
+              description: "Choose 'about' for pages that need the Ten Commitments grid"
+            }
+          },
+          {
+            type: "string",
+            name: "parent",
+            label: "Parent Page",
+            ui: {
+              description: "For sub-pages: enter the parent page slug (e.g. 'about'). Leave blank for top-level pages."
+            }
+          },
+          {
+            type: "boolean",
+            name: "showInNav",
+            label: "Show in Navigation"
+          },
+          {
+            type: "number",
+            name: "navOrder",
+            label: "Navigation Order",
+            ui: {
+              description: "Lower numbers appear first (e.g. 1, 2, 3...)"
+            }
+          },
+          {
+            type: "string",
+            name: "heroGradient",
+            label: "Hero Gradient",
+            ui: {
+              description: "Tailwind CSS classes for the hero background"
+            }
+          },
+          {
+            type: "rich-text",
+            name: "body",
+            label: "Body",
+            isBody: true
+          },
+          {
+            type: "object",
+            name: "contactInfo",
+            label: "Contact Information",
+            ui: {
+              description: "Only used with the 'about' layout"
+            },
+            fields: [
+              {
+                type: "string",
+                name: "email",
+                label: "Email"
+              },
+              {
+                type: "string",
+                name: "location",
+                label: "Location Name"
+              },
+              {
+                type: "string",
+                name: "address",
+                label: "Address",
+                ui: {
+                  component: "textarea"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      // Site Settings
+      {
+        name: "settings",
+        label: "Site Settings",
+        path: "src/content/settings",
+        format: "json",
+        ui: {
+          allowedActions: {
+            create: false,
+            delete: false
+          }
+        },
+        match: {
+          include: "general"
+        },
+        fields: [
+          {
+            type: "string",
+            name: "siteTitle",
+            label: "Site Title",
+            required: true
+          },
+          {
+            type: "string",
+            name: "siteDescription",
+            label: "Site Description",
+            required: true,
+            ui: {
+              component: "textarea"
+            }
+          },
+          {
+            type: "string",
+            name: "contactEmail",
+            label: "Contact Email",
+            required: true
+          },
+          {
+            type: "object",
+            name: "socialMedia",
+            label: "Social Media Links",
+            fields: [
+              {
+                type: "string",
+                name: "facebook",
+                label: "Facebook URL"
+              },
+              {
+                type: "string",
+                name: "youtube",
+                label: "YouTube URL"
+              },
+              {
+                type: "string",
+                name: "meetup",
+                label: "Meetup URL"
+              }
+            ]
+          },
+          {
+            type: "object",
+            name: "meetingInfo",
+            label: "Meeting Information",
+            fields: [
+              {
+                type: "string",
+                name: "time",
+                label: "Regular Meeting Time"
+              },
+              {
+                type: "string",
+                name: "locationName",
+                label: "Location Name"
+              },
+              {
+                type: "string",
+                name: "locationAddress",
+                label: "Location Address",
+                ui: {
+                  component: "textarea"
+                }
+              },
+              {
+                type: "string",
+                name: "defaultZoomLink",
+                label: "Default Zoom Link"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+});
+export {
+  config_default as default
+};

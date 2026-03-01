@@ -1,191 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="robots" content="noindex" />
-    <title>Portland Humanists - Content Manager</title>
-    <style>
-      /* Instructions banner styling */
-      #cms-instructions {
-        background: linear-gradient(135deg, #1e3a5f 0%, #2a4d7f 100%);
-        color: white;
-        padding: 3rem 2rem;
-        text-align: center;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      }
-
-      #cms-instructions h1 {
-        margin: 0 0 1rem 0;
-        font-size: 1.875rem;
-        font-weight: 700;
-        color: white;
-      }
-
-      #cms-instructions .welcome-text {
-        font-size: 1.125rem;
-        margin-bottom: 2rem;
-        color: rgba(255, 255, 255, 0.95);
-      }
-
-      .instructions-box {
-        background: rgba(255, 255, 255, 0.15);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 12px;
-        padding: 1.75rem;
-        max-width: 650px;
-        margin: 1.5rem auto 0;
-        text-align: left;
-        backdrop-filter: blur(10px);
-      }
-
-      .instructions-box h2 {
-        margin: 0 0 1.25rem 0;
-        font-size: 1.375rem;
-        font-weight: 700;
-        color: white;
-      }
-
-      .instructions-box ol {
-        margin: 0;
-        padding-left: 1.75rem;
-        line-height: 1.9;
-        color: white;
-      }
-
-      .instructions-box li {
-        margin-bottom: 1rem;
-        color: white;
-      }
-
-      .instructions-box li strong {
-        color: white;
-        font-weight: 600;
-      }
-
-      .instructions-box a {
-        color: #ffd166;
-        text-decoration: underline;
-        font-weight: 600;
-      }
-
-      .instructions-box a:hover {
-        color: #ffe699;
-      }
-
-      .instructions-box p {
-        color: white;
-        margin: 0;
-      }
-
-      .contact-email {
-        color: #ffd166;
-        font-weight: 700;
-      }
-
-      /* Hide instructions completely once logged in */
-      #cms-instructions.hidden {
-        display: none !important;
-      }
-
-      /* Smooth scroll behavior */
-      html {
-        scroll-behavior: smooth;
-      }
-    </style>
+    <title>TinaCMS</title>
   </head>
-  <body>
-    <!-- Include the script that builds the page and powers Decap CMS -->
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 
-    <script>
-      // Add instructions banner after CMS loads
-      setTimeout(() => {
-        // Check if user is already logged in
-        const checkLoginStatus = setInterval(function() {
-          const loginButton = document.querySelector('[class*="AuthenticationPage"]');
-          const appContainer = document.querySelector('[class*="App_app"]');
-
-          // If we see the main app (not login page), user is logged in
-          if (appContainer && !loginButton) {
-            clearInterval(checkLoginStatus);
-            return; // Don't show instructions if already logged in
-          }
-
-          // If we see the login page, show instructions
-          if (loginButton) {
-            clearInterval(checkLoginStatus);
-            showInstructions();
-          }
-        }, 100);
-
-        // Stop checking after 5 seconds
-        setTimeout(() => clearInterval(checkLoginStatus), 5000);
-      }, 3000);
-
-      function showInstructions() {
-        const instructionsHTML = `
-          <div id="cms-instructions">
-            <h1>🌟 Welcome to the Portland Humanists Website Manager</h1>
-            <p class="welcome-text">
-              This is where you can edit the website content, add new Sunday programs, and update pages.
-            </p>
-
-            <div class="instructions-box">
-              <h2>📝 First Time Here?</h2>
-              <ol>
-                <li>
-                  <strong>Create a GitHub account</strong> (if you don't have one):
-                  <br>
-                  Visit <a href="https://github.com/signup" target="_blank">github.com/signup</a> and create a free account
-                </li>
-                <li>
-                  <strong>Send your GitHub username</strong> to:
-                  <br>
-                  <span class="contact-email">keithnorm@gmail.com</span>
-                </li>
-                <li>
-                  <strong>Wait for access</strong>: Once we add you, you'll receive an email from GitHub
-                </li>
-                <li>
-                  <strong>Come back here</strong> and click "Login with GitHub" below
-                </li>
-              </ol>
-            </div>
-
-            <div class="instructions-box" style="margin-top: 1rem;">
-              <h2>❓ Need Help?</h2>
-              <p style="margin: 0;">
-                Email us at <span class="contact-email">keithnorm@gmail.com</span> with any questions.
-                We're here to help!
-              </p>
-            </div>
-          </div>
-        `;
-
-        document.body.insertAdjacentHTML('afterbegin', instructionsHTML);
-
-        // Monitor for login - hide instructions when user logs in
-        const observer = new MutationObserver(function() {
-          const appContainer = document.querySelector('[class*="App_app"]');
-          const loginButton = document.querySelector('[class*="AuthenticationPage"]');
-
-          if (appContainer && !loginButton) {
-            const instructions = document.getElementById('cms-instructions');
-            if (instructions) {
-              instructions.classList.add('hidden');
-            }
-            document.body.classList.add('cms-logged-in');
-            observer.disconnect();
-          }
-        });
-
-        observer.observe(document.body, {
-          childList: true,
-          subtree: true
-        });
-      }
-    </script>
+  <!-- if development -->
+  <script type="module">
+    import RefreshRuntime from 'http://localhost:4001/@react-refresh'
+    RefreshRuntime.injectIntoGlobalHook(window)
+    window.$RefreshReg$ = () => {}
+    window.$RefreshSig$ = () => (type) => type
+    window.__vite_plugin_react_preamble_installed__ = true
+  </script>
+  <script type="module" src="http://localhost:4001/@vite/client"></script>
+  <script>
+  function handleLoadError() {
+    // Assets have failed to load
+    document.getElementById('root').innerHTML = '<style type="text/css"> #no-assets-placeholder body { font-family: sans-serif; font-size: 16px; line-height: 1.4; color: #333; background-color: #f5f5f5; } #no-assets-placeholder { max-width: 600px; margin: 0 auto; padding: 40px; text-align: center; background-color: #fff; box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1); } #no-assets-placeholder h1 { font-size: 24px; margin-bottom: 20px; } #no-assets-placeholder p { margin-bottom: 10px; } #no-assets-placeholder a { color: #0077cc; text-decoration: none; } #no-assets-placeholder a:hover { text-decoration: underline; } </style> <div id="no-assets-placeholder"> <h1>Failed loading TinaCMS assets</h1> <p> Your TinaCMS configuration may be misconfigured, and we could not load the assets for this page. </p> <p> Please visit <a href="https://tina.io/docs/r/FAQ/#13-how-do-i-resolve-failed-loading-tinacms-assets-error">this doc</a> for help. </p> </div> </div>';
+  }
+  </script>
+  <script
+    type="module"
+    src="http://localhost:4001/src/main.tsx"
+    onerror="handleLoadError()"
+  ></script>
+  <body class="tina-tailwind">
+    <div id="root"></div>
   </body>
 </html>

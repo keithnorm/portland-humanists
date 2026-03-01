@@ -28,10 +28,6 @@ const pages = defineCollection({
     parent: z.string().optional(), // For sub-pages: specify parent page slug
     showInNav: z.boolean().default(true), // Whether to show in navigation
     navOrder: z.number().default(999), // Order in navigation (lower numbers first)
-    tenCommitments: z.array(z.object({
-      title: z.string(),
-      description: z.string(),
-    })).optional(),
     contactInfo: z.object({
       email: z.string().optional(),
       location: z.string().optional(),
