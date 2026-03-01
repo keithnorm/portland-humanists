@@ -10,8 +10,13 @@ interface Props {
   data: EventsQuery;
 }
 
-function parseStartTime(startTime: string): Date {
-  return new Date(startTime.replace(' ', 'T'));
+function parseStartTime(startTime: string): Date | null {
+  try {
+    const date = new Date(startTime.replace(' ', 'T'));
+    return isNaN(date.getTime()) ? null : date;
+  } catch {
+    return null;
+  }
 }
 
 function formatDate(date: Date): string {
@@ -23,12 +28,19 @@ function formatDate(date: Date): string {
   }).format(date);
 }
 
-function formatTime(timeString: string): string {
-  const [hours, minutes] = timeString.split(' ')[1].split(':');
-  const hour = parseInt(hours);
-  const ampm = hour >= 12 ? 'PM' : 'AM';
-  const displayHour = hour % 12 || 12;
-  return `${displayHour}:${minutes} ${ampm}`;
+function formatTime(timeString: string): string | null {
+  try {
+    const parts = timeString.split(' ');
+    if (parts.length < 2) return null;
+    const [hours, minutes] = parts[1].split(':');
+    const hour = parseInt(hours);
+    if (isNaN(hour) || !minutes) return null;
+    const ampm = hour >= 12 ? 'PM' : 'AM';
+    const displayHour = hour % 12 || 12;
+    return `${displayHour}:${minutes} ${ampm}`;
+  } catch {
+    return null;
+  }
 }
 
 export function EventVisualEditor({ query, variables, data }: Props) {
@@ -81,7 +93,7 @@ export function EventVisualEditor({ query, variables, data }: Props) {
                     </div>
                   )}
 
-                  {event.startTime && event.endTime && (
+                  {event.startTime && event.endTime && formatTime(event.startTime) && formatTime(event.endTime) && (
                     <div>
                       <div className="flex items-center gap-2 text-neutral-600 mb-1">
                         <svg className="w-5 h-5 text-[#1e3a5f]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
