@@ -10,9 +10,9 @@ function parseStartTime(startTime: string): Date {
   return new Date(startTime.replace(' ', 'T'));
 }
 
-// Get only past events with YouTube IDs, sorted by actual event date
+// Get only past events with video recordings (YouTube or Vimeo), sorted by actual event date
 const recordedEvents = allEvents
-  .filter(event => event.data.status === 'past' && event.data.youtubeId)
+  .filter(event => event.data.status === 'past' && (event.data.youtubeId || event.data.vimeoId))
   .sort((a, b) => parseStartTime(b.data.startTime).getTime() - parseStartTime(a.data.startTime).getTime());
 
 function formatDate(date: Date): string {
@@ -51,22 +51,30 @@ function formatDate(date: Date): string {
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {recordedEvents.map((event) => (
             <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow">
-              <a href={`https://youtube.com/watch?v=${event.data.youtubeId}`} target="_blank" rel="noopener noreferrer">
+              <a href={event.data.youtubeId ? `https://youtube.com/watch?v=${event.data.youtubeId}` : `https://vimeo.com/${event.data.vimeoId}`} target="_blank" rel="noopener noreferrer">
                 <div class="aspect-video bg-neutral-200 relative group cursor-pointer">
-                  <img
-                    src={`https://img.youtube.com/vi/${event.data.youtubeId}/hqdefault.jpg`}
-                    alt={event.data.title}
-                    class="w-full h-full object-cover"
-                  />
+                  {event.data.youtubeId ? (
+                    <img
+                      src={`https://img.youtube.com/vi/${event.data.youtubeId}/hqdefault.jpg`}
+                      alt={event.data.title}
+                      class="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div class="w-full h-full flex items-center justify-center bg-neutral-800">
+                      <svg class="w-16 h-16 text-white opacity-60" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    </div>
+                  )}
                   <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                    <div class="w-20 h-20 bg-red-600 rounded-full flex items-center justify-center">
+                    <div class={`w-20 h-20 rounded-full flex items-center justify-center ${event.data.youtubeId ? 'bg-red-600' : 'bg-blue-700'}`}>
                       <svg class="w-10 h-10 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M8 5v14l11-7z" />
                       </svg>
                     </div>
                   </div>
                   <div class="absolute bottom-2 right-2 bg-black bg-opacity-80 text-white text-xs px-2 py-1 rounded">
-                    Watch on YouTube
+                    {event.data.youtubeId ? 'Watch on YouTube' : 'Watch on Vimeo'}
                   </div>
                 </div>
               </a>
@@ -88,7 +96,7 @@ function formatDate(date: Date): string {
                   {event.data.description}
                 </p>
                 <a
-                  href={`https://youtube.com/watch?v=${event.data.youtubeId}`}
+                  href={event.data.youtubeId ? `https://youtube.com/watch?v=${event.data.youtubeId}` : `https://vimeo.com/${event.data.vimeoId}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   class="inline-flex items-center gap-2 text-[#1e3a5f] hover:text-[#1e3a5f] font-medium text-sm"

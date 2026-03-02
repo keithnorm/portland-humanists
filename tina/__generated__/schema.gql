@@ -103,7 +103,7 @@ type Events implements Node & Document {
   title: String!
   date: String!
   presenter: String!
-  presenterTitle: String!
+  presenterTitle: String
   startTime: String!
   endTime: String!
   location: String!
@@ -111,6 +111,7 @@ type Events implements Node & Document {
   description: String!
   image: String
   youtubeId: String
+  vimeoId: String
   status: String!
   body: JSON
   id: ID!
@@ -158,6 +159,7 @@ input EventsFilter {
   description: StringFilter
   image: ImageFilter
   youtubeId: StringFilter
+  vimeoId: StringFilter
   status: StringFilter
   body: RichTextFilter
 }
@@ -489,6 +491,7 @@ input EventsMutation {
   description: String
   image: String
   youtubeId: String
+  vimeoId: String
   status: String
   body: JSON
 }

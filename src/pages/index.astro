@@ -16,7 +16,7 @@ const upcomingEvent = allEvents
   .sort((a, b) => parseStartTime(a.data.startTime).getTime() - parseStartTime(b.data.startTime).getTime())[0] ?? null;
 
 const recentRecordings = allEvents
-  .filter(event => event.data.status === 'past' && event.data.youtubeId)
+  .filter(event => event.data.status === 'past' && (event.data.youtubeId || event.data.vimeoId))
   .sort((a, b) => parseStartTime(b.data.startTime).getTime() - parseStartTime(a.data.startTime).getTime())
   .slice(0, 3);
 

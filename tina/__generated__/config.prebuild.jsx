@@ -23,7 +23,7 @@ var config_default = defineConfig({
         path: "src/content/events",
         format: "md",
         ui: {
-          router: ({ document }) => `/events/${document._sys.filename}`,
+          router: ({ document }) => document._sys.filename ? `/events/${document._sys.filename}` : void 0,
           filename: {
             readonly: false,
             slugify: (values) => {
@@ -55,8 +55,7 @@ var config_default = defineConfig({
           {
             type: "string",
             name: "presenterTitle",
-            label: "Presenter Title",
-            required: true
+            label: "Presenter Title"
           },
           {
             type: "string",
@@ -111,6 +110,14 @@ var config_default = defineConfig({
           },
           {
             type: "string",
+            name: "vimeoId",
+            label: "Vimeo Video ID",
+            ui: {
+              description: "Vimeo ID from the video URL (e.g. 991684225)"
+            }
+          },
+          {
+            type: "string",
             name: "status",
             label: "Status",
             required: true,
@@ -134,7 +141,7 @@ var config_default = defineConfig({
         path: "src/content/pages",
         format: "md",
         ui: {
-          router: ({ document }) => `/${document._sys.filename}`
+          router: ({ document }) => document._sys.filename ? `/${document._sys.filename}` : void 0
         },
         fields: [
           {

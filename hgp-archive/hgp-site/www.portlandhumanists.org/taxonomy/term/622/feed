@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xml:base="https://www.portlandhumanists.org"  xmlns:dc="http://purl.org/dc/elements/1.1/">
+<channel>
+ <title>Humanists of Greater Portland - Suggestion box</title>
+ <link>https://www.portlandhumanists.org/taxonomy/term/622</link>
+ <description>A forum for suggestions to improve HGP.
+</description>
+ <language>en</language>
+<item>
+ <title>This is just an example</title>
+ <link>https://www.portlandhumanists.org/content/just-example</link>
+ <description>&lt;div class=&quot;field field-name-taxonomy-forums field-type-taxonomy-term-reference field-label-above&quot;&gt;&lt;div class=&quot;field-label&quot;&gt;Forums:&amp;nbsp;&lt;/div&gt;&lt;div class=&quot;field-items&quot;&gt;&lt;div class=&quot;field-item even&quot; rel=&quot;sioc:has_container&quot;&gt;&lt;a href=&quot;/forums/suggestion-box&quot; typeof=&quot;sioc:Container sioc:Forum&quot; property=&quot;rdfs:label skos:prefLabel&quot; datatype=&quot;&quot;&gt;Suggestion box&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;field field-name-body field-type-text-with-summary field-label-hidden&quot;&gt;&lt;div class=&quot;field-items&quot;&gt;&lt;div class=&quot;field-item even&quot; property=&quot;content:encoded&quot;&gt;&lt;p&gt;An example suggestion.&lt;/p&gt;
+&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description>
+ <pubDate>Mon, 29 Jul 2019 04:07:53 +0000</pubDate>
+ <dc:creator>ValHumble</dc:creator>
+ <guid isPermaLink="false">13019 at https://www.portlandhumanists.org</guid>
+ <comments>https://www.portlandhumanists.org/content/just-example#comments</comments>
+</item>
+</channel>
+</rss>

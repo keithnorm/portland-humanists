@@ -26,7 +26,7 @@ export default defineConfig({
         path: "src/content/events",
         format: "md",
         ui: {
-          router: ({ document }) => `/events/${document._sys.filename}`,
+          router: ({ document }) => document._sys.filename ? `/events/${document._sys.filename}` : undefined,
           filename: {
             readonly: false,
             slugify: (values) => {
@@ -64,7 +64,6 @@ export default defineConfig({
             type: "string",
             name: "presenterTitle",
             label: "Presenter Title",
-            required: true,
           },
           {
             type: "string",
@@ -120,6 +119,14 @@ export default defineConfig({
           },
           {
             type: "string",
+            name: "vimeoId",
+            label: "Vimeo Video ID",
+            ui: {
+              description: "Vimeo ID from the video URL (e.g. 991684225)",
+            },
+          },
+          {
+            type: "string",
             name: "status",
             label: "Status",
             required: true,
@@ -144,7 +151,7 @@ export default defineConfig({
         path: "src/content/pages",
         format: "md",
         ui: {
-          router: ({ document }) => `/${document._sys.filename}`,
+          router: ({ document }) => document._sys.filename ? `/${document._sys.filename}` : undefined,
         },
         fields: [
           {

@@ -175,6 +175,21 @@ export function EventVisualEditor({ query, variables, data }: Props) {
                     </a>
                   </div>
                 )}
+                {event.vimeoId && !event.youtubeId && event.status === 'past' && (
+                  <div className="mt-6 pt-6 border-t border-neutral-200">
+                    <a
+                      href={`https://vimeo.com/${event.vimeoId}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full inline-flex items-center justify-center gap-2 bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-800 transition-colors"
+                    >
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                      Watch Recording
+                    </a>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -190,6 +205,21 @@ export function EventVisualEditor({ query, variables, data }: Props) {
                       title={event.title}
                       frameBorder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  </div>
+                </div>
+              )}
+              {event.vimeoId && !event.youtubeId && event.status === 'past' && (
+                <div className="mb-8">
+                  <div className="aspect-video rounded-xl overflow-hidden bg-neutral-900">
+                    <iframe
+                      width="100%"
+                      height="100%"
+                      src={`https://player.vimeo.com/video/${event.vimeoId}`}
+                      title={event.title}
+                      frameBorder="0"
+                      allow="autoplay; fullscreen; picture-in-picture"
                       allowFullScreen
                     />
                   </div>

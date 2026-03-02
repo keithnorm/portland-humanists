@@ -11,6 +11,7 @@ fragment EventsParts on Events {
   description
   image
   youtubeId
+  vimeoId
   status
   body
 }

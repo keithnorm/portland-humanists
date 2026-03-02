@@ -6,7 +6,7 @@ const events = defineCollection({
     title: z.string(),
     date: z.date(),
     presenter: z.string(),
-    presenterTitle: z.string(),
+    presenterTitle: z.string().optional().default(''),
     startTime: z.string(),
     endTime: z.string(),
     location: z.string(),
@@ -14,6 +14,7 @@ const events = defineCollection({
     description: z.string(),
     image: z.string().optional(),
     youtubeId: z.string().optional(),
+    vimeoId: z.string().optional(),
     status: z.enum(['upcoming', 'past']).default('upcoming'),
   }),
 });
