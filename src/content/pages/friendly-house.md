@@ -22,7 +22,7 @@ Can't attend in person? Programs are also broadcast via Zoom. Check the individu
 
 ## Photography & Recording
 
-Programs are often recorded and posted on our [YouTube channel](/recordings). A camera is set up in the room. If you prefer not to be filmed, please sit in the back rows away from the main camera angle.
+Programs are often recorded and posted on our [YouTube channel](/events). A camera is set up in the room. If you prefer not to be filmed, please sit in the back rows away from the main camera angle.
 
 ## Accessibility
 

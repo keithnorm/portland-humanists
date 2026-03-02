@@ -228,16 +228,17 @@ export function EventVisualEditor({ query, variables, data }: Props) {
 
               <div>
                 <h2 className="text-2xl font-bold text-neutral-900 mb-4">About This Program</h2>
-                <p
-                  className="text-lg text-neutral-700 leading-relaxed mb-6"
-                  data-tina-field={tinaField(event, 'description')}
-                >
-                  {event.description}
-                </p>
-                {event.body && (
+                {event.body ? (
                   <div className="prose max-w-none" data-tina-field={tinaField(event, 'body')}>
                     <TinaMarkdown content={event.body as TinaMarkdownContent} />
                   </div>
+                ) : (
+                  <p
+                    className="text-lg text-neutral-700 leading-relaxed"
+                    data-tina-field={tinaField(event, 'description')}
+                  >
+                    {event.description}
+                  </p>
                 )}
               </div>
             </div>

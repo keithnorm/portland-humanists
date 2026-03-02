@@ -261,7 +261,7 @@ export function HomeVisualEditor({ query, variables, data, upcomingEvent, recent
                 <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-4">Recent Recordings</h2>
                 <p className="text-lg text-neutral-600">Catch up on programs you may have missed</p>
               </div>
-              <a href="/recordings" className="text-[#1e3a5f] font-semibold flex items-center gap-2">
+              <a href="/events" className="text-[#1e3a5f] font-semibold flex items-center gap-2">
                 View All
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
