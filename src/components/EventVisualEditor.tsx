@@ -180,7 +180,7 @@ export function EventVisualEditor({ query, variables, data }: Props) {
                   </div>
                 )}
 
-                {event.youtubeId && event.status === 'past' && (
+                {event.youtubeId && (
                   <div className="mt-6 pt-6 border-t border-neutral-200">
                     <a
                       href={`https://youtube.com/watch?v=${event.youtubeId}`}
@@ -196,7 +196,7 @@ export function EventVisualEditor({ query, variables, data }: Props) {
                     </a>
                   </div>
                 )}
-                {event.vimeoId && !event.youtubeId && event.status === 'past' && (
+                {event.vimeoId && !event.youtubeId && (
                   <div className="mt-6 pt-6 border-t border-neutral-200">
                     <a
                       href={`https://vimeo.com/${event.vimeoId}`}
@@ -216,7 +216,7 @@ export function EventVisualEditor({ query, variables, data }: Props) {
 
             {/* Main Content */}
             <div className="md:col-span-2">
-              {event.youtubeId && event.status === 'past' && (
+              {event.youtubeId && (
                 <div className="mb-8">
                   <div className="aspect-video rounded-xl overflow-hidden bg-neutral-900">
                     <iframe
@@ -231,7 +231,7 @@ export function EventVisualEditor({ query, variables, data }: Props) {
                   </div>
                 </div>
               )}
-              {event.vimeoId && !event.youtubeId && event.status === 'past' && (
+              {event.vimeoId && !event.youtubeId && (
                 <div className="mb-8">
                   <div className="aspect-video rounded-xl overflow-hidden bg-neutral-900">
                     <iframe
