@@ -10,6 +10,7 @@ const events = defineCollection({
     startTime: z.string(),
     endTime: z.string(),
     location: z.string(),
+    speakerRemote: z.boolean().optional().default(false),
     zoomLink: z.string().optional(),
     description: z.string(),
     image: z.string().optional(),

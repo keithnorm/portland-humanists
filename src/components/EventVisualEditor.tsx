@@ -10,6 +10,19 @@ interface Props {
   data: EventsQuery;
 }
 
+const MAPS_URL = 'https://maps.google.com/?q=Friendly+House+Community+Center+1737+NW+26th+Ave+Portland+OR+97210';
+
+function LocationText({ location }: { location: string }) {
+  if (!location.toLowerCase().includes('friendly house')) {
+    return <>{location}</>;
+  }
+  return (
+    <a href={MAPS_URL} target="_blank" rel="noopener noreferrer" className="hover:underline">
+      {location}
+    </a>
+  );
+}
+
 function parseStartTime(startTime: string): Date | null {
   try {
     const date = new Date(startTime.replace(' ', 'T'));
@@ -117,8 +130,16 @@ export function EventVisualEditor({ query, variables, data }: Props) {
                         <span className="font-medium">Location</span>
                       </div>
                       <p className="text-neutral-900 ml-7" data-tina-field={tinaField(event, 'location')}>
-                        {event.location}
+                        <LocationText location={event.location} />
                       </p>
+                      {(event as any).speakerRemote && (
+                        <p className="ml-7 mt-1 inline-flex items-center gap-1 text-xs font-medium text-blue-700 bg-blue-50 border border-blue-200 rounded-full px-2 py-0.5">
+                          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                          </svg>
+                          Speaker presenting remotely
+                        </p>
+                      )}
                     </div>
                   )}
 

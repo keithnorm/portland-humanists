@@ -72,6 +72,19 @@ const featureIcons = [
   </svg>,
 ];
 
+const MAPS_URL = 'https://maps.google.com/?q=Friendly+House+Community+Center+1737+NW+26th+Ave+Portland+OR+97210';
+
+function LocationText({ location }: { location: string }) {
+  if (!location.toLowerCase().includes('friendly house')) {
+    return <>{location}</>;
+  }
+  return (
+    <a href={MAPS_URL} target="_blank" rel="noopener noreferrer" className="hover:underline">
+      {location}
+    </a>
+  );
+}
+
 const perks = [
   {
     label: 'Every Sunday',
@@ -224,7 +237,7 @@ export function HomeVisualEditor({ query, variables, data, upcomingEvents, recen
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
-                      <span className="text-neutral-700">{upcomingEvent.data.location}</span>
+                      <span className="text-neutral-700"><LocationText location={upcomingEvent.data.location} /></span>
                     </div>
                   </div>
                   <p className="text-neutral-600 mb-6 leading-relaxed">{upcomingEvent.data.description}</p>

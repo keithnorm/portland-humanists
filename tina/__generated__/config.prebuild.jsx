@@ -86,8 +86,19 @@ var config_default = defineConfig({
           {
             type: "string",
             name: "location",
-            label: "Location",
-            required: true
+            label: "Location (attendees)",
+            required: true,
+            ui: {
+              description: "Where attendees can join \u2014 e.g. 'Friendly House & Zoom' or 'Zoom only'"
+            }
+          },
+          {
+            type: "boolean",
+            name: "speakerRemote",
+            label: "Speaker is remote",
+            ui: {
+              description: "Check if the speaker is presenting via Zoom rather than in person at Friendly House"
+            }
           },
           {
             type: "string",

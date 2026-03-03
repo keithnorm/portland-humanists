@@ -95,8 +95,19 @@ export default defineConfig({
           {
             type: "string",
             name: "location",
-            label: "Location",
+            label: "Location (attendees)",
             required: true,
+            ui: {
+              description: "Where attendees can join — e.g. 'Friendly House & Zoom' or 'Zoom only'",
+            },
+          },
+          {
+            type: "boolean",
+            name: "speakerRemote",
+            label: "Speaker is remote",
+            ui: {
+              description: "Check if the speaker is presenting via Zoom rather than in person at Friendly House",
+            },
           },
           {
             type: "string",

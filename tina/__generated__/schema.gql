@@ -107,6 +107,7 @@ type Events implements Node & Document {
   startTime: String!
   endTime: String!
   location: String!
+  speakerRemote: Boolean
   zoomLink: String
   description: String!
   image: String
@@ -134,6 +135,11 @@ input DatetimeFilter {
   in: [String]
 }
 
+input BooleanFilter {
+  eq: Boolean
+  exists: Boolean
+}
+
 input ImageFilter {
   startsWith: String
   eq: String
@@ -155,6 +161,7 @@ input EventsFilter {
   startTime: StringFilter
   endTime: StringFilter
   location: StringFilter
+  speakerRemote: BooleanFilter
   zoomLink: StringFilter
   description: StringFilter
   image: ImageFilter
@@ -194,11 +201,6 @@ type Pages implements Node & Document {
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
-}
-
-input BooleanFilter {
-  eq: Boolean
-  exists: Boolean
 }
 
 input NumberFilter {
@@ -487,6 +489,7 @@ input EventsMutation {
   startTime: String
   endTime: String
   location: String
+  speakerRemote: Boolean
   zoomLink: String
   description: String
   image: String
