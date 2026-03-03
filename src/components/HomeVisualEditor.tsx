@@ -74,15 +74,40 @@ const featureIcons = [
 
 const MAPS_URL = 'https://maps.google.com/?q=Friendly+House+Community+Center+1737+NW+26th+Ave+Portland+OR+97210';
 
-function LocationText({ location }: { location: string }) {
-  if (!location.toLowerCase().includes('friendly house')) {
-    return <>{location}</>;
+function LocationText({ location, zoomLink }: { location: string; zoomLink?: string }) {
+  const lower = location.toLowerCase();
+  const hasFH = lower.includes('friendly house');
+  const hasZoom = lower.includes('zoom');
+
+  if (!hasFH && !hasZoom) return <>{location}</>;
+
+  const parts: React.ReactNode[] = [];
+  let remaining = location;
+
+  const fhIdx = remaining.toLowerCase().indexOf('friendly house');
+  if (fhIdx !== -1) {
+    if (fhIdx > 0) parts.push(remaining.slice(0, fhIdx));
+    parts.push(
+      <a key="fh" href={MAPS_URL} target="_blank" rel="noopener noreferrer" className="hover:underline">
+        {remaining.slice(fhIdx, fhIdx + 'friendly house'.length)}
+      </a>
+    );
+    remaining = remaining.slice(fhIdx + 'friendly house'.length);
   }
-  return (
-    <a href={MAPS_URL} target="_blank" rel="noopener noreferrer" className="hover:underline">
-      {location}
-    </a>
-  );
+
+  const zoomIdx = remaining.toLowerCase().indexOf('zoom');
+  if (zoomIdx !== -1) {
+    if (zoomIdx > 0) parts.push(remaining.slice(0, zoomIdx));
+    const zoomText = remaining.slice(zoomIdx, zoomIdx + 4);
+    parts.push(zoomLink
+      ? <a key="zoom" href={zoomLink} target="_blank" rel="noopener noreferrer" className="hover:underline">{zoomText}</a>
+      : zoomText
+    );
+    remaining = remaining.slice(zoomIdx + 4);
+  }
+
+  if (remaining) parts.push(remaining);
+  return <>{parts}</>;
 }
 
 const perks = [
@@ -193,7 +218,40 @@ export function HomeVisualEditor({ query, variables, data, upcomingEvents, recen
 
           {/* Featured next event */}
           {upcomingEvent && upcomingDate ? (
-            <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg overflow-hidden">
+            <div
+              id="featured-event-card"
+              data-start={upcomingEvent.data.startTime}
+              data-end={upcomingEvent.data.endTime}
+              className="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg overflow-hidden"
+            >
+              {/* Live banner — shown by client script when event is in progress */}
+              <div id="live-banner-live" style={{ display: 'none' }}
+                className="bg-red-500 text-white px-6 py-2.5 flex items-center justify-between text-sm font-semibold">
+                <span className="flex items-center gap-2">
+                  <span className="w-2 h-2 bg-white rounded-full animate-pulse inline-block" />
+                  Happening now
+                </span>
+                {upcomingEvent.data.zoomLink && (
+                  <a href={upcomingEvent.data.zoomLink} target="_blank" rel="noopener noreferrer"
+                    className="underline hover:no-underline">
+                    Join via Zoom →
+                  </a>
+                )}
+              </div>
+              {/* Starting-soon banner — shown by client script when within 30 min of start */}
+              <div id="live-banner-soon" style={{ display: 'none' }}
+                className="bg-orange-500 text-white px-6 py-2.5 flex items-center justify-between text-sm font-semibold">
+                <span className="flex items-center gap-2">
+                  <span className="w-2 h-2 bg-white rounded-full animate-pulse inline-block" />
+                  <span id="live-banner-soon-text">Starting soon</span>
+                </span>
+                {upcomingEvent.data.zoomLink && (
+                  <a href={upcomingEvent.data.zoomLink} target="_blank" rel="noopener noreferrer"
+                    className="underline hover:no-underline">
+                    Join via Zoom →
+                  </a>
+                )}
+              </div>
               <div className="md:flex">
                 <div className="md:w-2/5 bg-gradient-to-br from-[#2a4d7f] to-[#4a90e2] p-8 flex flex-col justify-center items-center text-white">
                   <div className="text-center">
@@ -237,7 +295,7 @@ export function HomeVisualEditor({ query, variables, data, upcomingEvents, recen
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
-                      <span className="text-neutral-700"><LocationText location={upcomingEvent.data.location} /></span>
+                      <span className="text-neutral-700"><LocationText location={upcomingEvent.data.location} zoomLink={upcomingEvent.data.zoomLink} /></span>
                     </div>
                   </div>
                   <p className="text-neutral-600 mb-6 leading-relaxed">{upcomingEvent.data.description}</p>

@@ -12,15 +12,40 @@ interface Props {
 
 const MAPS_URL = 'https://maps.google.com/?q=Friendly+House+Community+Center+1737+NW+26th+Ave+Portland+OR+97210';
 
-function LocationText({ location }: { location: string }) {
-  if (!location.toLowerCase().includes('friendly house')) {
-    return <>{location}</>;
+function LocationText({ location, zoomLink }: { location: string; zoomLink?: string | null }) {
+  const lower = location.toLowerCase();
+  const hasFH = lower.includes('friendly house');
+  const hasZoom = lower.includes('zoom');
+
+  if (!hasFH && !hasZoom) return <>{location}</>;
+
+  const parts: React.ReactNode[] = [];
+  let remaining = location;
+
+  const fhIdx = remaining.toLowerCase().indexOf('friendly house');
+  if (fhIdx !== -1) {
+    if (fhIdx > 0) parts.push(remaining.slice(0, fhIdx));
+    parts.push(
+      <a key="fh" href={MAPS_URL} target="_blank" rel="noopener noreferrer" className="hover:underline">
+        {remaining.slice(fhIdx, fhIdx + 'friendly house'.length)}
+      </a>
+    );
+    remaining = remaining.slice(fhIdx + 'friendly house'.length);
   }
-  return (
-    <a href={MAPS_URL} target="_blank" rel="noopener noreferrer" className="hover:underline">
-      {location}
-    </a>
-  );
+
+  const zoomIdx = remaining.toLowerCase().indexOf('zoom');
+  if (zoomIdx !== -1) {
+    if (zoomIdx > 0) parts.push(remaining.slice(0, zoomIdx));
+    const zoomText = remaining.slice(zoomIdx, zoomIdx + 4);
+    parts.push(zoomLink
+      ? <a key="zoom" href={zoomLink} target="_blank" rel="noopener noreferrer" className="hover:underline">{zoomText}</a>
+      : zoomText
+    );
+    remaining = remaining.slice(zoomIdx + 4);
+  }
+
+  if (remaining) parts.push(remaining);
+  return <>{parts}</>;
 }
 
 function parseStartTime(startTime: string): Date | null {
@@ -130,7 +155,7 @@ export function EventVisualEditor({ query, variables, data }: Props) {
                         <span className="font-medium">Location</span>
                       </div>
                       <p className="text-neutral-900 ml-7" data-tina-field={tinaField(event, 'location')}>
-                        <LocationText location={event.location} />
+                        <LocationText location={event.location} zoomLink={event.zoomLink} />
                       </p>
                       {(event as any).speakerRemote && (
                         <p className="ml-7 mt-1 inline-flex items-center gap-1 text-xs font-medium text-blue-700 bg-blue-50 border border-blue-200 rounded-full px-2 py-0.5">

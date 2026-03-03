@@ -33,3 +33,34 @@ const tinaResult = await client.queries.homepage({ relativePath: 'home.json' });
     client:tina
   />
 </BaseLayout>
+
+<script>
+  (function () {
+    const card = document.getElementById('featured-event-card');
+    if (!card) return;
+
+    const rawStart = (card as HTMLElement).dataset.start;
+    const rawEnd = (card as HTMLElement).dataset.end;
+    if (!rawStart || !rawEnd) return;
+
+    const startMs = new Date(rawStart.replace(' ', 'T')).getTime();
+    const endMs = new Date(rawEnd.replace(' ', 'T')).getTime();
+    if (isNaN(startMs) || isNaN(endMs)) return;
+
+    const now = Date.now();
+    const THIRTY_MIN = 30 * 60 * 1000;
+
+    if (now >= startMs && now <= endMs) {
+      const banner = document.getElementById('live-banner-live');
+      if (banner) banner.style.display = 'flex';
+    } else if (now >= startMs - THIRTY_MIN && now < startMs) {
+      const banner = document.getElementById('live-banner-soon');
+      if (banner) {
+        banner.style.display = 'flex';
+        const minutesLeft = Math.round((startMs - now) / 60000);
+        const textEl = document.getElementById('live-banner-soon-text');
+        if (textEl) textEl.textContent = `Starting in ${minutesLeft} minute${minutesLeft !== 1 ? 's' : ''}`;
+      }
+    }
+  })();
+</script>
