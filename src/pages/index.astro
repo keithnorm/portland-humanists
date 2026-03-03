@@ -11,9 +11,9 @@ function parseStartTime(startTime: string): Date {
   return new Date(startTime.replace(' ', 'T'));
 }
 
-const upcomingEvent = allEvents
+const upcomingEvents = allEvents
   .filter(event => event.data.status === 'upcoming')
-  .sort((a, b) => parseStartTime(a.data.startTime).getTime() - parseStartTime(b.data.startTime).getTime())[0] ?? null;
+  .sort((a, b) => parseStartTime(a.data.startTime).getTime() - parseStartTime(b.data.startTime).getTime());
 
 const recentRecordings = allEvents
   .filter(event => event.data.status === 'past' && (event.data.youtubeId || event.data.vimeoId))
@@ -28,7 +28,7 @@ const tinaResult = await client.queries.homepage({ relativePath: 'home.json' });
     query={tinaResult.query}
     variables={tinaResult.variables}
     data={tinaResult.data}
-    upcomingEvent={upcomingEvent}
+    upcomingEvents={upcomingEvents}
     recentRecordings={recentRecordings}
     client:tina
   />
