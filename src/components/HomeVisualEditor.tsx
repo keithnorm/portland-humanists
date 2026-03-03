@@ -25,6 +25,7 @@ interface Props {
   data: HomepageQuery;
   upcomingEvents: EventItem[];
   recentRecordings: EventItem[];
+  defaultZoomLink?: string;
 }
 
 function parseTime(startTime: string): Date | null {
@@ -167,12 +168,13 @@ const perks = [
   },
 ];
 
-export function HomeVisualEditor({ query, variables, data, upcomingEvents, recentRecordings }: Props) {
+export function HomeVisualEditor({ query, variables, data, upcomingEvents, recentRecordings, defaultZoomLink = '' }: Props) {
   const { data: tinaData } = useTina({ query, variables, data });
   const home = tinaData.homepage;
 
   const upcomingEvent = upcomingEvents[0] ?? null;
   const upcomingDate = upcomingEvent ? parseTime(upcomingEvent.data.startTime) : null;
+  const effectiveZoomLink = upcomingEvent?.data.zoomLink || defaultZoomLink || '';
 
   return (
     <>
@@ -231,8 +233,8 @@ export function HomeVisualEditor({ query, variables, data, upcomingEvents, recen
                   <span className="w-2 h-2 bg-white rounded-full animate-pulse inline-block" />
                   Happening now
                 </span>
-                {upcomingEvent.data.zoomLink && (
-                  <a href={upcomingEvent.data.zoomLink} target="_blank" rel="noopener noreferrer"
+                {effectiveZoomLink && (
+                  <a href={effectiveZoomLink} target="_blank" rel="noopener noreferrer"
                     className="underline hover:no-underline">
                     Join via Zoom →
                   </a>
@@ -245,8 +247,8 @@ export function HomeVisualEditor({ query, variables, data, upcomingEvents, recen
                   <span className="w-2 h-2 bg-white rounded-full animate-pulse inline-block" />
                   <span id="live-banner-soon-text">Starting soon</span>
                 </span>
-                {upcomingEvent.data.zoomLink && (
-                  <a href={upcomingEvent.data.zoomLink} target="_blank" rel="noopener noreferrer"
+                {effectiveZoomLink && (
+                  <a href={effectiveZoomLink} target="_blank" rel="noopener noreferrer"
                     className="underline hover:no-underline">
                     Join via Zoom →
                   </a>
@@ -295,14 +297,22 @@ export function HomeVisualEditor({ query, variables, data, upcomingEvents, recen
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
-                      <span className="text-neutral-700"><LocationText location={upcomingEvent.data.location} zoomLink={upcomingEvent.data.zoomLink} /></span>
+                      <span className="text-neutral-700"><LocationText location={upcomingEvent.data.location} zoomLink={effectiveZoomLink} /></span>
                     </div>
                   </div>
                   <p className="text-neutral-600 mb-6 leading-relaxed">{upcomingEvent.data.description}</p>
                   <div className="flex items-center gap-4">
-                    {upcomingEvent.data.zoomLink && (
-                      <a href={upcomingEvent.data.zoomLink} target="_blank" rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                    {effectiveZoomLink && (
+                      <a
+                        id="featured-zoom-btn"
+                        data-href={effectiveZoomLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-disabled="true"
+                        style={{ pointerEvents: 'none', opacity: '0.5' }}
+                        className="inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+                        title="Zoom link becomes active when the event is live"
+                      >
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
                         </svg>

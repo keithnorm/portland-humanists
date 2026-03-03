@@ -16,6 +16,8 @@ export async function getStaticPaths() {
 const { slug } = Astro.props;
 const tinaResult = await client.queries.events({ relativePath: `${slug}.md` });
 const eventData = tinaResult.data.events;
+const settingsResult = await client.queries.settings({ relativePath: 'general.json' });
+const defaultZoomLink = settingsResult.data.settings.meetingInfo?.defaultZoomLink ?? '';
 
 ---
 
@@ -24,6 +26,7 @@ const eventData = tinaResult.data.events;
     query={tinaResult.query}
     variables={tinaResult.variables}
     data={tinaResult.data}
+    defaultZoomLink={defaultZoomLink}
     client:tina
   />
 </BaseLayout>

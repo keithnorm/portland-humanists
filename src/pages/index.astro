@@ -21,6 +21,8 @@ const recentRecordings = allEvents
   .slice(0, 3);
 
 const tinaResult = await client.queries.homepage({ relativePath: 'home.json' });
+const settingsResult = await client.queries.settings({ relativePath: 'general.json' });
+const defaultZoomLink = settingsResult.data.settings.meetingInfo?.defaultZoomLink ?? '';
 ---
 
 <BaseLayout>
@@ -30,6 +32,7 @@ const tinaResult = await client.queries.homepage({ relativePath: 'home.json' });
     data={tinaResult.data}
     upcomingEvents={upcomingEvents}
     recentRecordings={recentRecordings}
+    defaultZoomLink={defaultZoomLink}
     client:tina
   />
 </BaseLayout>
@@ -50,9 +53,20 @@ const tinaResult = await client.queries.homepage({ relativePath: 'home.json' });
     const now = Date.now();
     const THIRTY_MIN = 30 * 60 * 1000;
 
+    function enableZoomBtn() {
+      const btn = document.getElementById('featured-zoom-btn') as HTMLAnchorElement | null;
+      if (!btn) return;
+      const href = btn.dataset.href;
+      if (href) btn.setAttribute('href', href);
+      btn.style.pointerEvents = '';
+      btn.style.opacity = '';
+      btn.removeAttribute('aria-disabled');
+    }
+
     if (now >= startMs && now <= endMs) {
       const banner = document.getElementById('live-banner-live');
       if (banner) banner.style.display = 'flex';
+      enableZoomBtn();
     } else if (now >= startMs - THIRTY_MIN && now < startMs) {
       const banner = document.getElementById('live-banner-soon');
       if (banner) {
@@ -61,6 +75,7 @@ const tinaResult = await client.queries.homepage({ relativePath: 'home.json' });
         const textEl = document.getElementById('live-banner-soon-text');
         if (textEl) textEl.textContent = `Starting in ${minutesLeft} minute${minutesLeft !== 1 ? 's' : ''}`;
       }
+      enableZoomBtn();
     }
   })();
 </script>

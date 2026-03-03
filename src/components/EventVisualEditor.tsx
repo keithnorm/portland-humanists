@@ -8,6 +8,7 @@ interface Props {
   query: string;
   variables: EventsQueryVariables;
   data: EventsQuery;
+  defaultZoomLink?: string;
 }
 
 const MAPS_URL = 'https://maps.google.com/?q=Friendly+House+Community+Center+1737+NW+26th+Ave+Portland+OR+97210';
@@ -81,11 +82,12 @@ function formatTime(timeString: string): string | null {
   }
 }
 
-export function EventVisualEditor({ query, variables, data }: Props) {
+export function EventVisualEditor({ query, variables, data, defaultZoomLink = '' }: Props) {
   const { data: tinaData } = useTina({ query, variables, data });
   const event = tinaData.events;
 
   const eventDate = event.startTime ? parseStartTime(event.startTime) : null;
+  const effectiveZoomLink = event.zoomLink || defaultZoomLink || '';
 
   return (
     <>
@@ -155,7 +157,7 @@ export function EventVisualEditor({ query, variables, data }: Props) {
                         <span className="font-medium">Location</span>
                       </div>
                       <p className="text-neutral-900 ml-7" data-tina-field={tinaField(event, 'location')}>
-                        <LocationText location={event.location} zoomLink={event.zoomLink} />
+                        <LocationText location={event.location} zoomLink={effectiveZoomLink} />
                       </p>
                       {(event as any).speakerRemote && (
                         <p className="ml-7 mt-1 inline-flex items-center gap-1 text-xs font-medium text-blue-700 bg-blue-50 border border-blue-200 rounded-full px-2 py-0.5">
@@ -188,10 +190,10 @@ export function EventVisualEditor({ query, variables, data }: Props) {
                   )}
                 </div>
 
-                {event.zoomLink && event.status === 'upcoming' && (
+                {effectiveZoomLink && event.status === 'upcoming' && (
                   <div className="mt-6 pt-6 border-t border-neutral-200">
                     <a
-                      href={event.zoomLink}
+                      href={effectiveZoomLink}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="w-full inline-flex items-center justify-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
