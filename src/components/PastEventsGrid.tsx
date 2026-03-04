@@ -15,6 +15,7 @@ export type PastEventItem = {
   description: string;
   youtubeId?: string;
   vimeoId?: string;
+  vimeoThumbnail?: string;
 };
 
 function parseDate(startTime: string) {
@@ -47,6 +48,12 @@ function EventCard({ event }: { event: PastEventItem }) {
           {event.youtubeId ? (
             <img
               src={`https://img.youtube.com/vi/${event.youtubeId}/hqdefault.jpg`}
+              alt={event.title}
+              className="w-full h-full object-cover"
+            />
+          ) : event.vimeoThumbnail ? (
+            <img
+              src={event.vimeoThumbnail}
               alt={event.title}
               className="w-full h-full object-cover"
             />

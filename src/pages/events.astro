@@ -30,7 +30,18 @@ function formatTime(timeString: string): string {
   return `${displayHour}:${minutes} ${ampm}`;
 }
 
-const pastEventItems = pastEvents.map(event => ({
+async function fetchVimeoThumbnail(vimeoId: string): Promise<string | undefined> {
+  try {
+    const res = await fetch(`https://vimeo.com/api/oembed.json?url=https://vimeo.com/${vimeoId}`);
+    if (!res.ok) return undefined;
+    const data = await res.json();
+    return data.thumbnail_url ?? undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+const pastEventItems = await Promise.all(pastEvents.map(async event => ({
   slug: event.slug,
   title: event.data.title,
   startTime: event.data.startTime,
@@ -38,7 +49,11 @@ const pastEventItems = pastEvents.map(event => ({
   description: event.data.description,
   youtubeId: event.data.youtubeId,
   vimeoId: event.data.vimeoId,
-}));
+  vimeoThumbnail: event.data.vimeoThumbnail
+    || (event.data.vimeoId && !event.data.youtubeId
+      ? await fetchVimeoThumbnail(event.data.vimeoId)
+      : undefined),
+})));
 ---
 
 <BaseLayout title="Events - Humanists of Greater Portland">
