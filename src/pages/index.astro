@@ -11,12 +11,14 @@ function parseStartTime(startTime: string): Date {
   return new Date(startTime.replace(' ', 'T'));
 }
 
+const now = new Date();
+
 const upcomingEvents = allEvents
-  .filter(event => event.data.status === 'upcoming')
+  .filter(event => new Date(event.data.endTime.replace(' ', 'T')) > now)
   .sort((a, b) => parseStartTime(a.data.startTime).getTime() - parseStartTime(b.data.startTime).getTime());
 
 const recentRecordings = allEvents
-  .filter(event => event.data.status === 'past' && (event.data.youtubeId || event.data.vimeoId))
+  .filter(event => new Date(event.data.endTime.replace(' ', 'T')) <= now && (event.data.youtubeId || event.data.vimeoId))
   .sort((a, b) => parseStartTime(b.data.startTime).getTime() - parseStartTime(a.data.startTime).getTime())
   .slice(0, 3);
 

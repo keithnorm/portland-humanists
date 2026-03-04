@@ -87,6 +87,7 @@ export function EventVisualEditor({ query, variables, data, defaultZoomLink = ''
   const event = tinaData.events;
 
   const eventDate = event.startTime ? parseStartTime(event.startTime) : null;
+  const isUpcoming = event.endTime ? new Date(event.endTime.replace(' ', 'T')) > new Date() : false;
   const effectiveZoomLink = event.zoomLink || defaultZoomLink || '';
 
   return (
@@ -190,7 +191,7 @@ export function EventVisualEditor({ query, variables, data, defaultZoomLink = ''
                   )}
                 </div>
 
-                {effectiveZoomLink && event.status === 'upcoming' && (
+                {effectiveZoomLink && isUpcoming && (
                   <div className="mt-6 pt-6 border-t border-neutral-200">
                     <a
                       href={effectiveZoomLink}

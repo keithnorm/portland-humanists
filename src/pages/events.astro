@@ -11,13 +11,15 @@ function parseStartTime(startTime: string): Date {
   return new Date(startTime.replace(' ', 'T'));
 }
 
-// Separate upcoming and past events
+// Separate upcoming and past events based on endTime (no manual status field needed)
+const now = new Date();
+
 const upcomingEvents = allEvents
-  .filter(event => event.data.status === 'upcoming')
+  .filter(event => new Date(event.data.endTime.replace(' ', 'T')) > now)
   .sort((a, b) => parseStartTime(a.data.startTime).getTime() - parseStartTime(b.data.startTime).getTime()); // Ascending: soonest first
 
 const pastEvents = allEvents
-  .filter(event => event.data.status === 'past')
+  .filter(event => new Date(event.data.endTime.replace(' ', 'T')) <= now)
   .sort((a, b) => parseStartTime(b.data.startTime).getTime() - parseStartTime(a.data.startTime).getTime()); // Descending: most recent first
 
 function formatTime(timeString: string): string {

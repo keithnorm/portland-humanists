@@ -16,7 +16,7 @@ const events = defineCollection({
     image: z.string().optional(),
     youtubeId: z.string().optional(),
     vimeoId: z.string().optional(),
-    status: z.enum(['upcoming', 'past']).default('upcoming'),
+    status: z.enum(['upcoming', 'past']).optional(), // deprecated: filtering is now endTime-based
   }),
 });
 

@@ -136,16 +136,6 @@ var config_default = defineConfig({
             }
           },
           {
-            type: "string",
-            name: "status",
-            label: "Status",
-            required: true,
-            options: [
-              { label: "Upcoming", value: "upcoming" },
-              { label: "Past", value: "past" }
-            ]
-          },
-          {
             type: "rich-text",
             name: "body",
             label: "Body",
