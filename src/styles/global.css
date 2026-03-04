@@ -2,51 +2,28 @@
 @plugin "@tailwindcss/typography";
 
 /* ── Site Theme Variables ──────────────────────────────────────────── */
-:root,
-[data-theme="navy"] {
-  --hgp-primary:     #1e3a5f;
-  --hgp-mid:         #2a4d7f;
-  --hgp-accent:      #4a90e2;
-  --hgp-on-primary:  #c8d9ec;
-  --hgp-surface:     #e8eef5;
-  --hgp-surface-alt: #f4f7fb;
+/*
+  All palette variables are derived from a single --hgp-base color via
+  CSS relative-color syntax (oklch). Supported in Chrome 119+, Firefox 128+,
+  Safari 16.4+. Each named theme only needs to override --hgp-base.
+*/
+:root {
+  --hgp-base:        #1e3a5f;
+  /* Derived palette — recomputes automatically when --hgp-base changes */
+  --hgp-primary:     var(--hgp-base);
+  --hgp-mid:         oklch(from var(--hgp-base) calc(l + 0.08) c h);
+  --hgp-accent:      oklch(from var(--hgp-base) 0.65 calc(c * 1.3) h);
+  --hgp-on-primary:  oklch(from var(--hgp-base) 0.88 calc(c * 0.55) h);
+  --hgp-surface:     oklch(from var(--hgp-base) 0.96 calc(c * 0.20) h);
+  --hgp-surface-alt: oklch(from var(--hgp-base) 0.99 calc(c * 0.08) h);
 }
 
-[data-theme="teal"] {
-  --hgp-primary:     #0f4c5c;
-  --hgp-mid:         #0e7490;
-  --hgp-accent:      #22d3ee;
-  --hgp-on-primary:  #a5f3fc;
-  --hgp-surface:     #ecfeff;
-  --hgp-surface-alt: #f5feff;
-}
-
-[data-theme="forest"] {
-  --hgp-primary:     #14532d;
-  --hgp-mid:         #166534;
-  --hgp-accent:      #4ade80;
-  --hgp-on-primary:  #bbf7d0;
-  --hgp-surface:     #f0fdf4;
-  --hgp-surface-alt: #f7fff9;
-}
-
-[data-theme="slate"] {
-  --hgp-primary:     #1e293b;
-  --hgp-mid:         #334155;
-  --hgp-accent:      #94a3b8;
-  --hgp-on-primary:  #cbd5e1;
-  --hgp-surface:     #f1f5f9;
-  --hgp-surface-alt: #f8fafc;
-}
-
-[data-theme="burgundy"] {
-  --hgp-primary:     #581c2f;
-  --hgp-mid:         #7f1d3a;
-  --hgp-accent:      #f472b6;
-  --hgp-on-primary:  #fda4af;
-  --hgp-surface:     #fff1f2;
-  --hgp-surface-alt: #fff7f8;
-}
+/* Named themes — only the base color needs to change */
+[data-theme="navy"]    { --hgp-base: #1e3a5f; }
+[data-theme="teal"]    { --hgp-base: #0f4c5c; }
+[data-theme="forest"]  { --hgp-base: #14532d; }
+[data-theme="slate"]   { --hgp-base: #1e293b; }
+[data-theme="burgundy"]{ --hgp-base: #581c2f; }
 
 /* ── Gradient Utility Classes ──────────────────────────────────────── */
 /* Three-stop hero gradient */

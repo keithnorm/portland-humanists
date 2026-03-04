@@ -336,6 +336,14 @@ export default defineConfig({
             },
           },
           {
+            type: "string",
+            name: "customBaseColor",
+            label: "Custom Base Color",
+            ui: {
+              description: "Override the theme with any hex color (e.g. #2d6a4f). All other colors are derived automatically. Leave blank to use the selected theme above.",
+            },
+          },
+          {
             type: "object",
             name: "meetingInfo",
             label: "Meeting Information",

@@ -259,6 +259,7 @@ type Settings implements Node & Document {
   contactEmail: String!
   socialMedia: SettingsSocialMedia
   colorTheme: String
+  customBaseColor: String
   meetingInfo: SettingsMeetingInfo
   id: ID!
   _sys: SystemInfo!
@@ -284,6 +285,7 @@ input SettingsFilter {
   contactEmail: StringFilter
   socialMedia: SettingsSocialMediaFilter
   colorTheme: StringFilter
+  customBaseColor: StringFilter
   meetingInfo: SettingsMeetingInfoFilter
 }
 
@@ -535,6 +537,7 @@ input SettingsMutation {
   contactEmail: String
   socialMedia: SettingsSocialMediaMutation
   colorTheme: String
+  customBaseColor: String
   meetingInfo: SettingsMeetingInfoMutation
 }
 
