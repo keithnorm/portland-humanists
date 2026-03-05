@@ -6,11 +6,26 @@ order: 4
 
 Netlify is the service that hosts your website — it's what makes your site available at your domain. Setup takes about 15 minutes.
 
-## Step 1: Create a Netlify Account
+## How Netlify Credits Work
 
-1. Go to [netlify.com](https://www.netlify.com)
-2. Click **Sign up**
-3. Choose **Sign up with GitHub** — this links your Netlify and GitHub accounts automatically, which makes the next steps easier
+Netlify uses a credit system to measure usage. The "Personal" plan (currenly $9 per month) includes **1,000 credits per month**. Here's what uses credits:
+
+| Activity | Credit cost |
+|----------|------------|
+| Each site deploy (content save, code update) | 15 credits |
+| Bandwidth | 10 credits per GB served |
+| Web requests | 3 credits per 10,000 requests |
+| Form submissions (member signup) | 1 credit each |
+
+For a low-traffic organization site that deploys a few times a week, 1,000 credits is comfortably more than enough. As a rough guide: if you deploy 10 times a week (very active), that's 600 credits/month just for deploys — still within your limit with plenty left over for traffic.
+
+Netlify will email you at 50%, 75%, and 100% usage. If you ever hit the limit, the site goes into a paused state until the next billing cycle. You can also enable **auto-recharge** to purchase extra credits automatically if needed (under **Billing → Credits**).
+
+## Step 1: Log In to Netlify
+
+You already have a Netlify Starter plan account. Go to [netlify.com](https://www.netlify.com) and sign in.
+
+If for any reason you need to create a new account, choose **Sign up with GitHub** — this links your accounts automatically and makes the next steps easier.
 
 ## Step 2: Import Your Repository
 
@@ -33,7 +48,7 @@ On the next screen, Netlify asks how to build your site. Enter these settings ex
 
 Leave all other settings at their defaults.
 
-> **Don't click Deploy yet** — you need to add environment variables first (next step).
+> **Don't click Deploy yet** — you need to complete a few more steps first.
 
 ## Step 4: Add Environment Variables
 
@@ -60,11 +75,30 @@ You need to add four variables. You'll get the Tina values in the [next section]
 
 > **Sandbox vs. Live:** Sandbox uses fake money for testing. The live site needs the **Live** Client ID so real payments go through.
 
-## Step 5: Deploy the Site
+## Step 5: Enable Forms
 
-Click **Deploy site**. Netlify will start building your site. This takes about 60–90 seconds.
+Your site has a member signup form on the Join page that submits through Netlify. Form detection happens during the build, so you need to enable it **before** deploying.
 
-## Step 6: Connect Your Custom Domain (optional, do later)
+1. Go to **Site configuration** → **Forms**
+2. Confirm that form detection is **enabled**
+
+After your first deploy, any form submissions will appear under **Forms** in the main Netlify navigation. Your Starter plan includes 100 form submissions per month — more than enough for a membership signup form.
+
+## Step 6: Deploy the Site
+
+Now you're ready. Click **Deploy site**. Netlify will start building your site. This takes about 60–90 seconds.
+
+## Step 7: Analytics (optional)
+
+
+Your Starter plan includes basic site metrics (visitor counts, page views) with a 7-day lookback window. To access them:
+
+1. Click **Analytics** in the Netlify sidebar
+
+A more detailed server-side Web Analytics add-on may also be available — check [Netlify's pricing page](https://www.netlify.com/pricing/) for current details.
+
+## Step 8: Connect Your Custom Domain (optional, do later)
+
 
 Once the site is working on the Netlify subdomain, you can point your real domain (portlandhumanists.org) to Netlify:
 

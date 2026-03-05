@@ -30,25 +30,13 @@ When your team adds or edits content through the CMS editor:
 
 No one needs to manually deploy anything. It's fully automatic.
 
-## Why This Is Simpler Than Drupal
-
-Your previous site ran on Drupal, which requires a web server, a database (MySQL), PHP, and regular security updates. When things go wrong, it usually requires a developer to fix.
-
-This new setup is different:
-
-- **No server to maintain.** The site is pre-built and served as plain files from Netlify's global network.
-- **No database.** Content is stored as plain text files in GitHub.
-- **No security patches.** There's no server software to keep updated.
-- **Automatic deploys.** Any content change triggers a fresh build automatically.
-- **Free hosting tier.** Netlify's free plan is more than sufficient for your traffic.
-
 ## What This Guide Covers
 
 The remaining steps — which you'll do on your own accounts — are:
 
-1. [Getting the Code into Your GitHub](/docs/transfer-code)
-2. [Deploying Your Site on Netlify](/docs/netlify-setup)
-3. [Setting Up Tina CMS](/docs/tina-setup)
+1. [Getting the Code into Your GitHub](/docs/github)
+2. [Setting Up Tina CMS](/docs/tina-setup)
+3. [Deploying Your Site on Netlify](/docs/netlify-setup)
 4. [Managing Your Site Day-to-Day](/docs/managing-content)
 
 Each section is a step-by-step walkthrough. You can bookmark this page and return to it anytime.
