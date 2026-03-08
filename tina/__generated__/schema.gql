@@ -249,6 +249,7 @@ type Settings implements Node & Document {
   socialMedia: SettingsSocialMedia
   colorTheme: String
   customBaseColor: String
+  timezone: String
   meetingInfo: SettingsMeetingInfo
   id: ID!
   _sys: SystemInfo!
@@ -275,6 +276,7 @@ input SettingsFilter {
   socialMedia: SettingsSocialMediaFilter
   colorTheme: StringFilter
   customBaseColor: StringFilter
+  timezone: StringFilter
   meetingInfo: SettingsMeetingInfoFilter
 }
 
@@ -525,6 +527,7 @@ input SettingsMutation {
   socialMedia: SettingsSocialMediaMutation
   colorTheme: String
   customBaseColor: String
+  timezone: String
   meetingInfo: SettingsMeetingInfoMutation
 }
 

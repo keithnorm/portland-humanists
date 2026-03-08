@@ -45,6 +45,7 @@ fragment SettingsParts on Settings {
   }
   colorTheme
   customBaseColor
+  timezone
   meetingInfo {
     __typename
     time

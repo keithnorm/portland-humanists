@@ -4,7 +4,7 @@ title: Environmental Justice and Community Based Legal Advocacy
 date: 2026-03-08T17:00:00.000Z
 presenter: Rebeka Dawit
 presenterTitle: 'Deputy Director and Environmental Justice Attorney, Crag Law Center'
-startTime: '2026-03-08 10:05'
+startTime: '2026-03-08 09:45'
 endTime: '2026-03-08 11:30'
 location: Friendly House & Zoom
 speakerRemote: true

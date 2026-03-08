@@ -3,24 +3,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import '../styles/global.css';
 import { getCollection } from 'astro:content';
 import PastEventsGrid from '../components/PastEventsGrid.tsx';
+import { parseInTimezone } from '../utils/time';
+import siteSettings from '../content/settings/general.json';
 
 const allEvents = await getCollection('events');
-
-// Helper function to parse startTime string to Date
-function parseStartTime(startTime: string): Date {
-  return new Date(startTime.replace(' ', 'T'));
-}
+const timezone = siteSettings.timezone ?? 'America/Los_Angeles';
 
 // Separate upcoming and past events based on endTime (no manual status field needed)
 const now = new Date();
 
 const upcomingEvents = allEvents
-  .filter(event => new Date(event.data.endTime.replace(' ', 'T')) > now)
-  .sort((a, b) => parseStartTime(a.data.startTime).getTime() - parseStartTime(b.data.startTime).getTime()); // Ascending: soonest first
+  .filter(event => parseInTimezone(event.data.endTime, timezone) > now)
+  .sort((a, b) => parseInTimezone(a.data.startTime, timezone).getTime() - parseInTimezone(b.data.startTime, timezone).getTime()); // Ascending: soonest first
 
 const pastEvents = allEvents
-  .filter(event => new Date(event.data.endTime.replace(' ', 'T')) <= now)
-  .sort((a, b) => parseStartTime(b.data.startTime).getTime() - parseStartTime(a.data.startTime).getTime()); // Descending: most recent first
+  .filter(event => parseInTimezone(event.data.endTime, timezone) <= now)
+  .sort((a, b) => parseInTimezone(b.data.startTime, timezone).getTime() - parseInTimezone(a.data.startTime, timezone).getTime()); // Descending: most recent first
 
 function formatTime(timeString: string): string {
   const [hours, minutes] = timeString.split(' ')[1].split(':');
@@ -88,13 +86,13 @@ const pastEventItems = await Promise.all(pastEvents.map(async event => ({
                 <div class="md:w-48 hgp-card-grad p-8 flex flex-col justify-center items-center text-white">
                   <div class="text-center">
                     <div class="text-3xl font-bold mb-1">
-                      {new Intl.DateTimeFormat('en-US', { month: 'short' }).format(parseStartTime(event.data.startTime)).toUpperCase()}
+                      {new Intl.DateTimeFormat('en-US', { month: 'short' }).format(parseInTimezone(event.data.startTime, timezone)).toUpperCase()}
                     </div>
                     <div class="text-5xl font-bold mb-1">
-                      {parseStartTime(event.data.startTime).getDate()}
+                      {parseInTimezone(event.data.startTime, timezone).getDate()}
                     </div>
                     <div class="text-lg">
-                      {new Intl.DateTimeFormat('en-US', { weekday: 'short' }).format(parseStartTime(event.data.startTime))}
+                      {new Intl.DateTimeFormat('en-US', { weekday: 'short' }).format(parseInTimezone(event.data.startTime, timezone))}
                     </div>
                   </div>
                 </div>

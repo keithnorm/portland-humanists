@@ -318,6 +318,23 @@ var config_default = defineConfig({
             }
           },
           {
+            type: "string",
+            name: "timezone",
+            label: "Event Timezone",
+            options: [
+              { label: "Pacific (Los Angeles)", value: "America/Los_Angeles" },
+              { label: "Mountain (Denver)", value: "America/Denver" },
+              { label: "Mountain (Phoenix, no DST)", value: "America/Phoenix" },
+              { label: "Central (Chicago)", value: "America/Chicago" },
+              { label: "Eastern (New York)", value: "America/New_York" },
+              { label: "Alaska (Anchorage)", value: "America/Anchorage" },
+              { label: "Hawaii (Honolulu)", value: "Pacific/Honolulu" }
+            ],
+            ui: {
+              description: "Timezone used when displaying and filtering event times. Event start/end times are stored without timezone info and assumed to be in this timezone."
+            }
+          },
+          {
             type: "object",
             name: "meetingInfo",
             label: "Meeting Information",

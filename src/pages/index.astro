@@ -4,27 +4,25 @@ import '../styles/global.css';
 import { getCollection } from 'astro:content';
 import { HomeVisualEditor } from '../components/HomeVisualEditor';
 import client from '../../tina/__generated__/client';
+import { parseInTimezone } from '../utils/time';
 
 const allEvents = await getCollection('events');
-
-function parseStartTime(startTime: string): Date {
-  return new Date(startTime.replace(' ', 'T'));
-}
-
-const now = new Date();
-
-const upcomingEvents = allEvents
-  .filter(event => new Date(event.data.endTime.replace(' ', 'T')) > now)
-  .sort((a, b) => parseStartTime(a.data.startTime).getTime() - parseStartTime(b.data.startTime).getTime());
-
-const recentRecordings = allEvents
-  .filter(event => new Date(event.data.endTime.replace(' ', 'T')) <= now && (event.data.youtubeId || event.data.vimeoId))
-  .sort((a, b) => parseStartTime(b.data.startTime).getTime() - parseStartTime(a.data.startTime).getTime())
-  .slice(0, 3);
 
 const tinaResult = await client.queries.homepage({ relativePath: 'home.json' });
 const settingsResult = await client.queries.settings({ relativePath: 'general.json' });
 const defaultZoomLink = settingsResult.data.settings.meetingInfo?.defaultZoomLink ?? '';
+const timezone = settingsResult.data.settings.timezone ?? 'America/Los_Angeles';
+
+const now = new Date();
+
+const upcomingEvents = allEvents
+  .filter(event => parseInTimezone(event.data.endTime, timezone) > now)
+  .sort((a, b) => parseInTimezone(a.data.startTime, timezone).getTime() - parseInTimezone(b.data.startTime, timezone).getTime());
+
+const recentRecordings = allEvents
+  .filter(event => parseInTimezone(event.data.endTime, timezone) <= now && (event.data.youtubeId || event.data.vimeoId))
+  .sort((a, b) => parseInTimezone(b.data.startTime, timezone).getTime() - parseInTimezone(a.data.startTime, timezone).getTime())
+  .slice(0, 3);
 ---
 
 <BaseLayout>
