@@ -14,7 +14,7 @@ heroGradient: "bg-gradient-to-br from-[#1e3a5f] to-[#2a4d7f]"
 9:45 AM – 11:30 AM every Sunday
 
 **Friendly House Community Center**
-1737 NW 26th Ave, Portland, OR 97210
+[1737 NW 26th Ave, Portland, OR 97210](https://maps.google.com/?q=Friendly+House+Community+Center+1737+NW+26th+Ave+Portland+OR+97210)
 
 Programs are also available via Zoom broadcast.
 

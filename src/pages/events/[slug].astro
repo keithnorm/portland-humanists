@@ -31,4 +31,11 @@ const timezone = settingsResult.data.settings.timezone ?? 'America/Los_Angeles';
     timezone={timezone}
     client:tina
   />
+  <script>
+    document.querySelectorAll('button.zoom-reveal-btn[data-zoom]').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        window.open(this.dataset.zoom, '_blank', 'noopener,noreferrer');
+      });
+    });
+  </script>
 </BaseLayout>

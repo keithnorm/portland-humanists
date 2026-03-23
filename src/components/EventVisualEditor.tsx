@@ -39,10 +39,7 @@ function LocationText({ location, zoomLink }: { location: string; zoomLink?: str
   if (zoomIdx !== -1) {
     if (zoomIdx > 0) parts.push(remaining.slice(0, zoomIdx));
     const zoomText = remaining.slice(zoomIdx, zoomIdx + 4);
-    parts.push(zoomLink
-      ? <a key="zoom" href={zoomLink} target="_blank" rel="noopener noreferrer" className="hover:underline">{zoomText}</a>
-      : zoomText
-    );
+    parts.push(zoomText);
     remaining = remaining.slice(zoomIdx + 4);
   }
 
@@ -205,18 +202,17 @@ export function EventVisualEditor({ query, variables, data, defaultZoomLink = ''
 
                 {effectiveZoomLink && isUpcoming && (
                   <div className="mt-6 pt-6 border-t border-neutral-200">
-                    <a
-                      href={effectiveZoomLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full inline-flex items-center justify-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+                    <button
+                      type="button"
+                      data-zoom={effectiveZoomLink}
+                      className="zoom-reveal-btn w-full inline-flex items-center justify-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors cursor-pointer"
                       data-tina-field={tinaField(event, 'zoomLink')}
                     >
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
                       </svg>
                       Join via Zoom
-                    </a>
+                    </button>
                   </div>
                 )}
 

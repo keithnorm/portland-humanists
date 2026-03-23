@@ -112,43 +112,50 @@ const customBaseColor = (settings as any).customBaseColor ?? '';
         </div>
       </div>
     </footer>
-    {import.meta.env.DEV && (
-      <div id="hgp-theme-switcher" style="position:fixed;bottom:1rem;right:1rem;z-index:99999;background:white;border:1px solid #e5e7eb;border-radius:0.75rem;padding:0.75rem 1rem;box-shadow:0 4px 12px rgba(0,0,0,0.15);font-family:system-ui,sans-serif;font-size:0.75rem;">
-        <p style="font-weight:600;color:#374151;margin:0 0 0.5rem;">Theme Preview</p>
-        <div style="display:flex;flex-direction:column;gap:4px;">
-          {[
-            { label: 'Navy',    value: 'navy',    color: '#1e3a5f' },
-            { label: 'Teal',    value: 'teal',    color: '#0e7490' },
-            { label: 'Forest',  value: 'forest',  color: '#166534' },
-            { label: 'Slate',   value: 'slate',   color: '#334155' },
-            { label: 'Burgundy',value: 'burgundy',color: '#7f1d3a' },
-          ].map(({ label, value, color }) => (
-            <button
-              onclick={`hgpSetTheme('${value}')`}
-              style={`display:flex;align-items:center;gap:8px;padding:4px 8px;border-radius:6px;border:none;background:none;cursor:pointer;text-align:left;font-size:0.75rem;color:#374151;`}
-            >
-              <span style={`width:12px;height:12px;border-radius:50%;background:${color};flex-shrink:0;`}></span>
-              {label}
-            </button>
-          ))}
-        </div>
-        <div style="margin-top:8px;padding-top:8px;border-top:1px solid #e5e7eb;">
-          <p style="font-size:0.7rem;color:#6b7280;margin:0 0 4px;">Custom base color:</p>
-          <input
-            id="hgp-base-picker"
-            type="color"
-            value="#1e3a5f"
-            oninput="hgpSetBaseColor(this.value)"
-            style="width:100%;height:28px;border:1px solid #e5e7eb;border-radius:4px;cursor:pointer;padding:2px;"
-          />
-        </div>
-        <button
-          onclick={`hgpResetTheme('${colorTheme}')`}
-          style="margin-top:6px;font-size:0.7rem;color:#9ca3af;background:none;border:none;cursor:pointer;padding:2px 8px;"
-        >
-          ↩ Reset to saved
-        </button>
+    <div id="hgp-theme-switcher" data-dev={import.meta.env.DEV ? 'true' : undefined} style="display:none;position:fixed;bottom:1rem;right:1rem;z-index:99999;background:white;border:1px solid #e5e7eb;border-radius:0.75rem;padding:0.75rem 1rem;box-shadow:0 4px 12px rgba(0,0,0,0.15);font-family:system-ui,sans-serif;font-size:0.75rem;">
+      <p style="font-weight:600;color:#374151;margin:0 0 0.5rem;">Theme Preview</p>
+      <div style="display:flex;flex-direction:column;gap:4px;">
+        {[
+          { label: 'Navy',    value: 'navy',    color: '#1e3a5f' },
+          { label: 'Teal',    value: 'teal',    color: '#0e7490' },
+          { label: 'Forest',  value: 'forest',  color: '#166534' },
+          { label: 'Slate',   value: 'slate',   color: '#334155' },
+          { label: 'Burgundy',value: 'burgundy',color: '#7f1d3a' },
+        ].map(({ label, value, color }) => (
+          <button
+            onclick={`hgpSetTheme('${value}')`}
+            style={`display:flex;align-items:center;gap:8px;padding:4px 8px;border-radius:6px;border:none;background:none;cursor:pointer;text-align:left;font-size:0.75rem;color:#374151;`}
+          >
+            <span style={`width:12px;height:12px;border-radius:50%;background:${color};flex-shrink:0;`}></span>
+            {label}
+          </button>
+        ))}
       </div>
-    )}
+      <div style="margin-top:8px;padding-top:8px;border-top:1px solid #e5e7eb;">
+        <p style="font-size:0.7rem;color:#6b7280;margin:0 0 4px;">Custom base color:</p>
+        <input
+          id="hgp-base-picker"
+          type="color"
+          value="#1e3a5f"
+          oninput="hgpSetBaseColor(this.value)"
+          style="width:100%;height:28px;border:1px solid #e5e7eb;border-radius:4px;cursor:pointer;padding:2px;"
+        />
+      </div>
+      <button
+        onclick={`hgpResetTheme('${colorTheme}')`}
+        style="margin-top:6px;font-size:0.7rem;color:#9ca3af;background:none;border:none;cursor:pointer;padding:2px 8px;"
+      >
+        ↩ Reset to saved
+      </button>
+    </div>
+    <script is:inline>
+      (function () {
+        var el = document.getElementById('hgp-theme-switcher');
+        if (!el) return;
+        var inIframe = window.self !== window.top;
+        var isDev = el.hasAttribute('data-dev');
+        if (inIframe || isDev) el.style.display = '';
+      })();
+    </script>
   </body>
 </html>

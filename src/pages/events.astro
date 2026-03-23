@@ -158,7 +158,7 @@ const pastEventItems = await Promise.all(pastEvents.map(async event => ({
   {pastEvents.length > 0 && (
     <section class="py-16 bg-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl font-bold text-neutral-900 mb-8">Past Programs</h2>
+        <h2 id="past-programs" class="text-3xl font-bold text-neutral-900 mb-8">Past Programs</h2>
 
         <PastEventsGrid events={pastEventItems} client:load />
 

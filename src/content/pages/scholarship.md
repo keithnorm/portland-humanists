@@ -18,7 +18,7 @@ The scholarship supports students in the greater Portland area who demonstrate a
 
 Essays of 750-1,200 words are requested on specific topics (announced each January) related to Humanism and current issues. These topic prompts, as well as eligibility criteria, application requirements, submission deadlines, and award amounts, are sent to Portland Metropolitan Area public schools in Oregon's Clackamas, Multnomah and Washington counties as well as Washington's Clark county. Click **[here](https://assets.tina.io/0c2c4f85-30b3-4e76-bee2-5b40b814d2e4/2026ScholarshipApplication.pdf)** for the most recent information package.
 
-Past scholarship winners have been recognized at our Sunday programs. Click **here** for some of the most recent winning essays.
+Past scholarship winners have been recognized at our Sunday programs. Click **[here](/files/August2025.pdf)** for some of the most recent winning essays.
 
 ## Contact
 
