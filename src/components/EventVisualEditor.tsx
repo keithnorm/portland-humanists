@@ -201,18 +201,38 @@ export function EventVisualEditor({ query, variables, data, defaultZoomLink = ''
                 </div>
 
                 {effectiveZoomLink && isUpcoming && (
-                  <div className="mt-6 pt-6 border-t border-neutral-200">
-                    <button
-                      type="button"
-                      data-zoom={effectiveZoomLink}
-                      className="zoom-reveal-btn w-full inline-flex items-center justify-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors cursor-pointer"
+                  <div
+                    id="event-zoom-section"
+                    data-start={event.startTime}
+                    data-end={event.endTime}
+                    className="mt-6 pt-6 border-t border-neutral-200"
+                  >
+                    <div id="event-live-banner-live" style={{ display: 'none' }}
+                      className="mb-3 bg-red-500 text-white px-4 py-2 rounded-lg flex items-center gap-2 text-sm font-semibold">
+                      <span className="w-2 h-2 bg-white rounded-full animate-pulse inline-block flex-shrink-0" />
+                      Happening now
+                    </div>
+                    <div id="event-live-banner-soon" style={{ display: 'none' }}
+                      className="mb-3 bg-orange-500 text-white px-4 py-2 rounded-lg flex items-center gap-2 text-sm font-semibold">
+                      <span className="w-2 h-2 bg-white rounded-full animate-pulse inline-block flex-shrink-0" />
+                      <span id="event-live-banner-soon-text">Starting soon</span>
+                    </div>
+                    <a
+                      id="event-zoom-btn"
+                      data-href={effectiveZoomLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-disabled="true"
+                      style={{ pointerEvents: 'none', opacity: '0.5' }}
+                      title="Zoom link becomes active when the event is live"
+                      className="w-full inline-flex items-center justify-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
                       data-tina-field={tinaField(event, 'zoomLink')}
                     >
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
                       </svg>
                       Join via Zoom
-                    </button>
+                    </a>
                   </div>
                 )}
 

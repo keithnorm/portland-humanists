@@ -32,10 +32,45 @@ const timezone = settingsResult.data.settings.timezone ?? 'America/Los_Angeles';
     client:tina
   />
   <script>
-    document.querySelectorAll('button.zoom-reveal-btn[data-zoom]').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        window.open(this.dataset.zoom, '_blank', 'noopener,noreferrer');
-      });
-    });
+    (function () {
+      const section = document.getElementById('event-zoom-section');
+      if (!section) return;
+
+      const rawStart = (section as HTMLElement).dataset.start;
+      const rawEnd = (section as HTMLElement).dataset.end;
+      if (!rawStart || !rawEnd) return;
+
+      const startMs = new Date(rawStart.replace(' ', 'T')).getTime();
+      const endMs = new Date(rawEnd.replace(' ', 'T')).getTime();
+      if (isNaN(startMs) || isNaN(endMs)) return;
+
+      const now = Date.now();
+      const THIRTY_MIN = 30 * 60 * 1000;
+
+      function enableZoomBtn() {
+        const btn = document.getElementById('event-zoom-btn') as HTMLAnchorElement | null;
+        if (!btn) return;
+        const href = btn.dataset.href;
+        if (href) btn.setAttribute('href', href);
+        btn.style.pointerEvents = '';
+        btn.style.opacity = '';
+        btn.removeAttribute('aria-disabled');
+      }
+
+      if (now >= startMs && now <= endMs) {
+        const banner = document.getElementById('event-live-banner-live');
+        if (banner) banner.style.display = 'flex';
+        enableZoomBtn();
+      } else if (now >= startMs - THIRTY_MIN && now < startMs) {
+        const banner = document.getElementById('event-live-banner-soon');
+        if (banner) {
+          banner.style.display = 'flex';
+          const minutesLeft = Math.round((startMs - now) / 60000);
+          const textEl = document.getElementById('event-live-banner-soon-text');
+          if (textEl) textEl.textContent = `Starting in ${minutesLeft} minute${minutesLeft !== 1 ? 's' : ''}`;
+        }
+        enableZoomBtn();
+      }
+    })();
   </script>
 </BaseLayout>
