@@ -240,7 +240,7 @@ export type DocumentNode = Events | Pages | Settings | JoinPage | Homepage | Fol
 export type Events = Node & Document & {
   __typename?: 'Events';
   title: Scalars['String']['output'];
-  date: Scalars['String']['output'];
+  date?: Maybe<Scalars['String']['output']>;
   presenter: Scalars['String']['output'];
   presenterTitle?: Maybe<Scalars['String']['output']>;
   startTime: Scalars['String']['output'];
@@ -288,8 +288,8 @@ export type EventsFilter = {
   date?: InputMaybe<DatetimeFilter>;
   presenter?: InputMaybe<StringFilter>;
   presenterTitle?: InputMaybe<StringFilter>;
-  startTime?: InputMaybe<StringFilter>;
-  endTime?: InputMaybe<StringFilter>;
+  startTime?: InputMaybe<DatetimeFilter>;
+  endTime?: InputMaybe<DatetimeFilter>;
   location?: InputMaybe<StringFilter>;
   speakerRemote?: InputMaybe<BooleanFilter>;
   zoomLink?: InputMaybe<StringFilter>;
@@ -843,7 +843,7 @@ export type HomepageMutation = {
   ctaBody?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type EventsPartsFragment = { __typename: 'Events', title: string, date: string, presenter: string, presenterTitle?: string | null, startTime: string, endTime: string, location: string, speakerRemote?: boolean | null, zoomLink?: string | null, description: string, youtubeId?: string | null, vimeoId?: string | null, body?: any | null };
+export type EventsPartsFragment = { __typename: 'Events', title: string, date?: string | null, presenter: string, presenterTitle?: string | null, startTime: string, endTime: string, location: string, speakerRemote?: boolean | null, zoomLink?: string | null, description: string, youtubeId?: string | null, vimeoId?: string | null, body?: any | null };
 
 export type PagesPartsFragment = { __typename: 'Pages', title: string, description: string, pageLayout?: string | null, parent?: string | null, showInNav?: boolean | null, navOrder?: number | null, body?: any | null, contactInfo?: { __typename: 'PagesContactInfo', email?: string | null, location?: string | null, address?: string | null } | null };
 
@@ -858,7 +858,7 @@ export type EventsQueryVariables = Exact<{
 }>;
 
 
-export type EventsQuery = { __typename?: 'Query', events: { __typename: 'Events', id: string, title: string, date: string, presenter: string, presenterTitle?: string | null, startTime: string, endTime: string, location: string, speakerRemote?: boolean | null, zoomLink?: string | null, description: string, youtubeId?: string | null, vimeoId?: string | null, body?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
+export type EventsQuery = { __typename?: 'Query', events: { __typename: 'Events', id: string, title: string, date?: string | null, presenter: string, presenterTitle?: string | null, startTime: string, endTime: string, location: string, speakerRemote?: boolean | null, zoomLink?: string | null, description: string, youtubeId?: string | null, vimeoId?: string | null, body?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
 
 export type EventsConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']['input']>;
@@ -870,7 +870,7 @@ export type EventsConnectionQueryVariables = Exact<{
 }>;
 
 
-export type EventsConnectionQuery = { __typename?: 'Query', eventsConnection: { __typename?: 'EventsConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'EventsConnectionEdges', cursor: string, node?: { __typename: 'Events', id: string, title: string, date: string, presenter: string, presenterTitle?: string | null, startTime: string, endTime: string, location: string, speakerRemote?: boolean | null, zoomLink?: string | null, description: string, youtubeId?: string | null, vimeoId?: string | null, body?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
+export type EventsConnectionQuery = { __typename?: 'Query', eventsConnection: { __typename?: 'EventsConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'EventsConnectionEdges', cursor: string, node?: { __typename: 'Events', id: string, title: string, date?: string | null, presenter: string, presenterTitle?: string | null, startTime: string, endTime: string, location: string, speakerRemote?: boolean | null, zoomLink?: string | null, description: string, youtubeId?: string | null, vimeoId?: string | null, body?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
 
 export type PagesQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];

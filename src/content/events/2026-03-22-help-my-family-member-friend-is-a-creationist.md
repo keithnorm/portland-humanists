@@ -4,8 +4,8 @@ title: Help! My Family Member/Friend is a Creationist
 date: 2026-03-22T17:00:00.000Z
 presenter: Dr. Jon Peters
 presenterTitle: Retired Biology Professor and Physician
-startTime: '2026-03-22 09:45'
-endTime: '2026-03-22 11:30'
+startTime: '2026-03-22T16:45:00.000Z'
+endTime: '2026-03-22T18:30:00.000Z'
 location: Friendly House & Zoom
 description: 'Should you engage creationists in contentious discussions about evolution and origins? What are the trade-offs? Is there a productive approach? Dr. Jon Peters has spent 50 years intermittently debating creationists. As a retired biology professor and physician, he has been interested in promoting science and accurate history.'
 youtubeId: 6l2cAPWpBKs

@@ -42,15 +42,26 @@ export default defineConfig({
           filename: {
             readonly: false,
             slugify: (values) => {
-              const date = values?.date
-                ? new Date(values.date).toISOString().split("T")[0]
-                : "undated";
+              const date = values?.startTime
+                ? new Date(values.startTime as string).toISOString().split("T")[0]
+                : (values?.date ? new Date(values.date as string).toISOString().split("T")[0] : "undated");
               const slug = (values?.title ?? "program")
                 .toLowerCase()
                 .replace(/[^a-z0-9]+/g, "-")
                 .replace(/(^-|-$)/g, "");
               return `${date}-${slug}`;
             },
+          },
+          beforeSubmit: async ({ values }: { values: Record<string, unknown> }) => {
+            const start = values.startTime ? new Date(values.startTime as string) : null;
+            const end = values.endTime ? new Date(values.endTime as string) : null;
+            if (start && end && end <= start) {
+              throw new Error('End time must be after start time');
+            }
+            if (values.startTime) {
+              values.date = values.startTime;
+            }
+            return values;
           },
         },
         fields: [
@@ -63,8 +74,10 @@ export default defineConfig({
           {
             type: "datetime",
             name: "date",
-            label: "Publish Date",
-            required: true,
+            label: "date",
+            ui: {
+              component: "hidden",
+            },
           },
           {
             type: "string",
@@ -78,21 +91,21 @@ export default defineConfig({
             label: "Presenter Title",
           },
           {
-            type: "string",
+            type: "datetime",
             name: "startTime",
-            label: "Start Time",
+            label: "Start Date & Time",
             required: true,
             ui: {
-              description: "Format: YYYY-MM-DD HH:mm (e.g. 2025-03-02 10:00)",
+              description: "When the program begins (Pacific time)",
             },
           },
           {
-            type: "string",
+            type: "datetime",
             name: "endTime",
-            label: "End Time",
+            label: "End Date & Time",
             required: true,
             ui: {
-              description: "Format: YYYY-MM-DD HH:mm (e.g. 2025-03-02 12:00)",
+              description: "When the program ends — must be after start",
             },
           },
           {

@@ -3,8 +3,8 @@ title: 'To Pursue or Not to Pursue: The Complexity of Biological Science'
 date: 2026-04-12T22:46:58.633Z
 presenter: Gordon Orians
 presenterTitle: Professor Emeritus from University of Washington
-startTime: '2026-04-12 10:00'
-endTime: '2026-04-12 11:30'
+startTime: '2026-04-12T17:00:00.000Z'
+endTime: '2026-04-12T18:30:00.000Z'
 location: Friendly House & Zoom
 speakerRemote: true
 zoomLink: 'https://us02web.zoom.us/j/88034481752?pwd=xO1WTHWMqUSHoMBPXSpx9PE8oXarii.1'

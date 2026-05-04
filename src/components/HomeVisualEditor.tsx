@@ -30,12 +30,8 @@ interface Props {
 }
 
 function parseTime(startTime: string): Date | null {
-  try {
-    const date = new Date(startTime.replace(' ', 'T'));
-    return isNaN(date.getTime()) ? null : date;
-  } catch {
-    return null;
-  }
+  const date = new Date(startTime);
+  return isNaN(date.getTime()) ? null : date;
 }
 
 function formatDate(date: Date): string {
@@ -44,25 +40,21 @@ function formatDate(date: Date): string {
   }).format(date);
 }
 
-function formatTime(timeString: string): string | null {
+function formatTime(isoStr: string, tz?: string): string | null {
   try {
-    const parts = timeString.split(' ');
-    if (parts.length < 2) return null;
-    const [hours, minutes] = parts[1].split(':');
-    const hour = parseInt(hours);
-    if (isNaN(hour) || !minutes) return null;
-    const ampm = hour >= 12 ? 'PM' : 'AM';
-    return `${hour % 12 || 12}:${minutes} ${ampm}`;
+    return new Intl.DateTimeFormat('en-US', {
+      hour: 'numeric', minute: '2-digit', hour12: true,
+      timeZone: tz || 'America/Los_Angeles',
+    }).format(new Date(isoStr));
   } catch {
     return null;
   }
 }
 
-function timezoneAbbr(timeString: string, tz: string): string {
+function timezoneAbbr(isoStr: string, tz: string): string {
   try {
-    const [d, t] = timeString.split(' ');
     return new Intl.DateTimeFormat('en-US', { timeZone: tz, timeZoneName: 'short' })
-      .formatToParts(new Date(`${d}T${t}:00`))
+      .formatToParts(new Date(isoStr))
       .find(p => p.type === 'timeZoneName')?.value ?? '';
   } catch {
     return '';
@@ -291,13 +283,13 @@ export function HomeVisualEditor({ query, variables, data, upcomingEvents, recen
                         <div className="text-sm text-neutral-600">{upcomingEvent.data.presenterTitle}</div>
                       </div>
                     </div>
-                    {formatTime(upcomingEvent.data.startTime) && (
+                    {formatTime(upcomingEvent.data.startTime, timezone) && (
                       <div className="flex items-center gap-3">
                         <svg className="w-5 h-5 text-[var(--hgp-primary)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                         <span className="text-neutral-700">
-                          {formatTime(upcomingEvent.data.startTime)} - {formatTime(upcomingEvent.data.endTime)}{timezone && upcomingEvent.data.endTime ? ` ${timezoneAbbr(upcomingEvent.data.endTime, timezone)}` : ''}
+                          {formatTime(upcomingEvent.data.startTime, timezone)} - {formatTime(upcomingEvent.data.endTime, timezone)}{timezone && upcomingEvent.data.endTime ? ` ${timezoneAbbr(upcomingEvent.data.endTime, timezone)}` : ''}
                         </span>
                       </div>
                     )}

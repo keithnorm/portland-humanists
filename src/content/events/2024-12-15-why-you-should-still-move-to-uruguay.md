@@ -3,8 +3,8 @@ title: "Why You Should Still Move to Uruguay"
 date: 2024-12-15T00:00:00-08:00
 presenter: "Jeff Seward"
 presenterTitle: ""
-startTime: "2024-12-15 09:45"
-endTime: "2024-12-15 11:30"
+startTime: '2024-12-15T17:45:00.000Z'
+endTime: '2024-12-15T19:30:00.000Z'
 location: "Friendly House & Zoom"
 description: "Presentation by Jeff Seward. Jeff offers an overview of his experience in Uruguay over the last three months and then provide a post-mortem analysis of the 2024 election. Now that Trump has won, Jeff believes that Uruguay is a wonderful option. Jeff has a Ph.D from Stanford. He has had a career in public television as a political reporter, news anchor, and film producer. A retired professor in the Department of Politics and Government at Pacific University, he has presented to us many times in the past."
 vimeoId: "1040118949"

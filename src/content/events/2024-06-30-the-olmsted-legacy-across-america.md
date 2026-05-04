@@ -3,8 +3,8 @@ title: "The Olmsted Legacy Across America"
 date: 2024-06-30T00:00:00-07:00
 presenter: "Laurence Cotton"
 presenterTitle: ""
-startTime: "2024-06-30 09:45"
-endTime: "2024-06-30 11:30"
+startTime: '2024-06-30T16:45:00.000Z'
+endTime: '2024-06-30T18:30:00.000Z'
 location: "Friendly House & Zoom"
 description: "Drawing upon the content of his PBS Special “Frederick Law Olmsted: Designing America,” Laurence Cotton will touch on the key elements of Olmsted’s life and legacy and give a tour of selected Olmsted landscapes across America, with something of a focus on the Pacific Northwest."
 vimeoId: "972683326"

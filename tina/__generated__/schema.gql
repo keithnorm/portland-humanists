@@ -101,7 +101,7 @@ union DocumentNode = Events | Pages | Settings | JoinPage | Homepage | Folder
 
 type Events implements Node & Document {
   title: String!
-  date: String!
+  date: String
   presenter: String!
   presenterTitle: String
   startTime: String!
@@ -149,8 +149,8 @@ input EventsFilter {
   date: DatetimeFilter
   presenter: StringFilter
   presenterTitle: StringFilter
-  startTime: StringFilter
-  endTime: StringFilter
+  startTime: DatetimeFilter
+  endTime: DatetimeFilter
   location: StringFilter
   speakerRemote: BooleanFilter
   zoomLink: StringFilter

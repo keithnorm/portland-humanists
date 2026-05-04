@@ -3,8 +3,8 @@ title: "Bloodworks Northwest"
 date: 2025-02-09T00:00:00-08:00
 presenter: "Lauren Reagan"
 presenterTitle: ""
-startTime: "2025-02-09 09:45"
-endTime: "2025-02-09 11:30"
+startTime: '2025-02-09T17:45:00.000Z'
+endTime: '2025-02-09T19:30:00.000Z'
 location: "Friendly House & Zoom"
 description: "Presentation at Friendly House by Lauren Reagan focusing on the critical importance of blood donation and its life-saving impact on healthcare and in emergency situations, surgeries, and cancer treatments. Lauren Reagan is a passionate Community Engagement Liaison with Bloodworks Northwest."
 vimeoId: "1055066180"

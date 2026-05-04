@@ -14,18 +14,15 @@ const upcomingEvents = allEvents
   .filter(event => event.data.startTime && event.data.endTime && parseInTimezone(event.data.endTime, timezone) > now)
   .sort((a, b) => parseInTimezone(a.data.startTime, timezone).getTime() - parseInTimezone(b.data.startTime, timezone).getTime());
 
-function formatTime(timeString: string): string {
-  const [hours, minutes] = timeString.split(' ')[1].split(':');
-  const hour = parseInt(hours);
-  const ampm = hour >= 12 ? 'PM' : 'AM';
-  const displayHour = hour % 12 || 12;
-  return `${displayHour}:${minutes} ${ampm}`;
+function formatTime(isoStr: string, tz: string): string {
+  return new Intl.DateTimeFormat('en-US', {
+    hour: 'numeric', minute: '2-digit', hour12: true, timeZone: tz,
+  }).format(new Date(isoStr));
 }
 
-function timezoneAbbr(timeString: string, tz: string): string {
-  const [d, t] = timeString.split(' ');
+function timezoneAbbr(isoStr: string, tz: string): string {
   return new Intl.DateTimeFormat('en-US', { timeZone: tz, timeZoneName: 'short' })
-    .formatToParts(new Date(`${d}T${t}:00`))
+    .formatToParts(new Date(isoStr))
     .find(p => p.type === 'timeZoneName')?.value ?? '';
 }
 ---
@@ -98,7 +95,7 @@ function timezoneAbbr(timeString: string, tz: string): string {
                       <svg class="w-5 h-5 text-[var(--hgp-primary)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
-                      <span>{formatTime(event.data.startTime)} - {formatTime(event.data.endTime)} {timezoneAbbr(event.data.endTime, timezone)}</span>
+                      <span>{formatTime(event.data.startTime, timezone)} - {formatTime(event.data.endTime, timezone)} {timezoneAbbr(event.data.endTime, timezone)}</span>
                     </div>
                     <div class="flex items-center gap-3 text-neutral-700">
                       <svg class="w-5 h-5 text-[var(--hgp-primary)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -48,12 +48,8 @@ function LocationText({ location, zoomLink }: { location: string; zoomLink?: str
 }
 
 function parseStartTime(startTime: string): Date | null {
-  try {
-    const date = new Date(startTime.replace(' ', 'T'));
-    return isNaN(date.getTime()) ? null : date;
-  } catch {
-    return null;
-  }
+  const date = new Date(startTime);
+  return isNaN(date.getTime()) ? null : date;
 }
 
 function formatDate(date: Date): string {
@@ -65,26 +61,21 @@ function formatDate(date: Date): string {
   }).format(date);
 }
 
-function formatTime(timeString: string): string | null {
+function formatTime(isoStr: string, tz?: string): string | null {
   try {
-    const parts = timeString.split(' ');
-    if (parts.length < 2) return null;
-    const [hours, minutes] = parts[1].split(':');
-    const hour = parseInt(hours);
-    if (isNaN(hour) || !minutes) return null;
-    const ampm = hour >= 12 ? 'PM' : 'AM';
-    const displayHour = hour % 12 || 12;
-    return `${displayHour}:${minutes} ${ampm}`;
+    return new Intl.DateTimeFormat('en-US', {
+      hour: 'numeric', minute: '2-digit', hour12: true,
+      timeZone: tz || 'America/Los_Angeles',
+    }).format(new Date(isoStr));
   } catch {
     return null;
   }
 }
 
-function timezoneAbbr(timeString: string, tz: string): string {
+function timezoneAbbr(isoStr: string, tz: string): string {
   try {
-    const [d, t] = timeString.split(' ');
     return new Intl.DateTimeFormat('en-US', { timeZone: tz, timeZoneName: 'short' })
-      .formatToParts(new Date(`${d}T${t}:00`))
+      .formatToParts(new Date(isoStr))
       .find(p => p.type === 'timeZoneName')?.value ?? '';
   } catch {
     return '';
@@ -96,7 +87,7 @@ export function EventVisualEditor({ query, variables, data, defaultZoomLink = ''
   const event = tinaData.events;
 
   const eventDate = event.startTime ? parseStartTime(event.startTime) : null;
-  const isUpcoming = event.endTime ? new Date(event.endTime.replace(' ', 'T')) > new Date() : false;
+  const isUpcoming = event.endTime ? new Date(event.endTime) > new Date() : false;
   const effectiveZoomLink = event.zoomLink || defaultZoomLink || '';
 
   return (
@@ -128,7 +119,22 @@ export function EventVisualEditor({ query, variables, data, defaultZoomLink = ''
           <div className="grid md:grid-cols-3 gap-8 mb-12">
             {/* Sidebar */}
             <div className="md:col-span-1">
-              <div className="bg-neutral-50 rounded-xl p-6 sticky top-24">
+              <div
+                id="event-details-card"
+                data-start={event.startTime ?? undefined}
+                data-end={event.endTime ?? undefined}
+                className="bg-neutral-50 rounded-xl p-6 sticky top-24"
+              >
+                <div id="event-live-banner-live" style={{ display: 'none' }}
+                  className="mb-4 bg-red-500 text-white px-4 py-2 rounded-lg flex items-center gap-2 text-sm font-semibold">
+                  <span className="w-2 h-2 bg-white rounded-full animate-pulse inline-block flex-shrink-0" />
+                  Happening now
+                </div>
+                <div id="event-live-banner-soon" style={{ display: 'none' }}
+                  className="mb-4 bg-orange-500 text-white px-4 py-2 rounded-lg flex items-center gap-2 text-sm font-semibold">
+                  <span className="w-2 h-2 bg-white rounded-full animate-pulse inline-block flex-shrink-0" />
+                  <span id="event-live-banner-soon-text">Starting soon</span>
+                </div>
                 <h2 className="text-xl font-bold text-neutral-900 mb-4">Event Details</h2>
                 <div className="space-y-4">
                   {eventDate && (
@@ -152,7 +158,7 @@ export function EventVisualEditor({ query, variables, data, defaultZoomLink = ''
                         <span className="font-medium">Time</span>
                       </div>
                       <p className="text-neutral-900 ml-7" data-tina-field={tinaField(event, 'startTime')}>
-                        {formatTime(event.startTime)} - {formatTime(event.endTime)}{timezone && event.endTime ? ` ${timezoneAbbr(event.endTime, timezone)}` : ''}
+                        {formatTime(event.startTime, timezone)} - {formatTime(event.endTime, timezone)}{timezone && event.endTime ? ` ${timezoneAbbr(event.endTime, timezone)}` : ''}
                       </p>
                     </div>
                   )}
@@ -203,20 +209,8 @@ export function EventVisualEditor({ query, variables, data, defaultZoomLink = ''
                 {effectiveZoomLink && isUpcoming && (
                   <div
                     id="event-zoom-section"
-                    data-start={event.startTime}
-                    data-end={event.endTime}
                     className="mt-6 pt-6 border-t border-neutral-200"
                   >
-                    <div id="event-live-banner-live" style={{ display: 'none' }}
-                      className="mb-3 bg-red-500 text-white px-4 py-2 rounded-lg flex items-center gap-2 text-sm font-semibold">
-                      <span className="w-2 h-2 bg-white rounded-full animate-pulse inline-block flex-shrink-0" />
-                      Happening now
-                    </div>
-                    <div id="event-live-banner-soon" style={{ display: 'none' }}
-                      className="mb-3 bg-orange-500 text-white px-4 py-2 rounded-lg flex items-center gap-2 text-sm font-semibold">
-                      <span className="w-2 h-2 bg-white rounded-full animate-pulse inline-block flex-shrink-0" />
-                      <span id="event-live-banner-soon-text">Starting soon</span>
-                    </div>
                     <a
                       id="event-zoom-btn"
                       data-href={effectiveZoomLink}
