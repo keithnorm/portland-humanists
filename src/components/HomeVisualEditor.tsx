@@ -9,8 +9,8 @@ interface EventItem {
     title: string;
     presenter: string;
     presenterTitle: string;
-    startTime: string;
-    endTime: string;
+    startTime: Date | string;
+    endTime: Date | string;
     location: string;
     zoomLink?: string;
     youtubeId?: string;
@@ -29,8 +29,12 @@ interface Props {
   timezone?: string;
 }
 
-function parseTime(startTime: string): Date | null {
-  const date = new Date(startTime);
+function toDate(v: Date | string): Date {
+  return v instanceof Date ? v : new Date(v);
+}
+
+function parseTime(startTime: Date | string): Date | null {
+  const date = toDate(startTime);
   return isNaN(date.getTime()) ? null : date;
 }
 
@@ -40,21 +44,21 @@ function formatDate(date: Date): string {
   }).format(date);
 }
 
-function formatTime(isoStr: string, tz?: string): string | null {
+function formatTime(v: Date | string, tz?: string): string | null {
   try {
     return new Intl.DateTimeFormat('en-US', {
       hour: 'numeric', minute: '2-digit', hour12: true,
       timeZone: tz || 'America/Los_Angeles',
-    }).format(new Date(isoStr));
+    }).format(toDate(v));
   } catch {
     return null;
   }
 }
 
-function timezoneAbbr(isoStr: string, tz: string): string {
+function timezoneAbbr(v: Date | string, tz: string): string {
   try {
     return new Intl.DateTimeFormat('en-US', { timeZone: tz, timeZoneName: 'short' })
-      .formatToParts(new Date(isoStr))
+      .formatToParts(toDate(v))
       .find(p => p.type === 'timeZoneName')?.value ?? '';
   } catch {
     return '';

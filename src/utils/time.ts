@@ -1,8 +1,7 @@
 /**
- * Parse an ISO datetime string into a Date.
- * The timezone parameter is kept for API compatibility but is not needed —
- * ISO strings already encode UTC offset.
+ * Accepts either an ISO string or a Date (Astro coerces datetime frontmatter fields to Date).
+ * The timezone parameter is kept for API compatibility.
  */
-export function parseInTimezone(dateTimeStr: string, _timezone?: string): Date {
-  return new Date(dateTimeStr);
+export function parseInTimezone(dateTimeStr: Date | string, _timezone?: string): Date {
+  return dateTimeStr instanceof Date ? dateTimeStr : new Date(dateTimeStr);
 }

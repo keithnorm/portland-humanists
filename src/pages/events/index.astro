@@ -14,15 +14,19 @@ const upcomingEvents = allEvents
   .filter(event => event.data.startTime && event.data.endTime && parseInTimezone(event.data.endTime, timezone) > now)
   .sort((a, b) => parseInTimezone(a.data.startTime, timezone).getTime() - parseInTimezone(b.data.startTime, timezone).getTime());
 
-function formatTime(isoStr: string, tz: string): string {
-  return new Intl.DateTimeFormat('en-US', {
-    hour: 'numeric', minute: '2-digit', hour12: true, timeZone: tz,
-  }).format(new Date(isoStr));
+function toDate(v: Date | string): Date {
+  return v instanceof Date ? v : new Date(v);
 }
 
-function timezoneAbbr(isoStr: string, tz: string): string {
+function formatTime(v: Date | string, tz: string): string {
+  return new Intl.DateTimeFormat('en-US', {
+    hour: 'numeric', minute: '2-digit', hour12: true, timeZone: tz,
+  }).format(toDate(v));
+}
+
+function timezoneAbbr(v: Date | string, tz: string): string {
   return new Intl.DateTimeFormat('en-US', { timeZone: tz, timeZoneName: 'short' })
-    .formatToParts(new Date(isoStr))
+    .formatToParts(toDate(v))
     .find(p => p.type === 'timeZoneName')?.value ?? '';
 }
 ---

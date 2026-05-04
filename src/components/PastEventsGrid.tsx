@@ -10,7 +10,7 @@ const MONTHS = [
 export type PastEventItem = {
   slug: string;
   title: string;
-  startTime: string;
+  startTime: Date | string;
   presenter: string;
   description: string;
   youtubeId?: string;
@@ -18,13 +18,13 @@ export type PastEventItem = {
   vimeoThumbnail?: string;
 };
 
-function parseDate(startTime: string) {
-  // Normalize "YYYY-MM-DD H:MM" → "YYYY-MM-DDTHH:MM" so Node strict ISO parsing works
+function parseDate(startTime: Date | string): Date {
+  if (startTime instanceof Date) return startTime;
   const normalized = startTime.replace(' ', 'T').replace(/T(\d):/, 'T0$1:');
   return new Date(normalized);
 }
 
-function formatDate(startTime: string): string {
+function formatDate(startTime: Date | string): string {
   return new Intl.DateTimeFormat('en-US', {
     weekday: 'long',
     year: 'numeric',
