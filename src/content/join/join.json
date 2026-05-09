@@ -65,7 +65,7 @@
       "label": "City",
       "fieldName": "city",
       "fieldType": "text",
-      "required": false,
+      "required": true,
       "placeholder": "City"
     },
     {
