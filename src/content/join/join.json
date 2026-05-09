@@ -85,7 +85,8 @@
     {
       "label": "Joint First Name",
       "fieldName": "jointFirstName",
-      "fieldType": "text"
+      "fieldType": "text",
+      "placeholder": "(if joint membership)"
     },
     {
       "label": "Joint Last Name",
