@@ -58,7 +58,7 @@
       "label": "Street Address",
       "fieldName": "address",
       "fieldType": "text",
-      "required": false,
+      "required": true,
       "placeholder": "Street Address"
     },
     {
