@@ -81,6 +81,11 @@
       "fieldType": "text",
       "required": true,
       "placeholder": "ZIP"
+    },
+    {
+      "label": "Joint First Name",
+      "fieldName": "jointFirstName",
+      "fieldType": "text"
     }
   ],
   "philosophyText": "I am in general agreement with the philosophy of secular humanism as expressed in Humanist Manifesto III, and agree to be supportive of the organization.",
