@@ -93,6 +93,12 @@
       "fieldName": "jointLastName",
       "fieldType": "text",
       "placeholder": "(if joint membership)"
+    },
+    {
+      "label": "Joint Phone Number",
+      "fieldName": "jointPhoneNumber",
+      "fieldType": "tel",
+      "placeholder": "(if joint membership, optional)"
     }
   ],
   "philosophyText": "I am in general agreement with the philosophy of secular humanism as expressed in Humanist Manifesto III, and agree to be supportive of the organization.",
