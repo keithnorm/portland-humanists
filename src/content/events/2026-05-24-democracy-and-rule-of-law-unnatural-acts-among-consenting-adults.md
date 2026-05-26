@@ -1,5 +1,5 @@
 ---
-title: 'Democracy and Rule of Law: "Unnatural Acts" Among Consenting Adults'
+title: 'Democracy and The Rule of Law: "Unnatural Acts" Among Consenting Adults'
 date: 2026-05-24T17:00:56.637Z
 presenter: Jeff Seward
 presenterTitle: 'Professor Emeritus, Pacific University'
