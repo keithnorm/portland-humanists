@@ -8,6 +8,7 @@ endTime: 2026-05-24T18:30:28.012Z
 location: Friendly House & Zoom
 zoomLink: 'https://us02web.zoom.us/j/85898636656?pwd=hNAzvhS7tbyXbc8Jj18XVc6cIYfqsC.1'
 description: 'Democracy and the rule of law as we know them, although highly desirable, are highly artificial arrangements of habits and complex institutions designed to avoid social arrangements that are often tyrannical or corrupt. They are not automatically maintained and can come undone if systematically neglected or assaulted, and it may be a long and complicated task to reestablish them, with no guarantees. The Trump era may be doing damage that will be extremely difficult to fix. Jeff Seward has been a University Professor at Pacific University and UT San Antonio, as well as prize-winning documentary producer and reporter.'
+youtubeId: bOJnJInXOD0
 ---
 
 Democracy and the rule of law as we know them, although highly desirable, are highly artificial arrangements of habits and complex institutions designed to avoid social arrangements that are often tyrannical or corrupt. They are not automatically maintained and can come undone if systematically neglected or assaulted, and it may be a long and complicated task to reestablish them, with no guarantees. The Trump era may be doing damage that will be extremely difficult to fix. Jeff Seward has been a University Professor at Pacific University and UT San Antonio, as well as prize-winning documentary producer and reporter.
