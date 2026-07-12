@@ -52,19 +52,61 @@ Dev uses gitignored `.data/*.json` for everything (directory, signups,
 auth bridge); `/api/members/login` is the dev twin of the bridge function.
 Sign up for a reading, reload, cancel — state persists in `.data/signups.json`.
 
-## Deploying for real (later)
+## Preview deployment (done July 2026)
 
-1. Create a Netlify site from this branch (a separate site, not the live one,
-   for the committee preview). Copy the Tina env vars from the live site.
-2. Enable **Identity** on the site; set registration to **Invite only**.
-3. Load the private data into Blobs from your machine:
+Keith's fork (`origin/main`) auto-deploys to a preview Netlify site with
+Identity enabled and Blobs loaded. Verified end-to-end, including old-password
+login.
+
+## Going live: runbook
+
+When the committee approves, moving to the production site
+(portlandhumanists.org, deploys from the `hgp` remote):
+
+1. **Fresh data**: download a new **Live**-environment DB backup from
+   Pantheon (dashboard.pantheon.io → Backups; the `dev` environment is a
+   stale clone — do not use it), then:
    ```
-   netlify blobs:set members-data directory   --input .data/directory.json
-   netlify blobs:set members-data auth-bridge --input .data/auth-bridge.json
+   python3 scripts/extract-members-from-dump.py <dump.sql> --status active
+   python3 scripts/extract-auth-from-dump.py <dump.sql>
+   python3 scripts/extract-content-from-dump.py <dump.sql>
    ```
-4. Tell members: log in with your old username and password. Invite the
-   ~50 active members who never had a website account from the dashboard.
-5. Never commit member data to the repo — it is public.
+2. **Merge the code**: push the prototype history to the live repo
+   (`git push hgp main`) — this ends the deliberate origin/hgp divergence.
+   Netlify rebuilds the live site; the `/members` routes and the
+   `auth-bridge` function deploy with it. No env-var changes needed
+   (Tina vars already set; Blobs/functions need none).
+3. **Netlify dashboard, live site**:
+   - Enable **Identity**; set registration to **Invite only**.
+   - Optional: enable Google as an external provider (gives members
+     Google-account 2FA, relevant to the RFP's 2FA line).
+   - Identity emails send from no-reply@netlify.com (custom sender/templates
+     require the Pro plan; fine to skip).
+4. **Load Blobs into the LIVE site** (link the CLI to the live site first —
+   `npx netlify-cli unlink && npx netlify-cli link`):
+   ```
+   npx netlify-cli blobs:set members-data directory   --input .data/directory.json
+   npx netlify-cli blobs:set members-data auth-bridge --input .data/auth-bridge.json
+   npx netlify-cli blobs:set members-data videos      --input .data/videos.json
+   npx netlify-cli blobs:set members-data documents   --input .data/documents.json
+   ```
+5. **Vimeo**: add `portlandhumanists.org` (and `www.`) to the allowed embed
+   domains in the HGP Vimeo account settings, or private videos won't play.
+6. **Test before announcing**: Keith logs in with old credentials; one
+   regular (non-admin) member does the same; make a reading signup; check
+   the auth-bridge function log for errors.
+7. **Announce**: members log in with their old members-site username/email
+   and password. ~56 active members never had a website login — invite them
+   from the Identity dashboard ("Forgot your password? / Have an invite?"
+   covers both flows on the login page).
+8. **Afterwards**: decide the fate of members.portlandhumanists.org
+   (currently a DNS CNAME to Pantheon `live-hgp7`) — e.g. repoint it to
+   redirect to /members once content migration is complete. The Pantheon
+   DB dump and site mirror are archived locally in `hgp-archive/`
+   (gitignored). The preview site can be kept as a staging environment.
+
+Reminder: never commit member data — both repos are public. All private data
+lives in `.data/` (gitignored) locally and Netlify Blobs in production.
 
 ## Notes / open questions
 
