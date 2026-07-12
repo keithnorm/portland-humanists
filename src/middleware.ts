@@ -1,7 +1,7 @@
 import { defineMiddleware } from 'astro:middleware';
 import { getUserFromRequest } from './lib/identity';
 
-const PUBLIC_MEMBER_PATHS = new Set(['/members/login', '/api/members/session']);
+const PUBLIC_MEMBER_PATHS = new Set(['/members/login', '/api/members/session', '/api/members/login']);
 
 export const onRequest = defineMiddleware(async (context, next) => {
   const path = context.url.pathname.replace(/\/$/, '') || '/';

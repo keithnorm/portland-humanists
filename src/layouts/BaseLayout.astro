@@ -31,6 +31,17 @@ const customBaseColor = (settings as any).customBaseColor ?? '';
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <!-- Netlify Identity emails (invite/recovery/confirmation) link to the site
+         root with a token fragment; route them to the members login page,
+         where the Identity widget picks the token up. -->
+    <script is:inline>
+      (function () {
+        if (/(invite_token|recovery_token|confirmation_token|email_change_token)=/.test(location.hash)
+            && location.pathname !== '/members/login') {
+          location.replace('/members/login' + location.hash);
+        }
+      })();
+    </script>
     <!-- Theme preview: apply sessionStorage/query-param override before first paint -->
     <script is:inline>
       (function () {

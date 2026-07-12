@@ -21,23 +21,50 @@ list, reading sign-up sheets, and members-only videos. Lives on the
 - `/members/readings` — sign-up sheet for readings at upcoming Sunday programs (one reader per program, self-service cancel)
 - `/members/videos` — members-only recordings
 
+## Login bridge: old passwords keep working
+
+Members log in with their **old Drupal site username/email and password**.
+`netlify/functions/auth-bridge.ts` implements lazy migration:
+
+1. Try Netlify Identity directly (already-migrated members).
+2. Otherwise verify the password against the Drupal 7 hash
+   (`src/lib/drupalHash.ts`, a port of Drupal's `password.inc`) stored in the
+   Blobs `auth-bridge` key — extracted from the Pantheon DB dump by
+   `scripts/extract-auth-from-dump.py`.
+3. On a match, create the Identity account with that same password via the
+   GoTrue admin API and log in. Drupal is out of the loop from then on.
+
+Members without an old website account (or who forget their password) use the
+"Forgot your password? / Have an invite?" flow instead. The bridge function is
+v1-style on purpose — only v1 handlers receive the Identity admin token.
+
 ## Trying it locally
 
 ```
-npm run dev   # then visit /members — use the orange "dev-only login"
+# One-time seeding from the Pantheon DB dump:
+python3 scripts/extract-members-from-dump.py <dump.sql> --status active
+python3 scripts/extract-auth-from-dump.py <dump.sql>
+
+npm run dev   # visit /members, log in with real old-site credentials
 ```
 
-Data reads/writes fall back to gitignored `.data/*.json` locally; seed data is
-fake. Sign up for a reading, reload, cancel — state persists in `.data/signups.json`.
+Dev uses gitignored `.data/*.json` for everything (directory, signups,
+auth bridge); `/api/members/login` is the dev twin of the bridge function.
+Sign up for a reading, reload, cancel — state persists in `.data/signups.json`.
 
 ## Deploying for real (later)
 
-1. Enable **Identity** on the Netlify site; set registration to **Invite only**.
-2. Invite members by email from the Netlify dashboard (Site → Identity).
-3. Netlify Blobs needs no setup; the `members-data` store is created on first write.
-4. Load real data into Blobs (directory, videos) with a local import script —
-   e.g. scraped from the old members site with an authenticated session. Never
-   commit member data to the repo.
+1. Create a Netlify site from this branch (a separate site, not the live one,
+   for the committee preview). Copy the Tina env vars from the live site.
+2. Enable **Identity** on the site; set registration to **Invite only**.
+3. Load the private data into Blobs from your machine:
+   ```
+   netlify blobs:set members-data directory   --input .data/directory.json
+   netlify blobs:set members-data auth-bridge --input .data/auth-bridge.json
+   ```
+4. Tell members: log in with your old username and password. Invite the
+   ~50 active members who never had a website account from the dashboard.
+5. Never commit member data to the repo — it is public.
 
 ## Notes / open questions
 

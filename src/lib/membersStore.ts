@@ -48,6 +48,7 @@ const SEEDS: Record<string, unknown> = {
     { id: 'm3', name: 'Zora Neale Hurston', email: 'zora@example.org', city: 'Portland', memberSince: '2020', interests: 'Anthropology, literature' },
   ] satisfies MemberRecord[],
   signups: [] satisfies ReadingSignup[],
+  'auth-bridge': [],
   videos: [
     { id: 'v1', title: 'Sample Members-Only Recording', date: '2026-06-14', youtubeId: 'lB6kdha6pp4', description: 'Placeholder — replace with an unlisted video. Real entries are stored in Netlify Blobs, not the public repo.' },
   ] satisfies VideoRecord[],

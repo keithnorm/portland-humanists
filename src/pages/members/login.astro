@@ -7,8 +7,6 @@ import { getUserFromRequest } from '../../lib/identity';
 const user = await getUserFromRequest(Astro.request, Astro.url.origin);
 const redirectTo = Astro.url.searchParams.get('redirect') || '/members';
 if (user) return Astro.redirect(redirectTo);
-
-const isDev = import.meta.env.DEV;
 ---
 
 <BaseLayout title="Member Login - Humanists of Greater Portland">
@@ -20,32 +18,32 @@ const isDev = import.meta.env.DEV;
   </section>
 
   <section class="py-16 bg-white">
-    <div class="max-w-md mx-auto px-4 text-center">
-      <button
-        id="login-btn"
-        data-redirect={redirectTo}
-        class="w-full bg-[var(--hgp-primary)] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[var(--hgp-mid)] transition-colors"
-      >
-        Log in
-      </button>
-      <p class="text-sm text-neutral-500 mt-4">
-        Membership accounts are by invitation. If you're an HGP member and don't have a login yet,
-        contact us at <a href="mailto:info@portlandhumanists.org" class="text-[var(--hgp-primary)] hover:underline">info@portlandhumanists.org</a>.
-      </p>
-      <p id="login-status" class="text-sm text-neutral-500 mt-4 hidden">Signing you in…</p>
+    <div class="max-w-md mx-auto px-4">
+      <form id="login-form" data-redirect={redirectTo}>
+        <label class="block text-sm font-medium text-neutral-700 mb-1" for="login">Username or email</label>
+        <input id="login" name="login" autocomplete="username" required
+          class="w-full border border-neutral-300 rounded-lg px-3 py-2.5 mb-4" />
+        <label class="block text-sm font-medium text-neutral-700 mb-1" for="password">Password</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required
+          class="w-full border border-neutral-300 rounded-lg px-3 py-2.5 mb-2" />
+        <p class="text-sm text-neutral-500 mb-4">
+          Same username (or email) and password you used on the old members site.
+        </p>
+        <button type="submit" id="login-submit"
+          class="w-full bg-[var(--hgp-primary)] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[var(--hgp-mid)] transition-colors">
+          Log in
+        </button>
+        <p id="login-error" class="hidden text-sm text-red-600 mt-3"></p>
+      </form>
 
-      {isDev && (
-        <form id="dev-login" class="mt-10 border-t border-dashed border-neutral-300 pt-6 text-left">
-          <p class="text-xs font-semibold uppercase tracking-wider text-orange-600 mb-3">Dev-only login (not in production)</p>
-          <label class="block text-sm text-neutral-600 mb-1" for="dev-name">Name</label>
-          <input id="dev-name" class="w-full border border-neutral-300 rounded-lg px-3 py-2 mb-3" value="Pat Member" />
-          <label class="block text-sm text-neutral-600 mb-1" for="dev-email">Email</label>
-          <input id="dev-email" class="w-full border border-neutral-300 rounded-lg px-3 py-2 mb-3" value="pat@example.org" />
-          <button type="submit" class="w-full border-2 border-orange-500 text-orange-600 px-4 py-2 rounded-lg font-semibold hover:bg-orange-50">
-            Continue as dev member
-          </button>
-        </form>
-      )}
+      <div class="border-t border-neutral-200 mt-8 pt-6 text-center">
+        <button id="recovery-btn" class="text-[var(--hgp-primary)] hover:underline text-sm">
+          Forgot your password? / Have an invite?
+        </button>
+        <p class="text-sm text-neutral-500 mt-3">
+          Need help? Contact <a href="mailto:info@portlandhumanists.org" class="text-[var(--hgp-primary)] hover:underline">info@portlandhumanists.org</a>.
+        </p>
+      </div>
     </div>
   </section>
 </BaseLayout>
@@ -53,47 +51,68 @@ const isDev = import.meta.env.DEV;
 <script>
   import netlifyIdentity from 'netlify-identity-widget';
 
-  const btn = document.getElementById('login-btn') as HTMLButtonElement;
-  const status = document.getElementById('login-status');
-  const redirectTo = btn?.dataset.redirect || '/members';
+  const form = document.getElementById('login-form') as HTMLFormElement;
+  const errorEl = document.getElementById('login-error')!;
+  const submitBtn = document.getElementById('login-submit') as HTMLButtonElement;
+  const redirectTo = form?.dataset.redirect || '/members';
+
+  function showError(msg: string) {
+    errorEl.textContent = msg;
+    errorEl.classList.remove('hidden');
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Log in';
+  }
 
   async function establishSession(token: string) {
-    status?.classList.remove('hidden');
     const res = await fetch('/api/members/session', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ token }),
     });
-    if (res.ok) {
-      window.location.href = redirectTo;
-    } else {
-      status?.classList.add('hidden');
-      alert('Login failed — please try again.');
-    }
+    if (res.ok) window.location.href = redirectTo;
+    else showError('Login succeeded but the session could not be created — please try again.');
   }
 
-  // PUBLIC_IDENTITY_API_URL lets local dev talk to the real site's Identity
-  // instance; on the deployed site the widget auto-detects same-origin.
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    errorEl.classList.add('hidden');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Logging in…';
+
+    const body = JSON.stringify({
+      login: (document.getElementById('login') as HTMLInputElement).value,
+      password: (document.getElementById('password') as HTMLInputElement).value,
+    });
+    const headers = { 'Content-Type': 'application/json' };
+
+    try {
+      if (import.meta.env.DEV) {
+        // Dev twin validates old-site credentials and sets the cookie itself.
+        const res = await fetch('/api/members/login', { method: 'POST', headers, body });
+        if (res.ok) window.location.href = redirectTo;
+        else showError((await res.json()).error ?? 'Invalid login or password');
+      } else {
+        // Production: bridge function returns Identity tokens.
+        const res = await fetch('/.netlify/functions/auth-bridge', { method: 'POST', headers, body });
+        if (res.ok) {
+          const tokens = await res.json();
+          await establishSession(tokens.access_token);
+        } else {
+          showError((await res.json().catch(() => ({}))).error ?? 'Invalid login or password');
+        }
+      }
+    } catch {
+      showError('Something went wrong — please try again.');
+    }
+  });
+
+  // Identity widget handles recovery emails, invites, and email confirmations
+  // (their token fragments land on this page via the BaseLayout redirect).
   const apiUrl = import.meta.env.PUBLIC_IDENTITY_API_URL as string | undefined;
   netlifyIdentity.init(apiUrl ? { APIUrl: apiUrl } : undefined);
-
   netlifyIdentity.on('login', async (user) => {
     netlifyIdentity.close();
     await establishSession(await user.jwt());
   });
-
-  // Already logged in to Identity but session cookie expired → silent refresh.
-  const current = netlifyIdentity.currentUser();
-  if (current) {
-    current.jwt().then(establishSession).catch(() => netlifyIdentity.open('login'));
-  }
-
-  btn?.addEventListener('click', () => netlifyIdentity.open('login'));
-
-  document.getElementById('dev-login')?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const name = (document.getElementById('dev-name') as HTMLInputElement).value || 'Dev Member';
-    const email = (document.getElementById('dev-email') as HTMLInputElement).value || 'dev@example.org';
-    await establishSession(`dev:${name}:${email}`);
-  });
+  document.getElementById('recovery-btn')?.addEventListener('click', () => netlifyIdentity.open());
 </script>
