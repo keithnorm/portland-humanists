@@ -8,14 +8,21 @@ const MONTHS = [
 ];
 
 export type PastEventItem = {
-  slug: string;
+  /** Omit for items with no event detail page (e.g. archive videos). */
+  slug?: string;
   title: string;
   startTime: Date | string;
-  presenter: string;
-  description: string;
+  presenter?: string;
+  description?: string;
   youtubeId?: string;
   vimeoId?: string;
+  vimeoHash?: string;
   vimeoThumbnail?: string;
+  /** Small label rendered on the thumbnail (e.g. "Members only"). */
+  badge?: string;
+  /** Play inline via embed instead of linking out — required for private
+      Vimeo videos, which only play when embedded on an allowed domain. */
+  embed?: boolean;
 };
 
 function parseDate(startTime: Date | string): Date {
@@ -34,18 +41,35 @@ function formatDate(startTime: Date | string): string {
 }
 
 function EventCard({ event }: { event: PastEventItem }) {
+  const [playing, setPlaying] = useState(false);
   const videoHref = event.youtubeId
     ? `https://youtube.com/watch?v=${event.youtubeId}`
     : `https://vimeo.com/${event.vimeoId}`;
+  const embedSrc = event.vimeoId
+    ? `https://player.vimeo.com/video/${event.vimeoId}?${event.vimeoHash ? `h=${event.vimeoHash}&` : ''}autoplay=1`
+    : `https://www.youtube.com/embed/${event.youtubeId}?autoplay=1`;
+
+  const thumbnailProps = event.embed
+    ? { as: 'button' as const, onClick: () => setPlaying(true) }
+    : { as: 'a' as const, href: videoHref, target: '_blank', rel: 'noopener noreferrer' };
+  const Thumb = thumbnailProps.as;
 
   return (
     <div className="bg-neutral-50 rounded-xl overflow-hidden hover:shadow-lg transition-shadow">
-      {(event.youtubeId || event.vimeoId) && (
-        <a
-          href={videoHref}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block aspect-video bg-neutral-200 relative group cursor-pointer"
+      {(event.youtubeId || event.vimeoId) && (playing ? (
+        <iframe
+          src={embedSrc}
+          title={event.title}
+          allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
+          allowFullScreen
+          className="block w-full aspect-video bg-neutral-900"
+        />
+      ) : (
+        <Thumb
+          {...(thumbnailProps.as === 'a'
+            ? { href: thumbnailProps.href, target: thumbnailProps.target, rel: thumbnailProps.rel }
+            : { onClick: thumbnailProps.onClick, type: 'button' })}
+          className="block w-full aspect-video bg-neutral-200 relative group cursor-pointer"
         >
           {event.youtubeId ? (
             <img
@@ -73,41 +97,65 @@ function EventCard({ event }: { event: PastEventItem }) {
               </svg>
             </div>
           </div>
-        </a>
-      )}
+          {event.badge && (
+            <span className="absolute top-2 right-2 bg-neutral-900/80 text-white text-xs font-semibold px-2 py-1 rounded">
+              {event.badge}
+            </span>
+          )}
+        </Thumb>
+      ))}
 
       <div className="p-6">
         <div className="text-sm text-[var(--hgp-primary)] font-semibold mb-2">
           {formatDate(event.startTime)}
         </div>
-        <a href={`/events/${event.slug}`}>
-          <h3 className="text-xl font-bold text-neutral-900 mb-2 line-clamp-2 hover:text-[var(--hgp-primary)] transition-colors">
-            {event.title}
-          </h3>
-        </a>
-        <p className="text-neutral-600 mb-3">{event.presenter}</p>
-        <div className="flex items-center gap-4">
-          <a
-            href={`/events/${event.slug}`}
-            className="inline-flex items-center gap-2 text-[var(--hgp-primary)] hover:text-[var(--hgp-primary)] font-medium text-sm"
-          >
-            View Details
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
+        {event.slug ? (
+          <a href={`/events/${event.slug}`}>
+            <h3 className="text-xl font-bold text-neutral-900 mb-2 line-clamp-2 hover:text-[var(--hgp-primary)] transition-colors">
+              {event.title}
+            </h3>
           </a>
-          {(event.youtubeId || event.vimeoId) && (
+        ) : (
+          <h3 className="text-xl font-bold text-neutral-900 mb-2 line-clamp-2">{event.title}</h3>
+        )}
+        {event.presenter && <p className="text-neutral-600 mb-3">{event.presenter}</p>}
+        <div className="flex items-center gap-4">
+          {event.slug && (
             <a
-              href={videoHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`inline-flex items-center gap-2 font-medium text-sm ${event.youtubeId ? 'text-red-600 hover:text-red-700' : 'text-blue-700 hover:text-blue-800'}`}
+              href={`/events/${event.slug}`}
+              className="inline-flex items-center gap-2 text-[var(--hgp-primary)] hover:text-[var(--hgp-primary)] font-medium text-sm"
             >
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z" />
+              View Details
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
-              Watch
             </a>
+          )}
+          {(event.youtubeId || event.vimeoId) && (
+            event.embed ? (
+              <button
+                type="button"
+                onClick={() => setPlaying(true)}
+                className={`inline-flex items-center gap-2 font-medium text-sm ${event.youtubeId ? 'text-red-600 hover:text-red-700' : 'text-blue-700 hover:text-blue-800'}`}
+              >
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+                Watch
+              </button>
+            ) : (
+              <a
+                href={videoHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`inline-flex items-center gap-2 font-medium text-sm ${event.youtubeId ? 'text-red-600 hover:text-red-700' : 'text-blue-700 hover:text-blue-800'}`}
+              >
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+                Watch
+              </a>
+            )
           )}
         </div>
       </div>
@@ -149,8 +197,8 @@ export default function PastEventsGrid({ events }: { events: PastEventItem[] }) 
       if (q) {
         return (
           e.title.toLowerCase().includes(q) ||
-          e.presenter.toLowerCase().includes(q) ||
-          e.description.toLowerCase().includes(q)
+          (e.presenter ?? '').toLowerCase().includes(q) ||
+          (e.description ?? '').toLowerCase().includes(q)
         );
       }
       return true;
@@ -267,7 +315,7 @@ export default function PastEventsGrid({ events }: { events: PastEventItem[] }) 
       ) : (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {displayed.map(event => (
-            <EventCard key={event.slug} event={event} />
+            <EventCard key={event.slug ?? `${event.title}-${event.startTime}`} event={event} />
           ))}
         </div>
       )}
