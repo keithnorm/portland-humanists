@@ -74,7 +74,12 @@ export const handler: Handler = async (event, context) => {
   }
 
   // Not in Identity — check the old site's credentials.
-  if (!account?.email || !verifyDrupalPassword(password, account.hash)) {
+  if (!account?.email) {
+    console.log(`bridge: no old-site account for "${login}"`);
+    return fail(401, 'Invalid login or password');
+  }
+  if (!verifyDrupalPassword(password, account.hash)) {
+    console.log(`bridge: Drupal hash mismatch for "${login}"`);
     return fail(401, 'Invalid login or password');
   }
 
@@ -93,9 +98,19 @@ export const handler: Handler = async (event, context) => {
     }),
   });
   if (!created.ok) {
-    // Most likely the account already exists with a different (new) password.
+    const detail = await created.text().catch(() => '');
+    console.log(`bridge: admin create failed for "${login}": ${created.status} ${detail.slice(0, 300)}`);
+    // The requester has proven they hold the old password, so a slightly
+    // more specific hint here is acceptable and saves a support email.
+    if (created.status === 422 && /already|exists|registered/i.test(detail)) {
+      return fail(401, 'This email already has a new account — use "Forgot your password?" below.');
+    }
+    if (/password/i.test(detail)) {
+      return fail(401, 'Your old password doesn\'t meet the new minimum length — use "Forgot your password?" below to set a new one.');
+    }
     return fail(401, 'Invalid login or password');
   }
+  console.log(`bridge: migrated "${login}" -> ${account.email}`);
 
   const tokens = await tokenGrant(identity.url, account.email, password);
   if (!tokens) return fail(500, 'Account created but login failed — try again');
