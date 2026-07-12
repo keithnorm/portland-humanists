@@ -18,7 +18,7 @@
  * only provided to v1-style handlers.
  */
 import type { Handler } from '@netlify/functions';
-import { getStore } from '@netlify/blobs';
+import { connectLambda, getStore } from '@netlify/blobs';
 import { verifyDrupalPassword } from '../../src/lib/drupalHash';
 
 interface BridgeAccount {
@@ -44,6 +44,11 @@ async function tokenGrant(identityUrl: string, email: string, password: string) 
 
 export const handler: Handler = async (event, context) => {
   if (event.httpMethod !== 'POST') return fail(405, 'method not allowed');
+
+  // v1 (Lambda-compat) functions don't get automatic Blobs configuration;
+  // this reads the Blobs context from the event. (v1 is required here for
+  // clientContext.identity — see header comment.)
+  connectLambda(event as any);
 
   const identity = (context.clientContext as any)?.identity as { url: string; token: string } | undefined;
   if (!identity?.url) return fail(500, 'Identity is not enabled for this site');
