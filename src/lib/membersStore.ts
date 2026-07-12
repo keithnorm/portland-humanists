@@ -78,7 +78,9 @@ export async function readKey<T>(key: string): Promise<T> {
     const value = await readLocal<T>(key);
     if (value !== null) return value;
   } else {
-    const store = getStore(STORE_NAME);
+    // Strong consistency: the page re-renders immediately after a signup
+    // write, and eventually-consistent reads (the default) return stale data.
+    const store = getStore({ name: STORE_NAME, consistency: 'strong' });
     const value = await store.get(key, { type: 'json' });
     if (value !== null && value !== undefined) return value as T;
   }
