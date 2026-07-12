@@ -46,7 +46,7 @@ const members = (await getDirectory()).slice().sort((a, b) => a.name.localeCompa
                   {m.name}
                   {m.interests && <div class="text-xs text-neutral-500 font-normal">{m.interests}</div>}
                 </td>
-                <td class="py-3 pr-4"><a href={`mailto:${m.email}`} class="text-[var(--hgp-primary)] hover:underline">{m.email}</a></td>
+                <td class="py-3 pr-4">{m.email ? <a href={`mailto:${m.email}`} class="text-[var(--hgp-primary)] hover:underline">{m.email}</a> : <span class="text-neutral-400">—</span>}</td>
                 <td class="py-3 pr-4">{m.phone ? <a href={`tel:${m.phone}`} class="hover:underline">{m.phone}</a> : <span class="text-neutral-400">—</span>}</td>
                 <td class="py-3 pr-4">{m.city ?? <span class="text-neutral-400">—</span>}</td>
                 <td class="py-3">{m.memberSince ?? <span class="text-neutral-400">—</span>}</td>

@@ -53,12 +53,10 @@ const SEEDS: Record<string, unknown> = {
   ] satisfies VideoRecord[],
 };
 
-function blobsAvailable(): boolean {
-  return Boolean(
-    process.env.NETLIFY || process.env.NETLIFY_BLOBS_CONTEXT ||
-    (process.env.NETLIFY_SITE_ID && process.env.NETLIFY_TOKEN)
-  );
-}
+// In dev, always use gitignored .data/*.json files — transparent, easy to
+// seed (see scripts/), and independent of the adapter's local Blobs
+// emulation. Deployed builds always use Netlify Blobs.
+const useLocalFiles = import.meta.env.DEV;
 
 async function readLocal<T>(key: string): Promise<T | null> {
   try {
@@ -75,23 +73,23 @@ async function writeLocal(key: string, value: unknown): Promise<void> {
 }
 
 export async function readKey<T>(key: string): Promise<T> {
-  if (blobsAvailable()) {
+  if (useLocalFiles) {
+    const value = await readLocal<T>(key);
+    if (value !== null) return value;
+  } else {
     const store = getStore(STORE_NAME);
     const value = await store.get(key, { type: 'json' });
     if (value !== null && value !== undefined) return value as T;
-  } else {
-    const value = await readLocal<T>(key);
-    if (value !== null) return value;
   }
-  return SEEDS[key] as T;
+  return structuredClone(SEEDS[key]) as T;
 }
 
 export async function writeKey(key: string, value: unknown): Promise<void> {
-  if (blobsAvailable()) {
+  if (useLocalFiles) {
+    await writeLocal(key, value);
+  } else {
     const store = getStore(STORE_NAME);
     await store.setJSON(key, value);
-  } else {
-    await writeLocal(key, value);
   }
 }
 
