@@ -69,6 +69,7 @@ const currentPath = Astro.url.pathname;
         item.highlight ? (
           <a
             href={item.href}
+            data-nav-join
             class="bg-[var(--hgp-primary)] text-white px-4 py-2 rounded-lg hover:bg-[var(--hgp-mid)] transition-colors font-medium"
           >
             {item.label}
@@ -116,6 +117,16 @@ const currentPath = Astro.url.pathname;
           </a>
         )
       ))}
+      <a
+        href="/members"
+        data-nav-account
+        class="hidden items-center gap-2 bg-[var(--hgp-surface)] text-[var(--hgp-primary)] px-4 py-2 rounded-lg hover:bg-[var(--hgp-primary)] hover:text-white transition-colors font-medium"
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+        </svg>
+        <span data-nav-account-name>Account</span>
+      </a>
     </div>
 
     <button id="mobile-menu-button" class="md:hidden p-2 text-neutral-700 hover:text-[var(--hgp-primary)]" aria-label="Toggle menu">
@@ -135,6 +146,7 @@ const currentPath = Astro.url.pathname;
         item.highlight ? (
           <a
             href={item.href}
+            data-nav-join
             class="block bg-[var(--hgp-primary)] text-white px-3 py-2 rounded-lg font-medium text-center"
           >
             {item.label}
@@ -176,11 +188,37 @@ const currentPath = Astro.url.pathname;
           </a>
         )
       ))}
+      <a
+        href="/members"
+        data-nav-account
+        class="hidden bg-[var(--hgp-surface)] text-[var(--hgp-primary)] px-3 py-2 rounded-lg font-medium text-center items-center justify-center gap-2"
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+        </svg>
+        <span data-nav-account-name>Account</span>
+      </a>
     </div>
   </div>
 </nav>
 
 <script>
+  // Logged-in members: swap "Join Us" for an account link with their name.
+  // Reads the display-only cookie set at login; access control is server-side.
+  {
+    const match = document.cookie.match(/(?:^|;\s*)hgp_member_display=([^;]+)/);
+    if (match) {
+      let name = 'Account';
+      try { name = decodeURIComponent(match[1]).split(' ')[0] || 'Account'; } catch { /* keep default */ }
+      document.querySelectorAll<HTMLElement>('[data-nav-join]').forEach(el => el.style.display = 'none');
+      document.querySelectorAll<HTMLElement>('[data-nav-account]').forEach(el => {
+        el.classList.remove('hidden');
+        el.classList.add('flex');
+      });
+      document.querySelectorAll<HTMLElement>('[data-nav-account-name]').forEach(el => el.textContent = name);
+    }
+  }
+
   // Mobile menu toggle
   const mobileMenuButton = document.getElementById('mobile-menu-button');
   const mobileMenu = document.getElementById('mobile-menu');

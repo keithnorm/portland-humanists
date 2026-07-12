@@ -36,11 +36,8 @@ export const POST: APIRoute = async ({ request, url }) => {
 
   const token = `dev:${name}:${account.email}`;
   const secure = url.protocol === 'https:' ? '; Secure' : '';
-  return new Response(JSON.stringify({ ok: true, name }), {
-    status: 200,
-    headers: {
-      'Content-Type': 'application/json',
-      'Set-Cookie': `${SESSION_COOKIE}=${encodeURIComponent(token)}; Path=/; HttpOnly; SameSite=Lax; Max-Age=3600${secure}`,
-    },
-  });
+  const headers = new Headers({ 'Content-Type': 'application/json' });
+  headers.append('Set-Cookie', `${SESSION_COOKIE}=${encodeURIComponent(token)}; Path=/; HttpOnly; SameSite=Lax; Max-Age=3600${secure}`);
+  headers.append('Set-Cookie', `hgp_member_display=${encodeURIComponent(name)}; Path=/; SameSite=Lax; Max-Age=3600${secure}`);
+  return new Response(JSON.stringify({ ok: true, name }), { status: 200, headers });
 };
