@@ -50,7 +50,6 @@ fragment SettingsParts on Settings {
     time
     locationName
     locationAddress
-    defaultZoomLink
   }
 }
 

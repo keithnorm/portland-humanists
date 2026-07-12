@@ -25,7 +25,6 @@ interface Props {
   data: HomepageQuery;
   upcomingEvents: EventItem[];
   recentRecordings: EventItem[];
-  defaultZoomLink?: string;
   timezone?: string;
 }
 
@@ -176,13 +175,13 @@ const perks = [
   },
 ];
 
-export function HomeVisualEditor({ query, variables, data, upcomingEvents, recentRecordings, defaultZoomLink = '', timezone }: Props) {
+export function HomeVisualEditor({ query, variables, data, upcomingEvents, recentRecordings, timezone }: Props) {
   const { data: tinaData } = useTina({ query, variables, data });
   const home = tinaData.homepage;
 
   const upcomingEvent = upcomingEvents[0] ?? null;
   const upcomingDate = upcomingEvent ? parseTime(upcomingEvent.data.startTime) : null;
-  const effectiveZoomLink = upcomingEvent?.data.zoomLink || defaultZoomLink || '';
+  const effectiveZoomLink = upcomingEvent?.data.zoomLink || '';
 
   return (
     <>
@@ -307,6 +306,11 @@ export function HomeVisualEditor({ query, variables, data, upcomingEvents, recen
                   </div>
                   <p className="text-neutral-600 mb-6 leading-relaxed">{upcomingEvent.data.description}</p>
                   <div className="flex items-center gap-4">
+                    {!effectiveZoomLink && (
+                      <span className="text-sm text-neutral-500 italic">
+                        Zoom link not posted yet — check back closer to the date
+                      </span>
+                    )}
                     {effectiveZoomLink && (
                       <a
                         id="featured-zoom-btn"

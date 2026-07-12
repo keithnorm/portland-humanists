@@ -34,11 +34,9 @@ try {
 
 const eventData = tinaResult.data.events;
 
-let defaultZoomLink = '';
 let timezone = 'America/Los_Angeles';
 try {
   const settingsResult = await client.queries.settings({ relativePath: 'general.json' });
-  defaultZoomLink = settingsResult.data.settings.meetingInfo?.defaultZoomLink ?? '';
   timezone = settingsResult.data.settings.timezone ?? 'America/Los_Angeles';
 } catch { /* use defaults */ }
 
@@ -49,7 +47,6 @@ try {
     query={tinaResult.query}
     variables={tinaResult.variables}
     data={tinaResult.data}
-    defaultZoomLink={defaultZoomLink}
     timezone={timezone}
     client:tina
   />

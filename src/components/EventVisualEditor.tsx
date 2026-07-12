@@ -8,7 +8,6 @@ interface Props {
   query: string;
   variables: EventsQueryVariables;
   data: EventsQuery;
-  defaultZoomLink?: string;
   timezone?: string;
 }
 
@@ -85,13 +84,13 @@ function timezoneAbbr(isoStr: string, tz: string): string {
   }
 }
 
-export function EventVisualEditor({ query, variables, data, defaultZoomLink = '', timezone }: Props) {
+export function EventVisualEditor({ query, variables, data, timezone }: Props) {
   const { data: tinaData } = useTina({ query, variables, data });
   const event = tinaData.events;
 
   const eventDate = event.startTime ? parseStartTime(event.startTime) : null;
   const isUpcoming = event.endTime ? new Date(event.endTime) > new Date() : false;
-  const effectiveZoomLink = event.zoomLink || defaultZoomLink || '';
+  const effectiveZoomLink = event.zoomLink || '';
 
   return (
     <>
@@ -208,6 +207,14 @@ export function EventVisualEditor({ query, variables, data, defaultZoomLink = ''
                     </div>
                   )}
                 </div>
+
+                {!effectiveZoomLink && isUpcoming && (
+                  <div className="mt-6 pt-6 border-t border-neutral-200">
+                    <p className="text-sm text-neutral-500 italic" data-tina-field={tinaField(event, 'zoomLink')}>
+                      The Zoom link for this program hasn't been posted yet — check back closer to the date.
+                    </p>
+                  </div>
+                )}
 
                 {effectiveZoomLink && isUpcoming && (
                   <div

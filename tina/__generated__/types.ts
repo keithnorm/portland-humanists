@@ -385,7 +385,6 @@ export type SettingsMeetingInfo = {
   time?: Maybe<Scalars['String']['output']>;
   locationName?: Maybe<Scalars['String']['output']>;
   locationAddress?: Maybe<Scalars['String']['output']>;
-  defaultZoomLink?: Maybe<Scalars['String']['output']>;
 };
 
 export type Settings = Node & Document & {
@@ -412,7 +411,6 @@ export type SettingsMeetingInfoFilter = {
   time?: InputMaybe<StringFilter>;
   locationName?: InputMaybe<StringFilter>;
   locationAddress?: InputMaybe<StringFilter>;
-  defaultZoomLink?: InputMaybe<StringFilter>;
 };
 
 export type SettingsFilter = {
@@ -769,7 +767,6 @@ export type SettingsMeetingInfoMutation = {
   time?: InputMaybe<Scalars['String']['input']>;
   locationName?: InputMaybe<Scalars['String']['input']>;
   locationAddress?: InputMaybe<Scalars['String']['input']>;
-  defaultZoomLink?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type SettingsMutation = {
@@ -847,7 +844,7 @@ export type EventsPartsFragment = { __typename: 'Events', title: string, date?: 
 
 export type PagesPartsFragment = { __typename: 'Pages', title: string, description: string, pageLayout?: string | null, parent?: string | null, showInNav?: boolean | null, navOrder?: number | null, body?: any | null, contactInfo?: { __typename: 'PagesContactInfo', email?: string | null, location?: string | null, address?: string | null } | null };
 
-export type SettingsPartsFragment = { __typename: 'Settings', siteTitle: string, siteDescription: string, contactEmail: string, colorTheme?: string | null, customBaseColor?: string | null, timezone?: string | null, socialLinks?: Array<{ __typename: 'SettingsSocialLinks', label: string, url: string } | null> | null, meetingInfo?: { __typename: 'SettingsMeetingInfo', time?: string | null, locationName?: string | null, locationAddress?: string | null, defaultZoomLink?: string | null } | null };
+export type SettingsPartsFragment = { __typename: 'Settings', siteTitle: string, siteDescription: string, contactEmail: string, colorTheme?: string | null, customBaseColor?: string | null, timezone?: string | null, socialLinks?: Array<{ __typename: 'SettingsSocialLinks', label: string, url: string } | null> | null, meetingInfo?: { __typename: 'SettingsMeetingInfo', time?: string | null, locationName?: string | null, locationAddress?: string | null } | null };
 
 export type JoinPagePartsFragment = { __typename: 'JoinPage', heroHeading: string, heroTagline: string, benefitsHeading?: string | null, personalInfoHeading?: string | null, philosophyText?: string | null, membershipNote?: string | null, communicationPrefsHeading?: string | null, questionsHeading?: string | null, questionsBody?: string | null, membershipEmail?: string | null, questionsFootnote?: string | null, benefits?: Array<{ __typename: 'JoinPageBenefits', title: string, description: string } | null> | null, personalFields?: Array<{ __typename: 'JoinPagePersonalFields', label: string, fieldName: string, fieldType?: string | null, required?: boolean | null, placeholder?: string | null } | null> | null, membershipTiers?: Array<{ __typename: 'JoinPageMembershipTiers', tierName: string, tierSubtitle?: string | null, priceRange?: string | null } | null> | null, communicationFields?: Array<{ __typename: 'JoinPageCommunicationFields', label: string, description?: string | null, fieldName: string, defaultChecked?: boolean | null } | null> | null };
 
@@ -896,7 +893,7 @@ export type SettingsQueryVariables = Exact<{
 }>;
 
 
-export type SettingsQuery = { __typename?: 'Query', settings: { __typename: 'Settings', id: string, siteTitle: string, siteDescription: string, contactEmail: string, colorTheme?: string | null, customBaseColor?: string | null, timezone?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, socialLinks?: Array<{ __typename: 'SettingsSocialLinks', label: string, url: string } | null> | null, meetingInfo?: { __typename: 'SettingsMeetingInfo', time?: string | null, locationName?: string | null, locationAddress?: string | null, defaultZoomLink?: string | null } | null } };
+export type SettingsQuery = { __typename?: 'Query', settings: { __typename: 'Settings', id: string, siteTitle: string, siteDescription: string, contactEmail: string, colorTheme?: string | null, customBaseColor?: string | null, timezone?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, socialLinks?: Array<{ __typename: 'SettingsSocialLinks', label: string, url: string } | null> | null, meetingInfo?: { __typename: 'SettingsMeetingInfo', time?: string | null, locationName?: string | null, locationAddress?: string | null } | null } };
 
 export type SettingsConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']['input']>;
@@ -908,7 +905,7 @@ export type SettingsConnectionQueryVariables = Exact<{
 }>;
 
 
-export type SettingsConnectionQuery = { __typename?: 'Query', settingsConnection: { __typename?: 'SettingsConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'SettingsConnectionEdges', cursor: string, node?: { __typename: 'Settings', id: string, siteTitle: string, siteDescription: string, contactEmail: string, colorTheme?: string | null, customBaseColor?: string | null, timezone?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, socialLinks?: Array<{ __typename: 'SettingsSocialLinks', label: string, url: string } | null> | null, meetingInfo?: { __typename: 'SettingsMeetingInfo', time?: string | null, locationName?: string | null, locationAddress?: string | null, defaultZoomLink?: string | null } | null } | null } | null> | null } };
+export type SettingsConnectionQuery = { __typename?: 'Query', settingsConnection: { __typename?: 'SettingsConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'SettingsConnectionEdges', cursor: string, node?: { __typename: 'Settings', id: string, siteTitle: string, siteDescription: string, contactEmail: string, colorTheme?: string | null, customBaseColor?: string | null, timezone?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, socialLinks?: Array<{ __typename: 'SettingsSocialLinks', label: string, url: string } | null> | null, meetingInfo?: { __typename: 'SettingsMeetingInfo', time?: string | null, locationName?: string | null, locationAddress?: string | null } | null } | null } | null> | null } };
 
 export type JoinPageQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
@@ -1003,7 +1000,6 @@ export const SettingsPartsFragmentDoc = gql`
     time
     locationName
     locationAddress
-    defaultZoomLink
   }
 }
     `;
@@ -1431,7 +1427,7 @@ export const ExperimentalGetTinaClient = () =>
   getSdk(
     generateRequester(
       createClient({
-        url: "http://localhost:4001/graphql",
+        url: "https://content.tinajs.io/2.1/content/d3fb1e42-f55a-488c-b542-05cf88701448/github/main",
         queries,
       })
     )

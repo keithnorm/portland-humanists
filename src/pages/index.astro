@@ -10,7 +10,6 @@ const allEvents = await getCollection('events');
 
 const tinaResult = await client.queries.homepage({ relativePath: 'home.json' });
 const settingsResult = await client.queries.settings({ relativePath: 'general.json' });
-const defaultZoomLink = settingsResult.data.settings.meetingInfo?.defaultZoomLink ?? '';
 const timezone = settingsResult.data.settings.timezone ?? 'America/Los_Angeles';
 
 const now = new Date();
@@ -32,7 +31,6 @@ const recentRecordings = allEvents
     data={tinaResult.data}
     upcomingEvents={upcomingEvents}
     recentRecordings={recentRecordings}
-    defaultZoomLink={defaultZoomLink}
     timezone={timezone}
     client:tina
   />

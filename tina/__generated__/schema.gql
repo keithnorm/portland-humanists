@@ -238,7 +238,6 @@ type SettingsMeetingInfo {
   time: String
   locationName: String
   locationAddress: String
-  defaultZoomLink: String
 }
 
 type Settings implements Node & Document {
@@ -264,7 +263,6 @@ input SettingsMeetingInfoFilter {
   time: StringFilter
   locationName: StringFilter
   locationAddress: StringFilter
-  defaultZoomLink: StringFilter
 }
 
 input SettingsFilter {
@@ -514,7 +512,6 @@ input SettingsMeetingInfoMutation {
   time: String
   locationName: String
   locationAddress: String
-  defaultZoomLink: String
 }
 
 input SettingsMutation {

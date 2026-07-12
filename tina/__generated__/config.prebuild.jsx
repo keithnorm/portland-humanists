@@ -376,11 +376,6 @@ var config_default = defineConfig({
                 ui: {
                   component: "textarea"
                 }
-              },
-              {
-                type: "string",
-                name: "defaultZoomLink",
-                label: "Default Zoom Link"
               }
             ]
           }

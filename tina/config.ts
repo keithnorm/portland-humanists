@@ -391,11 +391,6 @@ export default defineConfig({
                   component: "textarea",
                 },
               },
-              {
-                type: "string",
-                name: "defaultZoomLink",
-                label: "Default Zoom Link",
-              },
             ],
           },
         ],
