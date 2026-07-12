@@ -26,3 +26,4 @@ pnpm-debug.log*
 # Local Netlify folder
 .netlify
 hgp7
+tina/__generated__/.cache/
