@@ -1,0 +1,77 @@
+---
+export const prerender = false;
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/global.css';
+import { getDirectory } from '../../lib/membersStore';
+
+const members = (await getDirectory()).slice().sort((a, b) => a.name.localeCompare(b.name));
+---
+
+<BaseLayout title="Membership List - Humanists of Greater Portland">
+  <section class="hgp-cta text-white py-12">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <a href="/members" class="inline-flex items-center gap-2 text-[var(--hgp-on-primary)] hover:text-white mb-4 transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+        Members Area
+      </a>
+      <h1 class="text-4xl font-bold mb-2">Membership List</h1>
+      <p class="text-[var(--hgp-on-primary)]">Contact information is for member use only — please don't share it outside HGP.</p>
+    </div>
+  </section>
+
+  <section class="py-12 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <input
+        id="member-search"
+        type="search"
+        placeholder={`Search ${members.length} members by name, city, or interests…`}
+        class="w-full md:w-96 border border-neutral-300 rounded-lg px-4 py-2.5 mb-8"
+      />
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left">
+          <thead>
+            <tr class="border-b-2 border-neutral-200 text-sm text-neutral-500 uppercase tracking-wide">
+              <th class="py-3 pr-4">Name</th>
+              <th class="py-3 pr-4">Email</th>
+              <th class="py-3 pr-4">Phone</th>
+              <th class="py-3 pr-4">City</th>
+              <th class="py-3">Member since</th>
+            </tr>
+          </thead>
+          <tbody id="member-rows">
+            {members.map(m => (
+              <tr class="border-b border-neutral-100 hover:bg-neutral-50" data-search={`${m.name} ${m.city ?? ''} ${m.interests ?? ''}`.toLowerCase()}>
+                <td class="py-3 pr-4 font-medium text-neutral-900">
+                  {m.name}
+                  {m.interests && <div class="text-xs text-neutral-500 font-normal">{m.interests}</div>}
+                </td>
+                <td class="py-3 pr-4"><a href={`mailto:${m.email}`} class="text-[var(--hgp-primary)] hover:underline">{m.email}</a></td>
+                <td class="py-3 pr-4">{m.phone ? <a href={`tel:${m.phone}`} class="hover:underline">{m.phone}</a> : <span class="text-neutral-400">—</span>}</td>
+                <td class="py-3 pr-4">{m.city ?? <span class="text-neutral-400">—</span>}</td>
+                <td class="py-3">{m.memberSince ?? <span class="text-neutral-400">—</span>}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <p id="no-results" class="hidden text-neutral-500 py-8 text-center">No members match that search.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const input = document.getElementById('member-search') as HTMLInputElement;
+  const rows = Array.from(document.querySelectorAll<HTMLTableRowElement>('#member-rows tr'));
+  const noResults = document.getElementById('no-results');
+  input?.addEventListener('input', () => {
+    const q = input.value.trim().toLowerCase();
+    let visible = 0;
+    for (const row of rows) {
+      const match = !q || (row.dataset.search ?? '').includes(q);
+      row.style.display = match ? '' : 'none';
+      if (match) visible++;
+    }
+    noResults?.classList.toggle('hidden', visible > 0);
+  });
+</script>

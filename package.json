@@ -11,10 +11,12 @@
   "dependencies": {
     "@astrojs/netlify": "^6.6.5",
     "@astrojs/react": "^4.4.2",
+    "@netlify/blobs": "^10.7.9",
     "@tailwindcss/typography": "^0.5.19",
     "@tailwindcss/vite": "^4.1.18",
     "@tinacms/cli": "^2.1.7",
     "astro": "^5.16.6",
+    "netlify-identity-widget": "^2.0.3",
     "tailwindcss": "^4.1.18",
     "tinacms": "^3.5.1"
   }

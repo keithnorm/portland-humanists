@@ -1,0 +1,92 @@
+---
+export const prerender = false;
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/global.css';
+
+const member = Astro.locals.member!;
+
+const features = [
+  {
+    href: '/members/directory',
+    title: 'Membership List',
+    description: 'Names and contact info for all HGP members, with search.',
+    icon: 'M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m6-1.13a4 4 0 10-4-4 4 4 0 004 4zm6 0a4 4 0 10-4-4',
+  },
+  {
+    href: '/members/readings',
+    title: 'Sign-up Sheets',
+    description: 'Sign up to give the reading at an upcoming Sunday program, and see which dates are still open.',
+    icon: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z',
+  },
+  {
+    href: '/members/videos',
+    title: 'Members-Only Videos',
+    description: 'Recordings that are not published on the public site.',
+    icon: 'M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z',
+  },
+];
+
+// Sections from the old members site, shown as placeholders so the
+// committee can see where they would land in a rebuilt members area.
+const comingSoon = [
+  'Membership renewal',
+  'Newsletter & archive',
+  'Minutes of meetings',
+  'Bylaws & policy manual',
+  'Library & reading lists',
+  'Photo gallery',
+];
+---
+
+<BaseLayout title="Members - Humanists of Greater Portland">
+  <section class="hgp-cta text-white py-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">Members Area</h1>
+      <p class="text-xl text-[var(--hgp-on-primary)]">
+        Welcome, {member.name}.
+        <button id="logout-btn" class="underline hover:no-underline ml-2 text-base">Log out</button>
+      </p>
+    </div>
+  </section>
+
+  <section class="py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-3 gap-6">
+        {features.map(f => (
+          <a href={f.href} class="block bg-neutral-50 rounded-xl p-8 hover:shadow-lg transition-shadow">
+            <svg class="w-10 h-10 text-[var(--hgp-primary)] mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={f.icon} />
+            </svg>
+            <h2 class="text-xl font-bold text-neutral-900 mb-2">{f.title}</h2>
+            <p class="text-neutral-600">{f.description}</p>
+          </a>
+        ))}
+      </div>
+
+      <div class="mt-16">
+        <h2 class="text-lg font-bold text-neutral-900 mb-4">Coming later</h2>
+        <p class="text-neutral-600 mb-4 text-sm">
+          These sections exist on the old members site and can be migrated here over time:
+        </p>
+        <div class="flex flex-wrap gap-2">
+          {comingSoon.map(label => (
+            <span class="bg-neutral-100 text-neutral-500 text-sm px-3 py-1.5 rounded-full">{label}</span>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  import netlifyIdentity from 'netlify-identity-widget';
+  document.getElementById('logout-btn')?.addEventListener('click', async () => {
+    await fetch('/api/members/session', { method: 'DELETE' });
+    try {
+      const apiUrl = import.meta.env.PUBLIC_IDENTITY_API_URL as string | undefined;
+      netlifyIdentity.init(apiUrl ? { APIUrl: apiUrl } : undefined);
+      if (netlifyIdentity.currentUser()) await netlifyIdentity.logout();
+    } catch { /* dev mode: no identity */ }
+    window.location.href = '/';
+  });
+</script>

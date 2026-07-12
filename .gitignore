@@ -27,3 +27,4 @@ pnpm-debug.log*
 .netlify
 hgp7
 tina/__generated__/.cache/
+.data/

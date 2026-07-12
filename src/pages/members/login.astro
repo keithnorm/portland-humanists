@@ -1,0 +1,99 @@
+---
+export const prerender = false;
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/global.css';
+import { getUserFromRequest } from '../../lib/identity';
+
+const user = await getUserFromRequest(Astro.request, Astro.url.origin);
+const redirectTo = Astro.url.searchParams.get('redirect') || '/members';
+if (user) return Astro.redirect(redirectTo);
+
+const isDev = import.meta.env.DEV;
+---
+
+<BaseLayout title="Member Login - Humanists of Greater Portland">
+  <section class="hgp-cta text-white py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">Members Area</h1>
+      <p class="text-xl text-[var(--hgp-on-primary)]">Log in to see the membership list, sign-up sheets, and members-only videos.</p>
+    </div>
+  </section>
+
+  <section class="py-16 bg-white">
+    <div class="max-w-md mx-auto px-4 text-center">
+      <button
+        id="login-btn"
+        data-redirect={redirectTo}
+        class="w-full bg-[var(--hgp-primary)] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[var(--hgp-mid)] transition-colors"
+      >
+        Log in
+      </button>
+      <p class="text-sm text-neutral-500 mt-4">
+        Membership accounts are by invitation. If you're an HGP member and don't have a login yet,
+        contact us at <a href="mailto:info@portlandhumanists.org" class="text-[var(--hgp-primary)] hover:underline">info@portlandhumanists.org</a>.
+      </p>
+      <p id="login-status" class="text-sm text-neutral-500 mt-4 hidden">Signing you in…</p>
+
+      {isDev && (
+        <form id="dev-login" class="mt-10 border-t border-dashed border-neutral-300 pt-6 text-left">
+          <p class="text-xs font-semibold uppercase tracking-wider text-orange-600 mb-3">Dev-only login (not in production)</p>
+          <label class="block text-sm text-neutral-600 mb-1" for="dev-name">Name</label>
+          <input id="dev-name" class="w-full border border-neutral-300 rounded-lg px-3 py-2 mb-3" value="Pat Member" />
+          <label class="block text-sm text-neutral-600 mb-1" for="dev-email">Email</label>
+          <input id="dev-email" class="w-full border border-neutral-300 rounded-lg px-3 py-2 mb-3" value="pat@example.org" />
+          <button type="submit" class="w-full border-2 border-orange-500 text-orange-600 px-4 py-2 rounded-lg font-semibold hover:bg-orange-50">
+            Continue as dev member
+          </button>
+        </form>
+      )}
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  import netlifyIdentity from 'netlify-identity-widget';
+
+  const btn = document.getElementById('login-btn') as HTMLButtonElement;
+  const status = document.getElementById('login-status');
+  const redirectTo = btn?.dataset.redirect || '/members';
+
+  async function establishSession(token: string) {
+    status?.classList.remove('hidden');
+    const res = await fetch('/api/members/session', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token }),
+    });
+    if (res.ok) {
+      window.location.href = redirectTo;
+    } else {
+      status?.classList.add('hidden');
+      alert('Login failed — please try again.');
+    }
+  }
+
+  // PUBLIC_IDENTITY_API_URL lets local dev talk to the real site's Identity
+  // instance; on the deployed site the widget auto-detects same-origin.
+  const apiUrl = import.meta.env.PUBLIC_IDENTITY_API_URL as string | undefined;
+  netlifyIdentity.init(apiUrl ? { APIUrl: apiUrl } : undefined);
+
+  netlifyIdentity.on('login', async (user) => {
+    netlifyIdentity.close();
+    await establishSession(await user.jwt());
+  });
+
+  // Already logged in to Identity but session cookie expired → silent refresh.
+  const current = netlifyIdentity.currentUser();
+  if (current) {
+    current.jwt().then(establishSession).catch(() => netlifyIdentity.open('login'));
+  }
+
+  btn?.addEventListener('click', () => netlifyIdentity.open('login'));
+
+  document.getElementById('dev-login')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const name = (document.getElementById('dev-name') as HTMLInputElement).value || 'Dev Member';
+    const email = (document.getElementById('dev-email') as HTMLInputElement).value || 'dev@example.org';
+    await establishSession(`dev:${name}:${email}`);
+  });
+</script>
