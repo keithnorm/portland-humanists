@@ -4,7 +4,16 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import '../../styles/global.css';
 import { getDirectory } from '../../lib/membersStore';
 
-const members = (await getDirectory()).slice().sort((a, b) => a.name.localeCompare(b.name));
+const viewer = Astro.locals.member!;
+const members = (await getDirectory())
+  .map(m => {
+    // Respect per-field privacy choices (members always see their own info).
+    if (!m.hidden?.length || m.email?.toLowerCase() === viewer.email.toLowerCase()) return m;
+    const visible = { ...m };
+    for (const key of m.hidden) delete (visible as Record<string, unknown>)[key];
+    return visible;
+  })
+  .sort((a, b) => a.name.localeCompare(b.name));
 ---
 
 <BaseLayout title="Membership List - Humanists of Greater Portland">
@@ -15,7 +24,10 @@ const members = (await getDirectory()).slice().sort((a, b) => a.name.localeCompa
         Members Area
       </a>
       <h1 class="text-4xl font-bold mb-2">Membership List</h1>
-      <p class="text-[var(--hgp-on-primary)]">Contact information is for member use only — please don't share it outside HGP.</p>
+      <p class="text-[var(--hgp-on-primary)]">
+        Contact information is for member use only — please don't share it outside HGP.
+        Control what's shown about you in <a href="/members/profile" class="underline hover:no-underline">My Profile</a>.
+      </p>
     </div>
   </section>
 

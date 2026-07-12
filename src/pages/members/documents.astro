@@ -1,0 +1,111 @@
+---
+export const prerender = false;
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/global.css';
+import { getDocuments } from '../../lib/membersStore';
+
+const documents = (await getDocuments()).slice()
+  .sort((a, b) => (b.date ?? '').localeCompare(a.date ?? ''));
+const committees = [...new Set(documents.map(d => d.committee))].sort();
+
+// Founding documents still hosted on the old members site.
+const OLD_FILES = 'https://members.portlandhumanists.org/sites/default/files';
+const foundingDocs = [
+  { label: 'Bylaws (Dec 2021)', href: `${OLD_FILES}/PDF/Bylaws12-5-21.pdf` },
+  { label: 'Policy Manual (Nov 2017)', href: `${OLD_FILES}/PDF/HGP-PolicyManual5Nov2017.pdf` },
+  { label: "Robert Sanford's History of HGP", href: `${OLD_FILES}/PDF/HGPhistory.pdf` },
+  { label: 'AHA Charter (1983)', href: `${OLD_FILES}/PDF/1983%20AHA%20Charter%20to%20HGP.pdf` },
+];
+
+function formatDate(iso?: string): string {
+  if (!iso) return '';
+  const d = new Date(`${iso}T12:00:00`);
+  return isNaN(d.getTime()) ? iso : new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' }).format(d);
+}
+---
+
+<BaseLayout title="Board & Committee Documents - Humanists of Greater Portland">
+  <section class="hgp-cta text-white py-12">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <a href="/members" class="inline-flex items-center gap-2 text-[var(--hgp-on-primary)] hover:text-white mb-4 transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+        Members Area
+      </a>
+      <h1 class="text-4xl font-bold mb-2">Board & Committee Documents</h1>
+      <p class="text-[var(--hgp-on-primary)]">Meeting minutes and founding documents.</p>
+    </div>
+  </section>
+
+  <section class="py-12 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-neutral-50 rounded-xl p-6 mb-10">
+        <h2 class="text-lg font-bold text-neutral-900 mb-3">Founding documents</h2>
+        <ul class="space-y-1.5">
+          {foundingDocs.map(doc => (
+            <li>
+              <a href={doc.href} target="_blank" rel="noopener noreferrer"
+                class="text-[var(--hgp-primary)] hover:underline inline-flex items-center gap-2">
+                <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                {doc.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <h2 class="text-2xl font-bold text-neutral-900 mb-4">Minutes of meetings</h2>
+      <div class="flex flex-col sm:flex-row gap-3 mb-6">
+        <input id="doc-search" type="search" placeholder="Search minutes by title or content…"
+          class="flex-1 border border-neutral-300 rounded-lg px-4 py-2.5" />
+        <select id="doc-committee" class="border border-neutral-300 rounded-lg px-3 py-2.5">
+          <option value="">All committees</option>
+          {committees.map(c => <option value={c}>{c}</option>)}
+        </select>
+      </div>
+      <p id="doc-count" class="text-sm text-neutral-500 mb-4"></p>
+
+      <div id="doc-list" class="space-y-2">
+        {documents.map(d => (
+          <details class="doc-item bg-neutral-50 rounded-lg group"
+            data-committee={d.committee}
+            data-search={`${d.title} ${d.text}`.toLowerCase()}
+          >
+            <summary class="cursor-pointer px-5 py-3.5 flex flex-wrap items-baseline gap-x-3 gap-y-1 list-none">
+              <svg class="w-4 h-4 text-neutral-400 group-open:rotate-90 transition-transform flex-shrink-0 self-center" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+              <span class="font-semibold text-neutral-900">{d.date ? formatDate(d.date) : d.title}</span>
+              <span class="text-sm text-[var(--hgp-primary)]">{d.committee}</span>
+            </summary>
+            <div class="px-5 pb-5 pt-1 text-neutral-700 text-sm whitespace-pre-line border-t border-neutral-200">{d.text || 'No text recorded.'}</div>
+          </details>
+        ))}
+      </div>
+      <p id="doc-none" class="hidden text-neutral-500 py-8 text-center">No minutes match.</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const items = Array.from(document.querySelectorAll<HTMLElement>('.doc-item'));
+  const search = document.getElementById('doc-search') as HTMLInputElement;
+  const committee = document.getElementById('doc-committee') as HTMLSelectElement;
+  const count = document.getElementById('doc-count')!;
+  const none = document.getElementById('doc-none')!;
+
+  function apply() {
+    const q = search.value.trim().toLowerCase();
+    const c = committee.value;
+    let visible = 0;
+    for (const item of items) {
+      const show = (!c || item.dataset.committee === c)
+        && (!q || (item.dataset.search ?? '').includes(q));
+      item.style.display = show ? '' : 'none';
+      if (show) visible++;
+    }
+    count.textContent = `${visible} of ${items.length} meetings`;
+    none.classList.toggle('hidden', visible > 0);
+  }
+
+  search.addEventListener('input', apply);
+  committee.addEventListener('change', apply);
+  apply();
+</script>

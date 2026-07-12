@@ -19,6 +19,7 @@ FIELD_TABLES = {
     'field_firstname': 'firstName',
     'field_email': 'email',
     'field_phone': 'phone',
+    'field_address': 'address',
     'field_city': 'city',
     'field_state': 'state',
     'field_participation': 'interests',

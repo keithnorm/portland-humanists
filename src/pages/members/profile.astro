@@ -1,0 +1,80 @@
+---
+export const prerender = false;
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/global.css';
+import { getDirectory } from '../../lib/membersStore';
+
+const member = Astro.locals.member!;
+const message = Astro.url.searchParams.get('msg');
+
+const directory = await getDirectory();
+const me = directory.find(m => m.email?.toLowerCase() === member.email.toLowerCase());
+const hidden = new Set(me?.hidden ?? []);
+
+const fields = [
+  { key: 'phone', label: 'Phone', value: me?.phone ?? '' },
+  { key: 'address', label: 'Street address', value: me?.address ?? '' },
+  { key: 'city', label: 'City', value: me?.city ?? '' },
+  { key: 'state', label: 'State', value: me?.state ?? '' },
+  { key: 'interests', label: 'Activities / interests', value: me?.interests ?? '' },
+];
+---
+
+<BaseLayout title="My Profile - Humanists of Greater Portland">
+  <section class="hgp-cta text-white py-12">
+    <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+      <a href="/members" class="inline-flex items-center gap-2 text-[var(--hgp-on-primary)] hover:text-white mb-4 transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+        Members Area
+      </a>
+      <h1 class="text-4xl font-bold mb-2">My Profile</h1>
+      <p class="text-[var(--hgp-on-primary)]">What other members see about you in the membership list.</p>
+    </div>
+  </section>
+
+  <section class="py-12 bg-white">
+    <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+      {message && (
+        <div class="mb-8 bg-green-50 border border-green-200 text-green-800 rounded-lg px-4 py-3">{message}</div>
+      )}
+
+      <form method="POST" action="/api/members/profile">
+        <div class="mb-6">
+          <label class="block text-sm font-medium text-neutral-700 mb-1" for="name">Name</label>
+          <input id="name" name="name" value={me?.name ?? member.name} required
+            class="w-full border border-neutral-300 rounded-lg px-3 py-2.5" />
+        </div>
+
+        <div class="mb-6">
+          <span class="block text-sm font-medium text-neutral-700 mb-1">Email</span>
+          <p class="text-neutral-900 px-3 py-2.5 bg-neutral-50 rounded-lg">{member.email}</p>
+          <label class="inline-flex items-center gap-2 text-sm text-neutral-600 mt-2">
+            <input type="checkbox" name="hide_email" checked={hidden.has('email')} />
+            Hide my email from other members
+          </label>
+        </div>
+
+        {fields.map(f => (
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-neutral-700 mb-1" for={f.key}>{f.label}</label>
+            <input id={f.key} name={f.key} value={f.value}
+              class="w-full border border-neutral-300 rounded-lg px-3 py-2.5" />
+            <label class="inline-flex items-center gap-2 text-sm text-neutral-600 mt-2">
+              <input type="checkbox" name={`hide_${f.key}`} checked={hidden.has(f.key)} />
+              Hide from other members
+            </label>
+          </div>
+        ))}
+
+        <button type="submit"
+          class="bg-[var(--hgp-primary)] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[var(--hgp-mid)] transition-colors">
+          Save my profile
+        </button>
+        <p class="text-sm text-neutral-500 mt-4">
+          Membership date and status are maintained by the board and can't be edited here.
+          Hidden fields are still visible to site administrators.
+        </p>
+      </form>
+    </div>
+  </section>
+</BaseLayout>

@@ -16,9 +16,13 @@ export interface MemberRecord {
   name: string;
   email: string;
   phone?: string;
+  address?: string;
   city?: string;
+  state?: string;
   memberSince?: string;
   interests?: string;
+  /** Field names the member has chosen to hide from other members. */
+  hidden?: string[];
 }
 
 export interface ReadingSignup {
@@ -32,9 +36,22 @@ export interface ReadingSignup {
 export interface VideoRecord {
   id: string;
   title: string;
-  date: string;
-  youtubeId: string;
+  /** Recording date (YYYY-MM-DD). */
+  date?: string;
+  uploadDate?: string;
+  presenter?: string;
+  youtubeId?: string;
+  vimeoId?: string;
+  vimeoHash?: string;
   description?: string;
+}
+
+export interface DocumentRecord {
+  id: string;
+  title: string;
+  committee: string;
+  date?: string;
+  text: string;
 }
 
 const STORE_NAME = 'members-data';
@@ -49,6 +66,7 @@ const SEEDS: Record<string, unknown> = {
   ] satisfies MemberRecord[],
   signups: [] satisfies ReadingSignup[],
   'auth-bridge': [],
+  documents: [] satisfies DocumentRecord[],
   videos: [
     { id: 'v1', title: 'Sample Members-Only Recording', date: '2026-06-14', youtubeId: 'lB6kdha6pp4', description: 'Placeholder — replace with an unlisted video. Real entries are stored in Netlify Blobs, not the public repo.' },
   ] satisfies VideoRecord[],
@@ -97,6 +115,8 @@ export async function writeKey(key: string, value: unknown): Promise<void> {
 }
 
 export const getDirectory = () => readKey<MemberRecord[]>('directory');
+export const setDirectory = (d: MemberRecord[]) => writeKey('directory', d);
 export const getSignups = () => readKey<ReadingSignup[]>('signups');
 export const setSignups = (s: ReadingSignup[]) => writeKey('signups', s);
 export const getVideos = () => readKey<VideoRecord[]>('videos');
+export const getDocuments = () => readKey<DocumentRecord[]>('documents');
