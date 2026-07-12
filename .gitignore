@@ -29,3 +29,5 @@ hgp7
 tina/__generated__/.cache/
 .data/
 hgp-archive/
+__pycache__/
+*.pyc
