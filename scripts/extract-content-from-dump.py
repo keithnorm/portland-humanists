@@ -23,6 +23,23 @@ def strip_html(s):
     return re.sub(r'\s+', ' ', html.unescape(re.sub(r'<[^>]*>', ' ', s or ''))).strip()
 
 
+def text_with_breaks(s):
+    """Flatten HTML to text but keep the paragraph structure (minutes are
+    stored as <p>-per-paragraph HTML, or plain text with CRLF breaks)."""
+    if not s:
+        return ''
+    s = re.sub(r'(?i)<br\s*/?>', '\n', s)
+    s = re.sub(r'(?i)<li[^>]*>', '\n• ', s)
+    s = re.sub(r'(?i)</(p|div|h[1-6]|blockquote|tr|ul|ol)>', '\n\n', s)
+    s = re.sub(r'<[^>]*>', ' ', s)
+    s = html.unescape(s)
+    s = s.replace('\r\n', '\n').replace('\r', '\n')
+    s = re.sub(r'[ \t ]+', ' ', s)
+    s = re.sub(r' *\n *', '\n', s)
+    s = re.sub(r'\n{3,}', '\n\n', s)
+    return s.strip()
+
+
 def field_map(dump, table, bundle):
     """entity_id -> first value column for a field table, single delta 0."""
     out = {}
@@ -97,7 +114,7 @@ def main():
             'title': title,
             'committee': terms.get(tid, 'Uncategorized') if tid else 'Uncategorized',
             'date': (meet_date.get(nid) or '')[:10] or None,
-            'text': strip_html(minutes_text.get(nid)),
+            'text': text_with_breaks(minutes_text.get(nid)),
         })
     documents.sort(key=lambda d: d.get('date') or '', reverse=True)
 

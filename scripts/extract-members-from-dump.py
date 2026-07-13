@@ -37,7 +37,8 @@ def parse_tuples(values_blob):
         c = values_blob[i]
         if in_str:
             if c == '\\' and i + 1 < n:
-                token.append(values_blob[i + 1])
+                nxt = values_blob[i + 1]
+                token.append({'n': '\n', 'r': '\r', 't': '\t', '0': '\0'}.get(nxt, nxt))
                 i += 2
                 continue
             if c == "'":
