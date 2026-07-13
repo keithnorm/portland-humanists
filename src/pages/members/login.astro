@@ -63,11 +63,11 @@ if (user) return Astro.redirect(redirectTo);
     submitBtn.textContent = 'Log in';
   }
 
-  async function establishSession(token: string) {
+  async function establishSession(token: string, refreshToken?: string) {
     const res = await fetch('/api/members/session', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ token }),
+      body: JSON.stringify({ token, refresh_token: refreshToken }),
     });
     if (res.ok) window.location.href = redirectTo;
     else showError('Login succeeded but the session could not be created — please try again.');
@@ -96,7 +96,7 @@ if (user) return Astro.redirect(redirectTo);
         const res = await fetch('/.netlify/functions/auth-bridge', { method: 'POST', headers, body });
         if (res.ok) {
           const tokens = await res.json();
-          await establishSession(tokens.access_token);
+          await establishSession(tokens.access_token, tokens.refresh_token);
         } else {
           showError((await res.json().catch(() => ({}))).error ?? 'Invalid login or password');
         }
@@ -112,7 +112,7 @@ if (user) return Astro.redirect(redirectTo);
   netlifyIdentity.init(apiUrl ? { APIUrl: apiUrl } : undefined);
   netlifyIdentity.on('login', async (user) => {
     netlifyIdentity.close();
-    await establishSession(await user.jwt());
+    await establishSession(await user.jwt(), (user as any).token?.refresh_token);
   });
   document.getElementById('recovery-btn')?.addEventListener('click', () => netlifyIdentity.open());
 </script>

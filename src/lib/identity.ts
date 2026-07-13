@@ -16,6 +16,10 @@ export interface MemberUser {
 }
 
 export const SESSION_COOKIE = 'hgp_member_session';
+export const REFRESH_COOKIE = 'hgp_member_refresh';
+export const DISPLAY_COOKIE = 'hgp_member_display';
+/** How long a login lasts on a device (refresh-token cookie lifetime). */
+export const SESSION_MAX_AGE = 60 * 60 * 24 * 30; // 30 days
 
 const DEV_TOKEN_PREFIX = 'dev:';
 
@@ -58,4 +62,29 @@ export async function getUserFromRequest(request: Request, origin: string): Prom
   const token = parseCookies(request.headers.get('cookie'))[SESSION_COOKIE];
   if (!token) return null;
   return validateToken(token, origin);
+}
+
+export function getRefreshToken(request: Request): string | null {
+  return parseCookies(request.headers.get('cookie'))[REFRESH_COOKIE] ?? null;
+}
+
+/** Exchange a refresh token for a new access token (GoTrue rotates the
+    refresh token on every use — always store the returned one). */
+export async function refreshSession(
+  refreshToken: string,
+  origin: string
+): Promise<{ accessToken: string; refreshToken: string } | null> {
+  const apiBase = import.meta.env.IDENTITY_API_URL || `${origin}/.netlify/identity`;
+  try {
+    const res = await fetch(`${apiBase}/token`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({ grant_type: 'refresh_token', refresh_token: refreshToken }),
+    });
+    if (!res.ok) return null;
+    const tokens = await res.json();
+    return { accessToken: tokens.access_token, refreshToken: tokens.refresh_token };
+  } catch {
+    return null;
+  }
 }

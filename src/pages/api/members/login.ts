@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
 import { verifyDrupalPassword } from '../../../lib/drupalHash';
 import { readKey, getDirectory } from '../../../lib/membersStore';
-import { SESSION_COOKIE } from '../../../lib/identity';
+import { SESSION_COOKIE, DISPLAY_COOKIE, SESSION_MAX_AGE } from '../../../lib/identity';
 
 export const prerender = false;
 
@@ -37,7 +37,7 @@ export const POST: APIRoute = async ({ request, url }) => {
   const token = `dev:${name}:${account.email}`;
   const secure = url.protocol === 'https:' ? '; Secure' : '';
   const headers = new Headers({ 'Content-Type': 'application/json' });
-  headers.append('Set-Cookie', `${SESSION_COOKIE}=${encodeURIComponent(token)}; Path=/; HttpOnly; SameSite=Lax; Max-Age=3600${secure}`);
-  headers.append('Set-Cookie', `hgp_member_display=${encodeURIComponent(name)}; Path=/; SameSite=Lax; Max-Age=3600${secure}`);
+  headers.append('Set-Cookie', `${SESSION_COOKIE}=${encodeURIComponent(token)}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${SESSION_MAX_AGE}${secure}`);
+  headers.append('Set-Cookie', `${DISPLAY_COOKIE}=${encodeURIComponent(name)}; Path=/; SameSite=Lax; Max-Age=${SESSION_MAX_AGE}${secure}`);
   return new Response(JSON.stringify({ ok: true, name }), { status: 200, headers });
 };

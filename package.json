@@ -21,6 +21,7 @@
     "tinacms": "^3.5.1"
   },
   "devDependencies": {
-    "@netlify/functions": "^5.3.0"
+    "@netlify/functions": "^5.3.0",
+    "@types/netlify-identity-widget": "^1.9.7"
   }
 }
