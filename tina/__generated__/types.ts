@@ -253,6 +253,9 @@ export type Events = Node & Document & {
   description: Scalars['String']['output'];
   youtubeId?: Maybe<Scalars['String']['output']>;
   vimeoId?: Maybe<Scalars['String']['output']>;
+  presenterImage?: Maybe<Scalars['String']['output']>;
+  topics?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  featured?: Maybe<Scalars['Boolean']['output']>;
   body?: Maybe<Scalars['RichText']['output']>;
   id: Scalars['ID']['output'];
   _sys: SystemInfo;
@@ -279,6 +282,13 @@ export type BooleanFilter = {
   exists?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+export type ImageFilter = {
+  startsWith?: InputMaybe<Scalars['String']['input']>;
+  eq?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
 export type RichTextFilter = {
   startsWith?: InputMaybe<Scalars['String']['input']>;
   eq?: InputMaybe<Scalars['String']['input']>;
@@ -298,6 +308,9 @@ export type EventsFilter = {
   description?: InputMaybe<StringFilter>;
   youtubeId?: InputMaybe<StringFilter>;
   vimeoId?: InputMaybe<StringFilter>;
+  presenterImage?: InputMaybe<ImageFilter>;
+  topics?: InputMaybe<StringFilter>;
+  featured?: InputMaybe<BooleanFilter>;
   body?: InputMaybe<RichTextFilter>;
 };
 
@@ -554,6 +567,14 @@ export type HomepageFeatures = {
   description: Scalars['String']['output'];
 };
 
+export type HomepageInvolvement = {
+  __typename?: 'HomepageInvolvement';
+  title: Scalars['String']['output'];
+  description: Scalars['String']['output'];
+  link: Scalars['String']['output'];
+  linkText?: Maybe<Scalars['String']['output']>;
+};
+
 export type Homepage = Node & Document & {
   __typename?: 'Homepage';
   heroHeading: Scalars['String']['output'];
@@ -562,6 +583,8 @@ export type Homepage = Node & Document & {
   humanismBody1?: Maybe<Scalars['String']['output']>;
   humanismBody2?: Maybe<Scalars['String']['output']>;
   features?: Maybe<Array<Maybe<HomepageFeatures>>>;
+  involvementHeading?: Maybe<Scalars['String']['output']>;
+  involvement?: Maybe<Array<Maybe<HomepageInvolvement>>>;
   ctaHeading?: Maybe<Scalars['String']['output']>;
   ctaBody?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
@@ -574,6 +597,13 @@ export type HomepageFeaturesFilter = {
   description?: InputMaybe<StringFilter>;
 };
 
+export type HomepageInvolvementFilter = {
+  title?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  link?: InputMaybe<StringFilter>;
+  linkText?: InputMaybe<StringFilter>;
+};
+
 export type HomepageFilter = {
   heroHeading?: InputMaybe<StringFilter>;
   heroTagline?: InputMaybe<StringFilter>;
@@ -581,6 +611,8 @@ export type HomepageFilter = {
   humanismBody1?: InputMaybe<StringFilter>;
   humanismBody2?: InputMaybe<StringFilter>;
   features?: InputMaybe<HomepageFeaturesFilter>;
+  involvementHeading?: InputMaybe<StringFilter>;
+  involvement?: InputMaybe<HomepageInvolvementFilter>;
   ctaHeading?: InputMaybe<StringFilter>;
   ctaBody?: InputMaybe<StringFilter>;
 };
@@ -740,6 +772,9 @@ export type EventsMutation = {
   description?: InputMaybe<Scalars['String']['input']>;
   youtubeId?: InputMaybe<Scalars['String']['input']>;
   vimeoId?: InputMaybe<Scalars['String']['input']>;
+  presenterImage?: InputMaybe<Scalars['String']['input']>;
+  topics?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  featured?: InputMaybe<Scalars['Boolean']['input']>;
   body?: InputMaybe<Scalars['RichText']['input']>;
 };
 
@@ -831,6 +866,13 @@ export type HomepageFeaturesMutation = {
   description?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type HomepageInvolvementMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  link?: InputMaybe<Scalars['String']['input']>;
+  linkText?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type HomepageMutation = {
   heroHeading?: InputMaybe<Scalars['String']['input']>;
   heroTagline?: InputMaybe<Scalars['String']['input']>;
@@ -838,6 +880,8 @@ export type HomepageMutation = {
   humanismBody1?: InputMaybe<Scalars['String']['input']>;
   humanismBody2?: InputMaybe<Scalars['String']['input']>;
   features?: InputMaybe<Array<InputMaybe<HomepageFeaturesMutation>>>;
+  involvementHeading?: InputMaybe<Scalars['String']['input']>;
+  involvement?: InputMaybe<Array<InputMaybe<HomepageInvolvementMutation>>>;
   ctaHeading?: InputMaybe<Scalars['String']['input']>;
   ctaBody?: InputMaybe<Scalars['String']['input']>;
 };
@@ -862,6 +906,13 @@ export type BooleanFilter = {
   exists?: boolean | null | undefined;
 };
 
+export type ImageFilter = {
+  startsWith?: string | null | undefined;
+  eq?: string | null | undefined;
+  exists?: boolean | null | undefined;
+  in?: Array<string | null | undefined> | null | undefined;
+};
+
 export type RichTextFilter = {
   startsWith?: string | null | undefined;
   eq?: string | null | undefined;
@@ -881,6 +932,9 @@ export type EventsFilter = {
   description?: StringFilter | null | undefined;
   youtubeId?: StringFilter | null | undefined;
   vimeoId?: StringFilter | null | undefined;
+  presenterImage?: ImageFilter | null | undefined;
+  topics?: StringFilter | null | undefined;
+  featured?: BooleanFilter | null | undefined;
   body?: RichTextFilter | null | undefined;
 };
 
@@ -982,6 +1036,13 @@ export type HomepageFeaturesFilter = {
   description?: StringFilter | null | undefined;
 };
 
+export type HomepageInvolvementFilter = {
+  title?: StringFilter | null | undefined;
+  description?: StringFilter | null | undefined;
+  link?: StringFilter | null | undefined;
+  linkText?: StringFilter | null | undefined;
+};
+
 export type HomepageFilter = {
   heroHeading?: StringFilter | null | undefined;
   heroTagline?: StringFilter | null | undefined;
@@ -989,11 +1050,13 @@ export type HomepageFilter = {
   humanismBody1?: StringFilter | null | undefined;
   humanismBody2?: StringFilter | null | undefined;
   features?: HomepageFeaturesFilter | null | undefined;
+  involvementHeading?: StringFilter | null | undefined;
+  involvement?: HomepageInvolvementFilter | null | undefined;
   ctaHeading?: StringFilter | null | undefined;
   ctaBody?: StringFilter | null | undefined;
 };
 
-export type EventsPartsFragment = { __typename: 'Events', title: string, date: string | null, presenter: string, presenterTitle: string | null, startTime: string, endTime: string, location: string, speakerRemote: boolean | null, zoomLink: string | null, description: string, youtubeId: string | null, vimeoId: string | null, body: TinaMarkdownContent | null };
+export type EventsPartsFragment = { __typename: 'Events', title: string, date: string | null, presenter: string, presenterTitle: string | null, startTime: string, endTime: string, location: string, speakerRemote: boolean | null, zoomLink: string | null, description: string, youtubeId: string | null, vimeoId: string | null, presenterImage: string | null, topics: Array<string | null> | null, featured: boolean | null, body: TinaMarkdownContent | null };
 
 export type PagesPartsFragment = { __typename: 'Pages', title: string, description: string, pageLayout: string | null, parent: string | null, showInNav: boolean | null, navOrder: number | null, body: TinaMarkdownContent | null, contactInfo: { __typename: 'PagesContactInfo', email: string | null, location: string | null, address: string | null } | null };
 
@@ -1001,14 +1064,14 @@ export type SettingsPartsFragment = { __typename: 'Settings', siteTitle: string,
 
 export type JoinPagePartsFragment = { __typename: 'JoinPage', heroHeading: string, heroTagline: string, benefitsHeading: string | null, personalInfoHeading: string | null, philosophyText: string | null, membershipNote: string | null, communicationPrefsHeading: string | null, questionsHeading: string | null, questionsBody: string | null, membershipEmail: string | null, questionsFootnote: string | null, benefits: Array<{ __typename: 'JoinPageBenefits', title: string, description: string } | null> | null, personalFields: Array<{ __typename: 'JoinPagePersonalFields', label: string, fieldName: string, fieldType: string | null, required: boolean | null, placeholder: string | null } | null> | null, membershipTiers: Array<{ __typename: 'JoinPageMembershipTiers', tierName: string, tierSubtitle: string | null, priceRange: string | null } | null> | null, communicationFields: Array<{ __typename: 'JoinPageCommunicationFields', label: string, description: string | null, fieldName: string, defaultChecked: boolean | null } | null> | null };
 
-export type HomepagePartsFragment = { __typename: 'Homepage', heroHeading: string, heroTagline: string, humanismHeading: string | null, humanismBody1: string | null, humanismBody2: string | null, ctaHeading: string | null, ctaBody: string | null, features: Array<{ __typename: 'HomepageFeatures', title: string, description: string } | null> | null };
+export type HomepagePartsFragment = { __typename: 'Homepage', heroHeading: string, heroTagline: string, humanismHeading: string | null, humanismBody1: string | null, humanismBody2: string | null, involvementHeading: string | null, ctaHeading: string | null, ctaBody: string | null, features: Array<{ __typename: 'HomepageFeatures', title: string, description: string } | null> | null, involvement: Array<{ __typename: 'HomepageInvolvement', title: string, description: string, link: string, linkText: string | null } | null> | null };
 
 export type EventsQueryVariables = Exact<{
   relativePath: string;
 }>;
 
 
-export type EventsQuery = { events: { __typename: 'Events', id: string, title: string, date: string | null, presenter: string, presenterTitle: string | null, startTime: string, endTime: string, location: string, speakerRemote: boolean | null, zoomLink: string | null, description: string, youtubeId: string | null, vimeoId: string | null, body: TinaMarkdownContent | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
+export type EventsQuery = { events: { __typename: 'Events', id: string, title: string, date: string | null, presenter: string, presenterTitle: string | null, startTime: string, endTime: string, location: string, speakerRemote: boolean | null, zoomLink: string | null, description: string, youtubeId: string | null, vimeoId: string | null, presenterImage: string | null, topics: Array<string | null> | null, featured: boolean | null, body: TinaMarkdownContent | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
 
 export type EventsConnectionQueryVariables = Exact<{
   before?: string | null | undefined;
@@ -1020,7 +1083,7 @@ export type EventsConnectionQueryVariables = Exact<{
 }>;
 
 
-export type EventsConnectionQuery = { eventsConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Events', id: string, title: string, date: string | null, presenter: string, presenterTitle: string | null, startTime: string, endTime: string, location: string, speakerRemote: boolean | null, zoomLink: string | null, description: string, youtubeId: string | null, vimeoId: string | null, body: TinaMarkdownContent | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
+export type EventsConnectionQuery = { eventsConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Events', id: string, title: string, date: string | null, presenter: string, presenterTitle: string | null, startTime: string, endTime: string, location: string, speakerRemote: boolean | null, zoomLink: string | null, description: string, youtubeId: string | null, vimeoId: string | null, presenterImage: string | null, topics: Array<string | null> | null, featured: boolean | null, body: TinaMarkdownContent | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
 
 export type PagesQueryVariables = Exact<{
   relativePath: string;
@@ -1084,7 +1147,7 @@ export type HomepageQueryVariables = Exact<{
 }>;
 
 
-export type HomepageQuery = { homepage: { __typename: 'Homepage', id: string, heroHeading: string, heroTagline: string, humanismHeading: string | null, humanismBody1: string | null, humanismBody2: string | null, ctaHeading: string | null, ctaBody: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, features: Array<{ __typename: 'HomepageFeatures', title: string, description: string } | null> | null } };
+export type HomepageQuery = { homepage: { __typename: 'Homepage', id: string, heroHeading: string, heroTagline: string, humanismHeading: string | null, humanismBody1: string | null, humanismBody2: string | null, involvementHeading: string | null, ctaHeading: string | null, ctaBody: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, features: Array<{ __typename: 'HomepageFeatures', title: string, description: string } | null> | null, involvement: Array<{ __typename: 'HomepageInvolvement', title: string, description: string, link: string, linkText: string | null } | null> | null } };
 
 export type HomepageConnectionQueryVariables = Exact<{
   before?: string | null | undefined;
@@ -1096,7 +1159,7 @@ export type HomepageConnectionQueryVariables = Exact<{
 }>;
 
 
-export type HomepageConnectionQuery = { homepageConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Homepage', id: string, heroHeading: string, heroTagline: string, humanismHeading: string | null, humanismBody1: string | null, humanismBody2: string | null, ctaHeading: string | null, ctaBody: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, features: Array<{ __typename: 'HomepageFeatures', title: string, description: string } | null> | null } | null } | null> | null } };
+export type HomepageConnectionQuery = { homepageConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Homepage', id: string, heroHeading: string, heroTagline: string, humanismHeading: string | null, humanismBody1: string | null, humanismBody2: string | null, involvementHeading: string | null, ctaHeading: string | null, ctaBody: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, features: Array<{ __typename: 'HomepageFeatures', title: string, description: string } | null> | null, involvement: Array<{ __typename: 'HomepageInvolvement', title: string, description: string, link: string, linkText: string | null } | null> | null } | null } | null> | null } };
 
 export const EventsPartsFragmentDoc = gql`
     fragment EventsParts on Events {
@@ -1113,6 +1176,9 @@ export const EventsPartsFragmentDoc = gql`
   description
   youtubeId
   vimeoId
+  presenterImage
+  topics
+  featured
   body
 }
     `;
@@ -1210,6 +1276,14 @@ export const HomepagePartsFragmentDoc = gql`
     __typename
     title
     description
+  }
+  involvementHeading
+  involvement {
+    __typename
+    title
+    description
+    link
+    linkText
   }
   ctaHeading
   ctaBody
@@ -1580,7 +1654,7 @@ export const ExperimentalGetTinaClient = () =>
   getSdk(
     generateRequester(
       createClient({
-        url: "https://content.tinajs.io/4.1/content/dummy/github/main",
+        url: "http://localhost:4001/graphql",
         queries,
       })
     )

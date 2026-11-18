@@ -18,6 +18,33 @@
       "description": "Promoting ethics, social justice, and care for all people through humanist values."
     }
   ],
+  "involvementHeading": "More Ways to Get Involved",
+  "involvement": [
+    {
+      "title": "Activities & Social Events",
+      "description": "Discussion groups, book clubs, potlucks, and the Talking & Walking meetup — there's more to HGP than Sundays.",
+      "link": "/activities",
+      "linkText": "See activities"
+    },
+    {
+      "title": "Del Allen Scholarship",
+      "description": "Each year we award scholarships to students who exemplify humanist values through achievement and community engagement.",
+      "link": "/scholarship",
+      "linkText": "About the scholarship"
+    },
+    {
+      "title": "Humanist Celebrants",
+      "description": "Our ordained celebrants officiate weddings and memorials, and offer counseling on ethical and philosophical questions.",
+      "link": "/celebrants-counselors",
+      "linkText": "Meet our celebrants"
+    },
+    {
+      "title": "Community Involvement",
+      "description": "We support local nonprofits that reflect humanist values, from food assistance to public broadcasting.",
+      "link": "/community-involvement",
+      "linkText": "Where we give"
+    }
+  ],
   "ctaHeading": "Ready to Join Our Community?",
   "ctaBody": "Become a member and connect with fellow humanists. Support our programs, scholarship funds, and community outreach initiatives."
 }

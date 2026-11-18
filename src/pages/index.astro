@@ -22,6 +22,11 @@ const recentRecordings = allEvents
   .filter(event => parseInTimezone(event.data.endTime, timezone) <= now && (event.data.youtubeId || event.data.vimeoId))
   .sort((a, b) => parseInTimezone(b.data.startTime, timezone).getTime() - parseInTimezone(a.data.startTime, timezone).getTime())
   .slice(0, 3);
+
+// For the "600+ talks since 2008" line over the recordings
+const recorded = allEvents.filter(event => event.data.youtubeId || event.data.vimeoId);
+const archiveCount = Math.floor(recorded.length / 50) * 50;
+const archiveSince = Math.min(...recorded.map(event => parseInTimezone(event.data.startTime, timezone).getFullYear()));
 ---
 
 <BaseLayout>
@@ -31,6 +36,8 @@ const recentRecordings = allEvents
     data={tinaResult.data}
     upcomingEvents={upcomingEvents}
     recentRecordings={recentRecordings}
+    archiveCount={archiveCount}
+    archiveSince={archiveSince}
     timezone={timezone}
     client:tina
   />
@@ -53,13 +60,10 @@ const recentRecordings = allEvents
     const THIRTY_MIN = 30 * 60 * 1000;
 
     function enableZoomBtn() {
-      const btn = document.getElementById('featured-zoom-btn') as HTMLAnchorElement | null;
-      if (!btn) return;
-      const href = btn.dataset.href;
-      if (href) btn.setAttribute('href', href);
-      btn.style.pointerEvents = '';
-      btn.style.opacity = '';
-      btn.removeAttribute('aria-disabled');
+      const wait = document.getElementById('featured-zoom-wait');
+      const btn = document.getElementById('featured-zoom-btn');
+      if (wait) wait.style.display = 'none';
+      if (btn) btn.style.display = '';
     }
 
     if (now >= startMs && now <= endMs) {

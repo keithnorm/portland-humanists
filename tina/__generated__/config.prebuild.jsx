@@ -152,6 +152,32 @@ var config_default = defineConfig({
             }
           },
           {
+            type: "image",
+            name: "presenterImage",
+            label: "Presenter Photo",
+            ui: {
+              description: "Optional. A headshot of the speaker, shown on the homepage, events list and program page. Square-ish photos work best."
+            }
+          },
+          {
+            type: "string",
+            name: "topics",
+            label: "Topics",
+            list: true,
+            options: ["Science", "Society & Politics", "Ethics & Philosophy", "Religion & Secularism", "Health & Medicine", "History", "Environment", "Arts & Culture", "Personal Stories", "World & Travel", "Humanist Community"],
+            ui: {
+              description: "Used to filter the Past Programs archive. Pick one or two."
+            }
+          },
+          {
+            type: "boolean",
+            name: "featured",
+            label: "Featured recording",
+            ui: {
+              description: "Show this program in the 'Featured' row at the top of Past Programs."
+            }
+          },
+          {
             type: "rich-text",
             name: "body",
             label: "Body",
@@ -518,6 +544,27 @@ var config_default = defineConfig({
             fields: [
               { type: "string", name: "title", label: "Title", required: true },
               { type: "string", name: "description", label: "Description", required: true, ui: { component: "textarea" } }
+            ]
+          },
+          {
+            type: "string",
+            name: "involvementHeading",
+            label: '"Get Involved" Heading'
+          },
+          {
+            type: "object",
+            name: "involvement",
+            label: "Get Involved Cards",
+            list: true,
+            ui: {
+              description: "Ways to take part beyond Sunday programs",
+              itemProps: (item) => ({ label: item?.title })
+            },
+            fields: [
+              { type: "string", name: "title", label: "Title", required: true },
+              { type: "string", name: "description", label: "Description", required: true, ui: { component: "textarea" } },
+              { type: "string", name: "link", label: "Link", required: true, ui: { description: "A page on this site (e.g. /scholarship) or a full URL" } },
+              { type: "string", name: "linkText", label: "Link text" }
             ]
           },
           {

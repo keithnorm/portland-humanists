@@ -12,6 +12,9 @@ fragment EventsParts on Events {
   description
   youtubeId
   vimeoId
+  presenterImage
+  topics
+  featured
   body
 }
 
@@ -105,6 +108,14 @@ fragment HomepageParts on Homepage {
     __typename
     title
     description
+  }
+  involvementHeading
+  involvement {
+    __typename
+    title
+    description
+    link
+    linkText
   }
   ctaHeading
   ctaBody

@@ -18,6 +18,10 @@ const contactEmail = settings.contactEmail ?? 'info@portlandhumanists.org';
 const socialLinks: { label: string; url: string }[] = (settings as any).socialLinks ?? [];
 const colorTheme = (settings as any).colorTheme ?? 'navy';
 const customBaseColor = (settings as any).customBaseColor ?? '';
+const meeting = (settings as any).meetingInfo ?? {};
+const venueName = meeting.locationName ?? 'Friendly House';
+const venueAddress = meeting.locationAddress ?? '1737 NW 26th Ave, Portland, OR 97210';
+const mapsUrl = `https://maps.google.com/?q=${encodeURIComponent(`${venueName} ${venueAddress}`)}`;
 ---
 
 <!DOCTYPE html>
@@ -28,6 +32,9 @@ const customBaseColor = (settings as any).customBaseColor ?? '';
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500..700&family=Inter:wght@400..700&display=swap" />
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
@@ -89,12 +96,23 @@ const customBaseColor = (settings as any).customBaseColor ?? '';
 
     <footer class="bg-neutral-900 text-neutral-300">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr] gap-10">
           <div>
-            <h3 class="text-white font-bold text-lg mb-4">Humanists of Greater Portland</h3>
+            <h3 class="text-white font-semibold text-xl mb-4">Humanists of Greater Portland</h3>
             <p class="text-sm text-neutral-400">
               Promoting human well-being, science and reason, secularism, and humanist values in the Portland metro area.
             </p>
+          </div>
+
+          <div>
+            <h4 class="text-white font-semibold mb-4">Visit Us</h4>
+            <p class="text-sm leading-relaxed">
+              Sundays at 9:45 AM<br />
+              <a href={mapsUrl} target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">
+                {venueName}<br />{venueAddress}
+              </a>
+            </p>
+            <a href="/friendly-house" class="inline-block mt-3 text-sm text-[var(--hgp-gold)] hover:underline">Directions &amp; parking →</a>
           </div>
 
           <div>

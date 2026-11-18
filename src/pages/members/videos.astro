@@ -35,6 +35,7 @@ for (const e of publicRecordings) {
     youtubeId: e.data.youtubeId,
     vimeoId: e.data.vimeoId,
     vimeoThumbnail: (e.data as any).vimeoThumbnail,
+    topics: e.data.topics,
     embed: Boolean(e.data.vimeoId && !e.data.youtubeId),
   });
 }

@@ -67,13 +67,10 @@ try {
       const THIRTY_MIN = 30 * 60 * 1000;
 
       function enableZoomBtn() {
-        const btn = document.getElementById('event-zoom-btn') as HTMLAnchorElement | null;
-        if (!btn) return;
-        const href = btn.dataset.href;
-        if (href) btn.setAttribute('href', href);
-        btn.style.pointerEvents = '';
-        btn.style.opacity = '';
-        btn.removeAttribute('aria-disabled');
+        const wait = document.getElementById('event-zoom-wait');
+        const btn = document.getElementById('event-zoom-btn');
+        if (wait) wait.style.display = 'none';
+        if (btn) btn.style.display = '';
       }
 
       if (now >= startMs && now <= endMs) {

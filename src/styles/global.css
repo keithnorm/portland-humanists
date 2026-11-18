@@ -1,6 +1,22 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+/* ── Typography ────────────────────────────────────────────────────── */
+/* Fonts are loaded in BaseLayout. Fraunces gives headings a warmer,
+   less template-like voice; Inter stays for body text. */
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+}
+
+@layer base {
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+    letter-spacing: -0.01em;
+  }
+}
+
 /* ── Site Theme Variables ──────────────────────────────────────────── */
 /*
   All palette variables are derived from a single --hgp-base color via
@@ -16,6 +32,12 @@
   --hgp-on-primary:  oklch(from var(--hgp-base) 0.88 calc(c * 0.55) h);
   --hgp-surface:     oklch(from var(--hgp-base) 0.96 calc(c * 0.20) h);
   --hgp-surface-alt: oklch(from var(--hgp-base) 0.99 calc(c * 0.08) h);
+
+  /* Gold from the logo. --hgp-gold is for fills (buttons, badges, rules);
+     --hgp-gold-ink is a darker shade that passes contrast as text on white. */
+  --hgp-gold:        #f0a83c;
+  --hgp-gold-soft:   #fdf1dc;
+  --hgp-gold-ink:    #9a5b0c;
 }
 
 /* Named themes — only the base color needs to change */
@@ -43,4 +65,23 @@
 /* Two-stop card accent gradient */
 .hgp-card-grad {
   background: linear-gradient(to bottom right, var(--hgp-mid), var(--hgp-accent));
+}
+
+/* ── Line art ──────────────────────────────────────────────────────── */
+/* Spot illustrations cut from the hero drawing (public/art/*.png). The PNGs
+   are alpha masks, so the drawing takes whatever color the element has —
+   it follows the theme. Set the image with style="--art: url(/art/x.png)". */
+.hgp-art {
+  background-color: var(--hgp-primary);
+  -webkit-mask: var(--art) center / contain no-repeat;
+  mask: var(--art) center / contain no-repeat;
+}
+
+/* Primary call-to-action: gold with navy text */
+.hgp-btn-gold {
+  background-color: var(--hgp-gold);
+  color: var(--hgp-primary);
+}
+.hgp-btn-gold:hover {
+  background-color: oklch(from var(--hgp-gold) calc(l - 0.05) c h);
 }

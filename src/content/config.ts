@@ -16,6 +16,9 @@ const events = defineCollection({
     youtubeId: z.string().optional(),
     vimeoId: z.string().optional(),
     vimeoThumbnail: z.string().optional(),
+    presenterImage: z.string().optional(),
+    topics: z.array(z.string()).optional().default([]),
+    featured: z.boolean().optional().default(false),
     status: z.enum(['upcoming', 'past']).optional(), // deprecated: filtering is now endTime-based
   }),
 });

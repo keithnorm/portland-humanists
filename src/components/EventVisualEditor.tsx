@@ -3,6 +3,7 @@ import { useTina, tinaField } from 'tinacms/dist/react';
 import { TinaMarkdown } from 'tinacms/dist/rich-text';
 import type { TinaMarkdownContent } from 'tinacms/dist/rich-text';
 import type { EventsQuery, EventsQueryVariables } from '../../tina/__generated__/types';
+import { cleanDescription, initials } from '../utils/events';
 
 interface Props {
   query: string;
@@ -97,11 +98,11 @@ export function EventVisualEditor({ query, variables, data, timezone }: Props) {
       {/* Hero */}
       <section className="hgp-cta text-white py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <a href="/events" className="inline-flex items-center gap-2 text-[var(--hgp-on-primary)] hover:text-white mb-6 transition-colors">
+          <a href={isUpcoming ? '/events' : '/events/past'} className="inline-flex items-center gap-2 text-[var(--hgp-on-primary)] hover:text-white mb-6 transition-colors">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
-            Back to Events
+            {isUpcoming ? 'Upcoming Programs' : 'Past Programs'}
           </a>
           <h1
             className="text-4xl md:text-5xl font-bold mb-4"
@@ -111,6 +112,16 @@ export function EventVisualEditor({ query, variables, data, timezone }: Props) {
           </h1>
           {eventDate && (
             <p className="text-xl text-[var(--hgp-on-primary)]">{formatDate(eventDate)}</p>
+          )}
+          {event.topics && event.topics.length > 0 && (
+            <div className="flex flex-wrap gap-2 mt-5" data-tina-field={tinaField(event, 'topics')}>
+              {event.topics.filter(Boolean).map(t => (
+                <a key={t} href={`/events/past?topic=${encodeURIComponent(t as string)}`}
+                  className="rounded-full bg-white/10 hover:bg-white/20 px-3 py-1 text-sm font-medium text-white transition-colors">
+                  {t}
+                </a>
+              ))}
+            </div>
           )}
         </div>
       </section>
@@ -196,14 +207,27 @@ export function EventVisualEditor({ query, variables, data, timezone }: Props) {
                         </svg>
                         <span className="font-medium">Presenter</span>
                       </div>
-                      <p className="text-neutral-900 ml-7 font-semibold" data-tina-field={tinaField(event, 'presenter')}>
-                        {event.presenter}
-                      </p>
-                      {event.presenterTitle && (
-                        <p className="text-neutral-600 ml-7 text-sm" data-tina-field={tinaField(event, 'presenterTitle')}>
-                          {event.presenterTitle}
-                        </p>
-                      )}
+                      <div className="ml-7 mt-2 flex items-start gap-3">
+                        <div data-tina-field={tinaField(event, 'presenterImage')} className="flex-shrink-0">
+                          {event.presenterImage ? (
+                            <img src={event.presenterImage} alt={event.presenter} className="w-14 h-14 rounded-full object-cover ring-2 ring-white shadow" />
+                          ) : (
+                            <div className="w-14 h-14 rounded-full bg-[var(--hgp-primary)] text-white flex items-center justify-center font-semibold" aria-hidden="true">
+                              {initials(event.presenter)}
+                            </div>
+                          )}
+                        </div>
+                        <div className="min-w-0">
+                          <p className="text-neutral-900 font-semibold" data-tina-field={tinaField(event, 'presenter')}>
+                            {event.presenter}
+                          </p>
+                          {event.presenterTitle && (
+                            <p className="text-neutral-600 text-sm" data-tina-field={tinaField(event, 'presenterTitle')}>
+                              {event.presenterTitle}
+                            </p>
+                          )}
+                        </div>
+                      </div>
                     </div>
                   )}
                 </div>
@@ -221,15 +245,18 @@ export function EventVisualEditor({ query, variables, data, timezone }: Props) {
                     id="event-zoom-section"
                     className="mt-6 pt-6 border-t border-neutral-200"
                   >
+                    <p id="event-zoom-wait" className="text-sm text-neutral-600" data-tina-field={tinaField(event, 'zoomLink')}>
+                      The Zoom room opens 30 minutes before the program
+                      {event.startTime ? ` — ${formatTime(new Date(new Date(event.startTime).getTime() - 30 * 60 * 1000).toISOString(), timezone)} on the day` : ''}.
+                      Check back then to join.
+                    </p>
                     <a
                       id="event-zoom-btn"
-                      data-href={effectiveZoomLink}
+                      href={effectiveZoomLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-disabled="true"
-                      style={{ pointerEvents: 'none', opacity: '0.5' }}
-                      title="Zoom link becomes active when the event is live"
-                      className="w-full inline-flex items-center justify-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+                      style={{ display: 'none' }}
+                      className="w-full inline-flex items-center justify-center gap-2 bg-[var(--hgp-primary)] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[var(--hgp-mid)] transition-colors"
                       data-tina-field={tinaField(event, 'zoomLink')}
                     >
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -318,7 +345,7 @@ export function EventVisualEditor({ query, variables, data, timezone }: Props) {
                     className="text-lg text-neutral-700 leading-relaxed"
                     data-tina-field={tinaField(event, 'description')}
                   >
-                    {event.description}
+                    {cleanDescription(event.description)}
                   </p>
                 )}
               </div>
