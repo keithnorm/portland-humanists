@@ -10,6 +10,8 @@ description: "Dr. Bechtold has had a long and distinguished career researching a
 vimeoId: "49359599"
 vimeoThumbnail: https://i.vimeocdn.com/video/371314477-293a79141751f96b27857ea3f2fb3ab6bc1b716ed27cb81b9e4b791959eb3c91-d_640?region=us
 status: "past"
+topics:
+  - World & Travel
 ---
 
 Dr. Bechtold has had a long and distinguished career researching and teaching about the Middle East, North Africa and Central and Southwest Asia. He is chairman emeritus of Near East and North Africa Area Studies at the State Department’s Foreign Service Institute. Currently he is the Director of the Middle East Studies Center at Portland State University.

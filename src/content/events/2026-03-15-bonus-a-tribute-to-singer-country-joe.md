@@ -9,6 +9,9 @@ location: Friendly House & Zoom
 description: |
   You might enjoy this as much as the HGP members did.  Presented by our dedicated activist and creative HGP president Anne Henderson.
 youtubeId: KN2Ngy1i8vU
+topics:
+  - Arts & Culture
+  - Personal Stories
 ---
 
 You might enjoy this as much as the HGP members did.  Presented by our dedicated activist and creative HGP president Anne Henderson.

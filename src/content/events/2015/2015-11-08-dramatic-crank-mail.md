@@ -10,6 +10,8 @@ description: "HGP member Michael Birtchet performs \"dramatic\" reading of crank
 vimeoId: "147199156"
 vimeoThumbnail: https://i.vimeocdn.com/video/545805597-5c29d61ae6d0b0a81d3406420bfe01445d91250f63d5a48b3b4cd89e514ad072-d_640?region=us
 status: "past"
+topics:
+  - Religion & Secularism
 ---
 
 HGP member Michael Birtchet performs "dramatic" reading of crank mail as received by Freedom From Religion Foundation's newsletter, "Free Thought Today".

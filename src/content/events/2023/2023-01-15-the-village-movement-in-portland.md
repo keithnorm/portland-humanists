@@ -10,6 +10,8 @@ description: "Presentation by Lyn Trainer at Friendly House (and on Zoom) about 
 vimeoId: "789817617"
 vimeoThumbnail: https://i.vimeocdn.com/video/1588964049-39e7874e81397c08de8b325d51c4b2d66d53b1a7933646bee986b88f76220cee-d_295x166?region=us
 status: "past"
+topics:
+  - Health & Medicine
 ---
 
 Presentation by Lyn Trainer at Friendly House (and on Zoom) about the Village Movement. A Village is a neighborhood-based membership organization that invigorates older adults’ lives with new experiences and people. Ms. Trainer is Managing Director of Villages NW-Metro.

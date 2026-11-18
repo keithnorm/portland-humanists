@@ -10,6 +10,8 @@ description: "Presentation about the coming water crisis by Mark Owens, a local 
 vimeoId: "604946902"
 vimeoThumbnail: https://i.vimeocdn.com/video/1241501145-98000a7dcd5201d8bc5cc56f76869af4be46ab2bf587911d08b7c04a37d0ef28-d_295x166?region=us
 status: "past"
+topics:
+  - Environment
 ---
 
 Presentation about the coming water crisis by Mark Owens, a local farmer and rancher, small business owner, and a Republican State Representative.

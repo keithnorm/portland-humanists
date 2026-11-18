@@ -10,6 +10,8 @@ speakerRemote: true
 zoomLink: 'https://us02web.zoom.us/j/88017450497?pwd=FBgk7lELMgF2rAxVFmhMV0VzqAVBo1.1'
 description: 'Over Zoom. Religious authoritarianism – from MAGA in the United States to the far-right movement abroad – is reshaping global politics. Around the world, human rights defenders are being silenced, jailed, or even killed for what they believe – or don''t believe. The crisis is global – but so is the resistance. President of Humanists International Maggie Ardiente will map out the gravest threats to freedom of thought, share inspiring stories of progress, and deliver a roadmap for how humanists can build power and community to defend human rights. '
 youtubeId: 13zyZ-MGfvw
+topics:
+  - Humanist Community
 ---
 
 Over Zoom. Religious authoritarianism – from MAGA in the United States to the far-right movement abroad – is reshaping global politics. Around the world, human rights defenders are being silenced, jailed, or even killed for what they believe – or don't believe. The crisis is global – but so is the resistance. President of Humanists International Maggie Ardiente will map out the gravest threats to freedom of thought, share inspiring stories of progress, and deliver a roadmap for how humanists can build power and community to defend human rights.

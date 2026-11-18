@@ -10,6 +10,9 @@ description: "Sue Emmett discusses the role of religion and religious proselytiz
 vimeoId: "44959776"
 vimeoThumbnail: https://i.vimeocdn.com/video/312519415-4e4ffa1df52fc9aef466d51550e1b474e672312d520be779b2cc19023528886a-d_640?region=us
 status: "past"
+topics:
+  - Society & Politics
+  - Religion & Secularism
 ---
 
 Sue Emmett discusses the role of religion and religious proselytizing in our country’s military academies.

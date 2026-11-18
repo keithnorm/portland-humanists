@@ -10,6 +10,8 @@ description: "HGP honors Fathers Day, moderated by Helen Christians. We begin wi
 vimeoId: "566843316"
 vimeoThumbnail: https://i.vimeocdn.com/video/1172465855-bd98a559650508b942d4fee5532422f6b69de597cf0b5bf24f3c22194bf205b3-d_295x166?region=us
 status: "past"
+topics:
+  - Religion & Secularism
 ---
 
 HGP honors Fathers Day, moderated by Helen Christians. We begin with a short video after which members Joyce Lackie, Cathy Humble, and Pete and Paul Barkett share stories about their fathers. The formal program is followed by an open discussion on fatherhood.

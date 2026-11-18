@@ -9,6 +9,9 @@ location: "Friendly House & Zoom"
 description: "Dr. Sarah Strand returns for part 3 of her series. Religion has traditionally guided our moral judgements, but contemporary psychologists find that humans of all types and (non)beliefs make remarkably similar moral judgements. Dr. Strand shows from human and non-human studies that regions in the frontal and temporal lobes are active when making moral judgements, and morality (like physical and behavioral traits) is subject to evolutionary mechanisms. Strand is an associate lecturer in Psychology at California State University, Sacramento, lecturing about religion and neuroscience since 2010."
 youtubeId: "6lqhuJ54Mrg"
 status: "past"
+topics:
+  - Science
+  - Ethics & Philosophy
 ---
 
 Dr. Sarah Strand returns for part 3 of her series. Religion has traditionally guided our moral judgements, but contemporary psychologists find that humans of all types and (non)beliefs make remarkably similar moral judgements. Dr. Strand shows from human and non-human studies that regions in the frontal and temporal lobes are active when making moral judgements, and morality (like physical and behavioral traits) is subject to evolutionary mechanisms. Strand is an associate lecturer in Psychology at California State University, Sacramento, lecturing about religion and neuroscience since 2010.

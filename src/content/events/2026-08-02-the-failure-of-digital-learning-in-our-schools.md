@@ -13,6 +13,8 @@ description: |-
   Slide by:  Roberto Serrano, Brown University,
   https://www.insidehighered.com/news/faculty/learning-assessment/2026/07/08/brown-professor-suspects-most-his-class-used-ai-cheat?utm_source=substack&utm_medium=email. 
 youtubeId: mi78OFPeXg4
+topics:
+  - Society & Politics
 ---
 
 From FH. Classrooms have changed radically in the past decade, with Education Technology (EdTech) replacing traditional teacher-led, hands-on learning.  This presentation will be an overview of the current state of K-12 education, the risks and harms to kids of Ed Tech, the startling decline in academic outcomes in our State, Nation and World over the past decade, and how we might reorient K-12 education for healthier outcomes for our children.  (First Sundays start with 1/2 hour of music, offer childcare, and may run until noon.)

@@ -9,5 +9,7 @@ location: "Friendly House & Zoom"
 description: ""
 youtubeId: "7zVn9ti6K88"
 status: "past"
+topics:
+  - World & Travel
 ---
 

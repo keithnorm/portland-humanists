@@ -10,6 +10,9 @@ description: "This program, given by Professor Randy Blazak, concerns the psycho
 vimeoId: "44568210"
 vimeoThumbnail: https://i.vimeocdn.com/video/309666047-5e6bfd1624aa2df2f294b1c199c6faeb3c9f5cf416ce2e37f281acd9fd9b0cf0-d_640?region=us
 status: "past"
+topics:
+  - Science
+  - Society & Politics
 ---
 
 This program, given by Professor Randy Blazak, concerns the psychology and sociology of Neo-Nazis, racism, and hate-crimes. Blazak is a sociologist at Portland State University who has studied white supremacy groups in depth.

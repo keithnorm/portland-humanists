@@ -10,6 +10,9 @@ location: Friendly House & Zoom
 speakerRemote: true
 description: 'Crag Law Center is an environmental nonprofit supporting people fighting to protect ecosystems, climate, and communities across the Pacific Northwest, providing strategic, free and low cost legal services to help communities win lasting environmental protections. Rebeka Dawit, Deputy Director and Environmental Justice Attorney, will discuss Crag''s approach to environmental justice advocacy while maintaining the client led, community based advocacy that has been their basis for 25 years.'
 youtubeId: ''
+topics:
+  - Society & Politics
+  - Environment
 ---
 
 Crag Law Center is an environmental nonprofit supporting people fighting to protect ecosystems, climate, and communities across the Pacific Northwest, providing strategic, free and low cost legal services to help communities win lasting environmental protections. Rebeka Dawit, Deputy Director and Environmental Justice Attorney, will discuss Crag's approach to environmental justice advocacy while maintaining the client led, community based advocacy that has been their basis for 25 years.

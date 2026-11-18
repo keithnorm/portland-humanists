@@ -9,6 +9,8 @@ location: Friendly House & Zoom
 zoomLink: 'https://us02web.zoom.us/j/85214455275?pwd=iAGG7wDyzStkFzce5FnY6qQzpwhfkM.1'
 description: 'From FH. Commissioner Meghan Moyer will address the status of Multnomah County District 1, covering the Willamette River''s west side, the inner east side, and the western unincorporated County. Moyer is a skilled homebuilder who has 20 years of experience in creating policies that serve the most vulnerable in our communities; has lobbied Congress on child-related issues for the National PTA; has represented homecare, childcare, and DHS employees as an Organizer/Strategist for SEIU Local 503; and has fought to expand access to mental health services, and children''s access to school as Director of Public Policy for Disability Rights Oregon. (First Sundays offer childcare, start with 1/2 hour of live music, and may last until noon.)'
 youtubeId: wg-n8KkvxAk
+topics:
+  - Society & Politics
 ---
 
 From FH. Commissioner Meghan Moyer will address the status of Multnomah County District 1, covering the Willamette River's west side, the inner east side, and the western unincorporated County. Moyer is a skilled homebuilder who has 20 years of experience in creating policies that serve the most vulnerable in our communities; has lobbied Congress on child-related issues for the National PTA; has represented homecare, childcare, and DHS employees as an Organizer/Strategist for SEIU Local 503; and has fought to expand access to mental health services, and children's access to school as Director of Public Policy for Disability Rights Oregon. (First Sundays offer childcare, start with 1/2 hour of live music, and may last until noon.)

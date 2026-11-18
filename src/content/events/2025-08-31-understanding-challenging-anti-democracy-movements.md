@@ -9,6 +9,8 @@ location: "Friendly House & Zoom"
 description: "Numerous ideological factions present within the current administration and adjacent networks see leaders as above law, rather than subject to it. Dr. Joan Braune presents some of the far-right ideologies and movements (including fascism and Christian nationalism) influencing current policies, and how people are counter-organizing against authoritarian hate. Dr. Braune is Lecturer in Philosophy at Gonzaga University in Spokane, Washington, and invited expert speaker on hate groups and far-right movements. Her publications include Understanding and Countering Fascist Movements: From Void to Hope (Routledge 2024), a co-edited volume on the ethics of researching the far right."
 youtubeId: "qYcVSWFFbuM"
 status: "past"
+topics:
+  - Society & Politics
 ---
 
 Numerous ideological factions present within the current administration and adjacent networks see leaders as above law, rather than subject to it. Dr. Joan Braune presents some of the far-right ideologies and movements (including fascism and Christian nationalism) influencing current policies, and how people are counter-organizing against authoritarian hate. Dr. Braune is Lecturer in Philosophy at Gonzaga University in Spokane, Washington, and invited expert speaker on hate groups and far-right movements. Her publications include Understanding and Countering Fascist Movements: From Void to Hope (Routledge 2024), a co-edited volume on the ethics of researching the far right.

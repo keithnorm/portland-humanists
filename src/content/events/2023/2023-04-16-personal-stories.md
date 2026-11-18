@@ -10,6 +10,8 @@ description: "Suzanne Thornton organized an event in which three HGP members sha
 vimeoId: "818488400"
 vimeoThumbnail: https://i.vimeocdn.com/video/1657010569-d924cbbfbc6d249228dd61c2ebedb41b0a6223cf64cf91c93caa6dcc68cd8a7e-d_295x166?region=us
 status: "past"
+topics:
+  - Personal Stories
 ---
 
 Suzanne Thornton organized an event in which three HGP members share meaningful stories of significant events in their lives.

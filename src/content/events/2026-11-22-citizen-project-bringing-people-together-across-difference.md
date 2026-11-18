@@ -8,6 +8,8 @@ endTime: 2026-11-22T19:30:23.277Z
 location: Friendly House & Zoom
 zoomLink: 'https://us02web.zoom.us/j/89430173568?pwd=tj8FYLY2BsxfC0buRq6vMcaQUwclP4.1'
 description: 'From FH. Bill Howe discusses the cause and degree of current political polarization and how it creates policy gridlock, undermines democratic institutions, and sabotages personal relationships. He then outlines social science research that suggests how individuals and organizations can work across differences to productively solve problems. Bill serves on the board of the nonprofit SAGE (Senior Advocates for Generational Equity), engaging older adults in causes benefitting younger generations, and founded the SAGE Citizen Project to support working across differences. He practiced family law for 50 years, and was appointed Vice-chair of Oregon’s Statewide Family Law Advisory Committee from 1998 through 2020. '
+topics:
+  - Society & Politics
 ---
 
 This 20-minute presentation is offered to civic minded and involved organizations. Together, we discuss the cause and degree of the current state of political polarization and how it creates policy gridlock, undermines democratic institutions, and sabotages personal relationships. We then outline the social science research that suggests what individuals and organizations can do to work across differences so communities can move forward in a productive way and solve problems.

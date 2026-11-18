@@ -9,6 +9,8 @@ location: "Friendly House & Zoom"
 description: "People often blame the chaotic precarious political landscape in the US on polarization and culture wars, with the wars playing out in the classrooms and campuses. Instead, Whitney Phillips and Mark Brockway argue that the seeming left-right battle is the result of 80 years of densely overlapping religious and secular messages that have transformed how we see education. Whitney Phillips is Ass’t Prof. of Inf. Politics and Media Ethics at the U of O, and author of You Are Here and Share Better and Stress Less. Mark Brockway is Assistant Teaching Professor in Pol. Sci. at Syracuse University."
 youtubeId: "nydGu0sQoD0"
 status: "past"
+topics:
+  - Society & Politics
 ---
 
 People often blame the chaotic precarious political landscape in the US on polarization and culture wars, with the wars playing out in the classrooms and campuses. Instead, Whitney Phillips and Mark Brockway argue that the seeming left-right battle is the result of 80 years of densely overlapping religious and secular messages that have transformed how we see education. Whitney Phillips is Ass’t Prof. of Inf. Politics and Media Ethics at the U of O, and author of You Are Here and Share Better and Stress Less. Mark Brockway is Assistant Teaching Professor in Pol. Sci. at Syracuse University.

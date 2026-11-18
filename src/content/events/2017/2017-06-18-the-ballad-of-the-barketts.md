@@ -10,6 +10,8 @@ description: "Most of us know the Barkett brothers as our favorite musicians at 
 vimeoId: "223657373"
 vimeoThumbnail: https://i.vimeocdn.com/video/642525256-25f5792176e18576811ac6a8789349c61de6c71887ffa135a9342c962a3d6e7b-d_640?region=us
 status: "past"
+topics:
+  - Arts & Culture
 ---
 
 Most of us know the Barkett brothers as our favorite musicians at HGP, but it turns out they can talk too. In fact, they enjoy telling stories about their musical career, the role music has played in their lives, how they became Humanists, and how all of that intersects.

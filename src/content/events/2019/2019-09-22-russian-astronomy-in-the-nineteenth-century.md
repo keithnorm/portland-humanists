@@ -10,6 +10,9 @@ description: "Michael Meo tells the story of the rise and the fall of Russian as
 vimeoId: "366928269"
 vimeoThumbnail: https://i.vimeocdn.com/video/823277310-bfba31e9a8c3affa614891071cdf407ad412803707d7926e197956b9a7414812-d_295x166?region=us
 status: "past"
+topics:
+  - Science
+  - History
 ---
 
 Michael Meo tells the story of the rise and the fall of Russian astronomy during the nineteenth century. Here was the first astronomer to observe stellar parallax, the predicted direct evidence of the earth’s orbit around the sun, sought for since the days of Galileo. Michael Meo earned a B.S. in astronomy from Cal Tech in 1969, took an M.A. in the history of science from U.C. Berkeley in 1970, and then served as museum technician at the Smithsonian Institution in 1975 to 1977.

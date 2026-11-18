@@ -9,6 +9,8 @@ location: "Friendly House & Zoom"
 description: "HGP member Anand Atre conducts a thought-provoking conversation about good citizenship in today’s world. Drawing from Richard Haas’ “The Bill of Obligations,” which inspired the PBS documentary “A Citizen’s Guide to Preserving Democracy,”, we’ll briefly view and then explore Haas’ suggested essential habits for strengthening democracies and building resilient communities. In an era of increasing polarization, these habits face new tests. We’ll examine how modern pressures challenge good citizenship and undermine democratic norms. This open discussion is an opportunity to engage in meaningful dialogue, share perspectives, and discuss actionable ideas for positive civic engagement."
 youtubeId: "0bHaEdDa3KY"
 status: "past"
+topics:
+  - Society & Politics
 ---
 
 HGP member Anand Atre conducts a thought-provoking conversation about good citizenship in today’s world. Drawing from Richard Haas’ “The Bill of Obligations,” which inspired the PBS documentary “A Citizen’s Guide to Preserving Democracy,”, we’ll briefly view and then explore Haas’ suggested essential habits for strengthening democracies and building resilient communities. In an era of increasing polarization, these habits face new tests. We’ll examine how modern pressures challenge good citizenship and undermine democratic norms. This open discussion is an opportunity to engage in meaningful dialogue, share perspectives, and discuss actionable ideas for positive civic engagement.

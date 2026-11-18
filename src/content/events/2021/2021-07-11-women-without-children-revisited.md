@@ -10,6 +10,9 @@ description: "Kate Kaufmann gave us a presentation in 2019, after her book “ D
 vimeoId: "578588930"
 vimeoThumbnail: https://i.vimeocdn.com/video/1196935147-3fec5c0c3d5b7b9cf924b56aec483cdbba522d9a16047600e488ff96b9ed7175-d_295x166?region=us
 status: "past"
+topics:
+  - Society & Politics
+  - Arts & Culture
 ---
 
 Kate Kaufmann gave us a presentation in 2019, after her book “ Do You Have Kids? Life When the Answer is No” was published. Today she shares insights about how publishing a book changes both reader and author. Ms. Kaufmann is an advocate for better understanding of the childless demographic. She has an M.F.A. in creative writing and a background in human resources and consulting. Her work has been featured in Psychology Today, the Washington Post, NBC, among other media.

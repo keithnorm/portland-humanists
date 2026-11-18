@@ -10,6 +10,9 @@ description: "Presentation by evolutionary biologist Gordon Orians. Details fort
 vimeoId: "643653332"
 vimeoThumbnail: https://i.vimeocdn.com/video/1294883904-36498b201551ac80fc00c2d93d05db5c63a2687092bd9863c_295x166?region=us
 status: "past"
+topics:
+  - Science
+  - Environment
 ---
 
 Presentation by evolutionary biologist Gordon Orians. Details forthcoming. Orians is Professor Emeritus of Biology, University of Washington. He has served as its Director of Environmental Studies. His most intensive research area has been behavioral ecology.

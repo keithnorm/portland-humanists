@@ -10,6 +10,8 @@ description: "Presentation by Keisha Thomas. There are Black non-believers. What
 vimeoId: "280999229"
 vimeoThumbnail: https://i.vimeocdn.com/video/714638104-932a739c12ceb53553dcb18d5d365f37e782eec411da6d4784c78c50fa967f27-d_640?region=us
 status: "past"
+topics:
+  - Religion & Secularism
 ---
 
 Presentation by Keisha Thomas. There are Black non-believers. What are their demographics and statistics? What brings about Black non-belief? Ms. Thomas is an Organizer for Black Nonbelievers of Portland.

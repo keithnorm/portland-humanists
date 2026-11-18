@@ -10,6 +10,8 @@ description: "Presentation by Michaela Coleman who shares a virtual tour of the 
 vimeoId: "856592822"
 vimeoThumbnail: https://i.vimeocdn.com/video/1713719070-c9f62c7a3d0e81ee0cc2b71a9239fc27bd268377e3f457d23f5d4179608754ba-d_295x166?region=us
 status: "past"
+topics:
+  - History
 ---
 
 Presentation by Michaela Coleman who shares a virtual tour of the Kam Wah Chung & Co. Museum. This is a state park and National Historic Landmark that preserves early Chinese culture in John Day. Michaela Coleman is a Seasonal Park Ranger at the Kam Wah Chung State Heritage site. A long time Eastern Oregon resident, she is passionate about the history of Grant County and actively works to have the history of all accurately presented.

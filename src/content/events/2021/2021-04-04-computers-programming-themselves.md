@@ -10,6 +10,8 @@ description: "In the 1990s, a massive shift in computing began, inspired by stud
 vimeoId: "533261192"
 vimeoThumbnail: https://i.vimeocdn.com/video/1103923685-21226919dddeb977b7b9b3591f2c29fbbc129daa70d816075c183753c4904aea-d_295x166?region=us
 status: "past"
+topics:
+  - Science
 ---
 
 In the 1990s, a massive shift in computing began, inspired by studies in brain biology. As a result, computers now enable speech recognition, self-driving cars, analysis of x-rays, advanced game playing, and much more. David DiNucci describes how “Deep Learning” differs from traditional computer programming, and what society might expect from Artificial Intelligence in the near future. Dr. DiNucci has been a programming researcher at NASA and at his own company, Elepar. He has been active at HGP over the years, and he currently serves as President.

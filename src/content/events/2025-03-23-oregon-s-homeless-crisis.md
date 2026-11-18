@@ -9,6 +9,8 @@ location: "Friendly House & Zoom"
 description: "Presentation by Doug Marshall, a native Portlander, who has dedicated over thirty years to addressing homelessness in his community. In 2019, he founded an organization committed to measuring the effectiveness of nonprofits in helping the homeless return to stability and become housed."
 youtubeId: "suVddq4SHuo"
 status: "past"
+topics:
+  - Society & Politics
 ---
 
 Presentation by Doug Marshall, a native Portlander, who has dedicated over thirty years to addressing homelessness in his community. In 2019, he founded an organization committed to measuring the effectiveness of nonprofits in helping the homeless return to stability and become housed.

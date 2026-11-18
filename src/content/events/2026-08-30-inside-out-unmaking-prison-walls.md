@@ -8,6 +8,8 @@ location: Friendly House & Zoom
 zoomLink: 'https://us02web.zoom.us/j/81375251949?pwd=FArm04J6j1byCcaooWfOR7E4BmFEd6.1'
 description: 'From FH. The Inside-Out Prison Exchange Program brings college students inside a local prison to study the history of crime and punishment alongside incarcerated students. Reiko Hillyer, a history professor at Lewis & Clark, will discuss teaching the class, making a short documentary about it ("Classroom 4"), and the transformative effects of mutual dialogue and vulnerability while putting the class into broader historical context, demonstrating through her scholarly research that the exile of incarcerated people is a recent phenomenon.  Her related book "A Wall is Just a Wall", has been featured on CNN and NPR. '
 youtubeId: TtBkBCW1EXo
+topics:
+  - Society & Politics
 ---
 
 From FH. This presentation will share insights from the Inside-Out Prison Exchange Program, through which college students take classes inside a prison along with incarcerated classmates. The presenter is Reiko Hillyer, a history professor whose Inside-Out class was documented in the short film, "Classroom 4." Reiko will explore her experience teaching the class and making the film, describing the transformative effects of mutual dialogue and vulnerability. She will also put the class into broader historical context, demonstrating through her scholarly research that the exile of incarcerated people is a recent phenomenon.

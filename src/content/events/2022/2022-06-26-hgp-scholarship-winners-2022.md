@@ -10,6 +10,8 @@ description: "Winners of Annual Humanist Essay Contest speak. The topic for this
 vimeoId: "724652924"
 vimeoThumbnail: https://i.vimeocdn.com/video/1459093091-67cfe633e6f403199d02276bd17a5db17e2d8fa036c480c6ac93e05d49e06ba3-d_295x166?region=us
 status: "past"
+topics:
+  - Humanist Community
 ---
 
 Winners of Annual Humanist Essay Contest speak. The topic for this year's essay is: “How has the Covid epidemic caused you to rethink your plans for college and career?

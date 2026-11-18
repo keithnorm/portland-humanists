@@ -8,6 +8,8 @@ location: Friendly House & Zoom
 speakerRemote: true
 zoomLink: 'https://us02web.zoom.us/j/86598347267?pwd=scgsy4u1bsz7QBkAnE5aaBKqmJqtQV.1'
 description: 'Over Zoom. How do ordinary people protect democracy among faltering institutions and political intimidation? Pamela Campos-Palma draws on experience as a political strategist and USAF intelligence analyst to examine how communities prepared to prevent violence, counter intimidation, and protect participation when she helped lead the 2020 Election Defenders coalition, and will explore why democracy’s most important guardrails are ultimately people—how trust, preparation, moral courage, celebration, and disciplined joy can interrupt fear and create the conditions for collective action and civic victory. She offers an invitation to reconsider what each of us can do to make American democracy more resilient, humane, and worth defending. (First Sundays start with 1/2 hour of music, offer childcare, and may run until noon.)'
+topics:
+  - Society & Politics
 ---
 
 What does it take for ordinary people to protect democracy when institutions falter and political intimidation enters public life?

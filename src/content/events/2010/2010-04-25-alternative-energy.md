@@ -10,6 +10,8 @@ description: "Presented by Duane Ray, PhD. This talk gives an overview of many o
 vimeoId: "11448910"
 vimeoThumbnail: https://i.vimeocdn.com/video/62800430-1ba35c2240b43ab81fc6c6127da3aa1f2bdcf956f638e8aa9e8f745edf6ea026-d_295x166?region=us
 status: "past"
+topics:
+  - Environment
 ---
 
 Presented by Duane Ray, PhD. This talk gives an overview of many of the various possibilities of renewable energy. Including wind, solar (both heating and photovoltaic), geothermal, tidal/wave, bio-fuels and photosynthesis. The information provides a base for discussion and helps lead to informed decisions for our future. The state of the art for each method changes as research and industrial development moves forward. We’ll try to bring you up-to-date. They will shape our future!

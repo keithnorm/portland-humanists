@@ -10,6 +10,9 @@ description: "Presentation by Woody Holton based on his book “Liberty Is Sweet
 vimeoId: "656408365"
 vimeoThumbnail: https://i.vimeocdn.com/video/1325606111-c91c1ec9821ec22915505bf1928af8d7da641e4c1327741f10787bc3db1da16f-d_295x166?region=us
 status: "past"
+topics:
+  - Science
+  - History
 ---
 
 Presentation by Woody Holton based on his book “Liberty Is Sweet” which deals with the American Revolution from its ideological origins, to critical revolutionary battles, to a number of overlooked factors. Woody Holton is a professor of history at the University of South Carolina.

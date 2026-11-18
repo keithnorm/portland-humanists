@@ -10,6 +10,8 @@ description: "Thanks to the efforts of Humanists of Greater Portland and the Ame
 vimeoId: "206294942"
 vimeoThumbnail: https://i.vimeocdn.com/video/621285700-87de4721645919f57558a4fd0179ac40d01fc2ac709dbf7ef78edbddc9b8699f-d_640?region=us
 status: "past"
+topics:
+  - Humanist Community
 ---
 
 Thanks to the efforts of Humanists of Greater Portland and the American Humanist Association, Humanism is now one of the observed religious categories in the federal prison system. Bernie Dehler explains why this was needed, and who the major parties were, to make it all happen. Bernie is a registered Humanist Celebrant. He recently retired from Intel Corporation after working there for 32 years. He also served as Chairman of Sunday Assembly Portland.

@@ -9,5 +9,7 @@ location: "Friendly House & Zoom"
 description: ""
 youtubeId: "bGkkSXvIlXc"
 status: "past"
+topics:
+  - Society & Politics
 ---
 

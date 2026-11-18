@@ -10,6 +10,8 @@ description: "Peter Frajola, Associate Concert Master of the Oregon Symphony, di
 vimeoId: "361856446"
 vimeoThumbnail: https://i.vimeocdn.com/video/816530602-683050df63403256ac18c1c32513614abfcdda3ff749e7d32108f972b44aa345-d_295x166?region=us
 status: "past"
+topics:
+  - Arts & Culture
 ---
 
 Peter Frajola, Associate Concert Master of the Oregon Symphony, discusses the duties and joys of his job. He will also play a few short pieces for unaccompanied violin. Mr. Frajola earned a Bachelor of Music degree from the San Francisco Conservatory of Music. After working with the San Francisco Opera, Louisville Orchestra, and the Knoxville Symphony, he won an audition to play in the Oregon Symphony where he will soon be starting his 36 th season.

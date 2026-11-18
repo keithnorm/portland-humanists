@@ -10,6 +10,8 @@ description: "Presentation by Tsipora Dimant. Many of us today interact with peo
 vimeoId: "295441812"
 vimeoThumbnail: https://i.vimeocdn.com/video/732618572-97e8282e5162087207abf8011800c7dcf0acf1917157340c88845dba357fb574-d_640?region=us
 status: "past"
+topics:
+  - Society & Politics
 ---
 
 Presentation by Tsipora Dimant. Many of us today interact with people of four different generations each of which is influenced by its period’s economic, technological, political and social events. This presentation focuses on understanding and communicating with people of the different life orientation. Ms. Dimant is a mediator and trainer.

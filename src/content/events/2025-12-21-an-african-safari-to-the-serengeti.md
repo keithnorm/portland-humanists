@@ -9,6 +9,8 @@ location: "Friendly House & Zoom"
 description: "What is it like to have an African Safari and to experience some of the life and culture of the people? HGP's Dr. Jon Peters, a retired biologist, educator, and physician leads us through his East African safari where he learned much about the migration circle route and the people of several nations."
 youtubeId: "T_YoDdLPjCQ"
 status: "past"
+topics:
+  - World & Travel
 ---
 
 What is it like to have an African Safari and to experience some of the life and culture of the people? HGP's Dr. Jon Peters, a retired biologist, educator, and physician leads us through his East African safari where he learned much about the migration circle route and the people of several nations.

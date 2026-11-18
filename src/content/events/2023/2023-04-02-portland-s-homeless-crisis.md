@@ -10,6 +10,8 @@ description: "Anna Kemper reports on the 2023 Roadmap of “HereTogether” -- a
 vimeoId: "814355913"
 vimeoThumbnail: https://i.vimeocdn.com/video/1647626926-8976235be52d1be8adf14dca6fe030690b017813fa19307946b0394c9e89ceab-d_295x166?region=us
 status: "past"
+topics:
+  - Society & Politics
 ---
 
 Anna Kemper reports on the 2023 Roadmap of “HereTogether” -- a coalition of businesses and community leaders working together to address homelessness in the Metro region. Anna is the Communications Manager at HereTogether. She believes that housing is a human right.

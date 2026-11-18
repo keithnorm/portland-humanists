@@ -10,6 +10,8 @@ description: "In Portland no tree is accidental. David-Paul B. Hedberg discusses
 vimeoId: "373681975"
 vimeoThumbnail: https://i.vimeocdn.com/video/831886909-4e68b1c909bab86197fa0aae4bc9703b80225d8c61827a9396e006532ddc6e88-d_295x166?region=us
 status: "past"
+topics:
+  - History
 ---
 
 In Portland no tree is accidental. David-Paul B. Hedberg discusses why individuals replanted the city named Stumptown in their own vision. Mr. Hedberg is an environmental historian and a member of the Oregon State Heritage Tree Program. His research centers around local history and human influence on landscapes.

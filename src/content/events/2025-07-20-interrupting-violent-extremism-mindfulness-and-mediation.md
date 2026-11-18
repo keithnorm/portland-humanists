@@ -9,6 +9,8 @@ location: "Friendly House & Zoom"
 description: "From Friendly House. The increase in political violence and incivility is rooted concepts of us vs. them that help amplify conspiracy theories and apocalyptic thinking. This presentation, rooted in the CurePNW project, utilizes mindfulness to heal political polarization. Randall Blazak has been the chair of Oregon’s Coalition Against Hate Crimes since 2002 and is a globally recognized expert on bias crimes and extremism, has been tenured professor at PSU, teaches sociology at U of O and PCC, and is vice-chair of Oregon’s Department of Justice Steering Committee on Bias Crimes and Incidents."
 youtubeId: "dNoUJKCXzj8"
 status: "past"
+topics:
+  - Society & Politics
 ---
 
 From Friendly House. The increase in political violence and incivility is rooted concepts of us vs. them that help amplify conspiracy theories and apocalyptic thinking. This presentation, rooted in the CurePNW project, utilizes mindfulness to heal political polarization. Randall Blazak has been the chair of Oregon’s Coalition Against Hate Crimes since 2002 and is a globally recognized expert on bias crimes and extremism, has been tenured professor at PSU, teaches sociology at U of O and PCC, and is vice-chair of Oregon’s Department of Justice Steering Committee on Bias Crimes and Incidents.

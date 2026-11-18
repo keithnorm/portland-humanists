@@ -10,6 +10,8 @@ description: "Presented by David Almond, who has spent 30 years in the field wit
 vimeoId: "11098463"
 vimeoThumbnail: https://i.vimeocdn.com/video/60037601-826db6a05e3f939b9a7859a857ce41b62446af59ebbeba569fa3ff8501b67141-d_295x166?region=us
 status: "past"
+topics:
+  - Science
 ---
 
 Presented by David Almond, who has spent 30 years in the field with large organizations, recently was the Chief Information Officer for the Oregon State Department of Revenue, and was an active participant in a number of technology issues within the State. The presentation explores computer technology, current trends, and its effects on business and society, unpacking the term "computer technology" into some basic components then exploring what we see today with those basics in mind.

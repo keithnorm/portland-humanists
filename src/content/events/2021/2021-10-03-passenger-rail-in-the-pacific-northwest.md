@@ -10,6 +10,9 @@ description: "Tim Gould explores the possibilities of rail service as offering a
 vimeoId: "625792480"
 vimeoThumbnail: https://i.vimeocdn.com/video/1268219912-1c213360aa58937ad148bb9f347f4a6ae1e21ca6dda369d80_295x166?region=us
 status: "past"
+topics:
+  - Environment
+  - World & Travel
 ---
 
 Tim Gould explores the possibilities of rail service as offering a low impact mode of travel as compared to the use of congested highways. Trains can be an important climate solution. Tim Gould is Chair of the Transportation & Land Use Committee in the Washington Chapter of Sierra Club.

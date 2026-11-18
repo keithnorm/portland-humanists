@@ -10,6 +10,8 @@ description: "Members share their research on influential women of science, poli
 vimeoId: "213269028"
 vimeoThumbnail: https://i.vimeocdn.com/video/629472479-17c262a88d8deb551a8520cca86379260b2ff13403690df267b27cbf7701cccc-d_640?region=us
 status: "past"
+topics:
+  - Society & Politics
 ---
 
 Members share their research on influential women of science, politics, exploration and entertainment. Presentations include women who have changed the world but are not well known. Presenters were Anne Henderson, Joyce Lackie, Marsha Abelman, Lenora Warren, Arnie Panitch, Laurent Beauregard, and Carolyn Tomei.

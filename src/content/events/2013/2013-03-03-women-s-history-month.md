@@ -10,6 +10,9 @@ description: "We learn about women who have changed the world but somehow didnâ€
 vimeoId: "62186851"
 vimeoThumbnail: https://i.vimeocdn.com/video/432000866-174cfff134e8266d5ed2a1da1917c0ba6799e7c6cd13755ce5e8d5aaf7ea0762-d_640?region=us
 status: "past"
+topics:
+  - Society & Politics
+  - History
 ---
 
 We learn about women who have changed the world but somehow didnâ€™t get to be included in the history books! Presenters include Marsha Abelman, Kay Byerly, Anne Henderson, Joyce Lackie, Willie Willworth, and Arnold Panitch.

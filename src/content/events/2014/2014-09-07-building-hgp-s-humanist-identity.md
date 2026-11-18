@@ -10,6 +10,8 @@ description: "Steve Jacobs gives a special presentation about the need for an id
 vimeoId: "107512148"
 vimeoThumbnail: https://i.vimeocdn.com/video/490938816-ac0ca4c41bf04d481628a2cdf3f435eda791ae4ee6477a09dfaad50a967457c0-d_640?region=us
 status: "past"
+topics:
+  - Humanist Community
 ---
 
 Steve Jacobs gives a special presentation about the need for an identity for HGP. He provides a preview of a proposal he will make to the HGP Board. Should HGP take positions on issues? If so, on what basis?
