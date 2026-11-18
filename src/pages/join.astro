@@ -6,24 +6,22 @@ import client from '../../tina/__generated__/client';
 
 const tinaResult = await client.queries.joinPage({ relativePath: 'join.json' });
 const paypalClientId = import.meta.env.PUBLIC_PAYPAL_CLIENT_ID ?? '';
+
+// Netlify Forms only stores fields declared in the decoy form below, and
+// silently drops the rest. Build that list from the same Tina data that
+// JoinVisualEditor renders, so fields added in the CMS reach the email.
+// The fallback names must match JoinVisualEditor's.
+const page = tinaResult.data.joinPage;
+const fixedFields = ['membershipType', 'membershipAmount', 'agreePhilosophy', 'lifetimeMember', 'paypalOrderId'];
+const personalFieldNames = (page.personalFields ?? []).map((f, i) => f && (f.fieldName ?? `field-${i}`));
+const commFieldNames = (page.communicationFields ?? []).map((f, i) => f && (f.fieldName ?? `comm-${i}`));
+const netlifyFieldNames = [...new Set([...fixedFields, ...personalFieldNames, ...commFieldNames].filter(Boolean))];
 ---
 
 <BaseLayout title="Join Us - Humanists of Greater Portland">
   <!-- Netlify Forms: decoy form for build-time detection -->
   <form name="membershipForm" netlify hidden>
-    <input name="membershipType" />
-    <input name="membershipAmount" />
-    <input name="agreePhilosophy" />
-    <input name="lifetimeMember" />
-    <input name="firstName" />
-    <input name="lastName" />
-    <input name="email" />
-    <input name="phone" />
-    <input name="address" />
-    <input name="city" />
-    <input name="state" />
-    <input name="zip" />
-    <input name="paypalOrderId" />
+    {netlifyFieldNames.map((name) => <input name={name} />)}
   </form>
 
   <JoinVisualEditor
