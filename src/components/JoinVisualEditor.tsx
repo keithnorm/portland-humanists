@@ -41,7 +41,7 @@ export function JoinVisualEditor({ query, variables, data }: Props) {
           <div className="grid md:grid-cols-5 gap-12">
             {/* Benefits Sidebar */}
             <div className="md:col-span-2">
-              <div className="bg-white rounded-xl p-8 shadow-sm sticky top-24">
+              <div className="bg-white rounded-xl p-8 shadow-sm sticky top-[calc(var(--header-h)+1.5rem)] transition-[top] duration-300">
                 <h2
                   className="text-2xl font-bold text-neutral-900 mb-6"
                   data-tina-field={tinaField(page, 'benefitsHeading')}

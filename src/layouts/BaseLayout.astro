@@ -86,7 +86,7 @@ const mapsUrl = `https://maps.google.com/?q=${encodeURIComponent(`${venueName} $
     </script>
   </head>
   <body class="min-h-screen bg-neutral-50 text-neutral-900">
-    <header class="bg-white border-b border-neutral-200 sticky top-0 z-[9999]">
+    <header class="site-header bg-white border-b border-neutral-200 z-[9999]">
       <Navigation />
     </header>
 
@@ -185,6 +185,33 @@ const mapsUrl = `https://maps.google.com/?q=${encodeURIComponent(`${venueName} $
         var inIframe = window.self !== window.top;
         var isDev = el.hasAttribute('data-dev');
         if (inIframe || isDev) el.style.display = '';
+      })();
+    </script>
+    <script is:inline>
+      // Desktop header: hide while scrolling down, reveal on any scroll up.
+      // (On phones the header isn't sticky, so the class has no effect.)
+      (function () {
+        var root = document.documentElement;
+        var header = document.querySelector('.site-header');
+        if (!header) return;
+        var lastY = window.scrollY;
+        var ticking = false;
+        function update() {
+          ticking = false;
+          var y = window.scrollY;
+          var dy = y - lastY;
+          if (Math.abs(dy) < 6) return;
+          // Keep it visible near the top, and while someone is using it
+          // (keyboard focus inside, or the mouse over a dropdown).
+          var inUse = header.contains(document.activeElement) || header.matches(':hover');
+          if (dy > 0 && y > header.offsetHeight && !inUse) root.classList.add('header-hidden');
+          else if (dy < 0) root.classList.remove('header-hidden');
+          lastY = y;
+        }
+        window.addEventListener('scroll', function () {
+          if (!ticking) { ticking = true; requestAnimationFrame(update); }
+        }, { passive: true });
+        header.addEventListener('focusin', function () { root.classList.remove('header-hidden'); });
       })();
     </script>
   </body>

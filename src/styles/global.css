@@ -85,3 +85,28 @@
 .hgp-btn-gold:hover {
   background-color: oklch(from var(--hgp-gold) calc(l - 0.05) c h);
 }
+
+/* ── Site header ───────────────────────────────────────────────────── */
+/* Phones: the header scrolls away with the page — screen space goes to the
+   reading. Desktop: it stays at the top, but slides out of view while you
+   scroll down and comes back as soon as you scroll up (script in
+   BaseLayout). --header-h is how much of the top it currently covers, so
+   anything sticky beneath it (sub-nav bars, sidebars) can follow along. */
+:root { --header-h: 0px; }
+.site-header { position: relative; }
+.below-header { top: var(--header-h); transition: top 0.25s ease; }
+
+@media (min-width: 768px) {
+  :root { --header-h: 5rem; }
+  html.header-hidden { --header-h: 0px; }
+  .site-header {
+    position: sticky;
+    top: 0;
+    transition: transform 0.25s ease;
+  }
+  html.header-hidden .site-header { transform: translateY(-100%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header, .below-header { transition: none; }
+}

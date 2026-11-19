@@ -136,7 +136,7 @@ export function EventVisualEditor({ query, variables, data, timezone }: Props) {
                 id="event-details-card"
                 data-start={event.startTime ?? undefined}
                 data-end={event.endTime ?? undefined}
-                className="bg-neutral-50 rounded-xl p-6 sticky top-24"
+                className="bg-neutral-50 rounded-xl p-6 sticky top-[calc(var(--header-h)+1.5rem)] transition-[top] duration-300"
               >
                 <div id="event-live-banner-live" style={{ display: 'none' }}
                   className="mb-4 bg-red-500 text-white px-4 py-2 rounded-lg flex items-center gap-2 text-sm font-semibold">

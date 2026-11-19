@@ -314,7 +314,7 @@ export function HomeVisualEditor({ query, variables, data, upcomingEvents, recen
       <section className="py-16 md:py-24 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] gap-12 lg:gap-16 items-start">
-            <div className="lg:sticky lg:top-28">
+            <div className="lg:sticky lg:top-[calc(var(--header-h)+2rem)] lg:transition-[top] lg:duration-300">
               <h2
                 className="text-3xl md:text-4xl font-semibold text-neutral-900 mb-6"
                 data-tina-field={tinaField(home, 'humanismHeading')}
