@@ -62,7 +62,7 @@ const mapsUrl = `https://maps.google.com/?q=${encodeURIComponent(`${venueName} $
         var base = sessionStorage.getItem('hgp-preview-base');
         if (base) document.documentElement.style.setProperty('--hgp-base', base);
       })();
-      var _hgpBases = { navy:'#1e3a5f', teal:'#0f4c5c', forest:'#14532d', slate:'#1e293b', burgundy:'#581c2f' };
+      var _hgpBases = { logo:'#046a38', navy:'#1e3a5f', teal:'#0f4c5c', forest:'#14532d', slate:'#1e293b', burgundy:'#581c2f' };
       function hgpSetTheme(t) {
         sessionStorage.setItem('hgp-preview-theme', t);
         sessionStorage.removeItem('hgp-preview-base');
@@ -146,6 +146,7 @@ const mapsUrl = `https://maps.google.com/?q=${encodeURIComponent(`${venueName} $
       <p style="font-weight:600;color:#374151;margin:0 0 0.5rem;">Theme Preview</p>
       <div style="display:flex;flex-direction:column;gap:4px;">
         {[
+          { label: 'Logo Green', value: 'logo', color: '#046a38' },
           { label: 'Navy',    value: 'navy',    color: '#1e3a5f' },
           { label: 'Teal',    value: 'teal',    color: '#0e7490' },
           { label: 'Forest',  value: 'forest',  color: '#166534' },

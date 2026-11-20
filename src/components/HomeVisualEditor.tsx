@@ -192,7 +192,7 @@ export function HomeVisualEditor({ query, variables, data, upcomingEvents, recen
                 {zoomLink && <a href={zoomLink} target="_blank" rel="noopener noreferrer" className="underline hover:no-underline">Join via Zoom →</a>}
               </div>
               <div id="live-banner-soon" style={{ display: 'none' }}
-                className="bg-[var(--hgp-gold)] text-[var(--hgp-primary)] px-6 py-2.5 flex items-center justify-between text-sm font-semibold">
+                className="bg-[var(--hgp-gold)] text-[var(--hgp-on-gold)] px-6 py-2.5 flex items-center justify-between text-sm font-semibold">
                 <span className="flex items-center gap-2">
                   <span className="w-2 h-2 bg-[var(--hgp-primary)] rounded-full animate-pulse inline-block" />
                   <span id="live-banner-soon-text">Starting soon</span>

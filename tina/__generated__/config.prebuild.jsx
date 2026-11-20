@@ -345,6 +345,7 @@ var config_default = defineConfig({
             name: "colorTheme",
             label: "Color Theme",
             options: [
+              { label: "Logo Green", value: "logo" },
               { label: "Navy (Default)", value: "navy" },
               { label: "Teal", value: "teal" },
               { label: "Forest Green", value: "forest" },

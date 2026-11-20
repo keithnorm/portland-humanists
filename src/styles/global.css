@@ -35,12 +35,16 @@
 
   /* Gold from the logo. --hgp-gold is for fills (buttons, badges, rules);
      --hgp-gold-ink is a darker shade that passes contrast as text on white. */
-  --hgp-gold:        #f0a83c;
-  --hgp-gold-soft:   #fdf1dc;
-  --hgp-gold-ink:    #9a5b0c;
+  --hgp-gold:        #ffb81c; /* logo yellow, rgb(255,184,28) */
+  --hgp-gold-soft:   #fff4d6;
+  --hgp-gold-ink:    #8a5a00;
+  /* Text on gold: a deeper shade of the theme color, so it passes contrast
+     even when the base is a mid-tone like the logo green. */
+  --hgp-on-gold:     oklch(from var(--hgp-base) calc(l - 0.1) c h);
 }
 
 /* Named themes — only the base color needs to change */
+[data-theme="logo"]    { --hgp-base: #046a38; } /* logo green, rgb(4,106,56) */
 [data-theme="navy"]    { --hgp-base: #1e3a5f; }
 [data-theme="teal"]    { --hgp-base: #0f4c5c; }
 [data-theme="forest"]  { --hgp-base: #14532d; }
@@ -52,6 +56,9 @@
 .hgp-hero {
   background-color: var(--hgp-primary);
   background-image: linear-gradient(to right, rgba(0,0,0,0.72), rgba(0,0,0,0.25)), url('/banner3.png');
+  /* The drawing is tinted blue; blending its luminosity onto the theme color
+     re-tints it to match whatever theme is set. */
+  background-blend-mode: normal, luminosity;
   background-size: cover;
   background-position: center;
   text-shadow: 0 1px 4px rgba(0,0,0,0.5);
@@ -80,7 +87,7 @@
 /* Primary call-to-action: gold with navy text */
 .hgp-btn-gold {
   background-color: var(--hgp-gold);
-  color: var(--hgp-primary);
+  color: var(--hgp-on-gold);
 }
 .hgp-btn-gold:hover {
   background-color: oklch(from var(--hgp-gold) calc(l - 0.05) c h);
