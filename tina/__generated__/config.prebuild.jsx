@@ -537,6 +537,20 @@ var config_default = defineConfig({
           },
           {
             type: "object",
+            name: "expectations",
+            label: "What to Expect",
+            list: true,
+            ui: {
+              description: "The short list under the upcoming programs (Every Sunday, Free & open to all, \u2026). Six items fill two neat rows of three.",
+              itemProps: (item) => ({ label: item?.label })
+            },
+            fields: [
+              { type: "string", name: "label", label: "Label", required: true },
+              { type: "string", name: "sub", label: "Detail", ui: { description: "One short line under the label" } }
+            ]
+          },
+          {
+            type: "object",
             name: "features",
             label: "Feature Cards",
             list: true,

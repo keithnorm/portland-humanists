@@ -104,19 +104,23 @@ const PlayIcon = ({ className = 'w-5 h-5' }: { className?: string }) => (
 // Art for the three value cards, by position — the text stays editable in Tina.
 const featureArt = ['telescope', 'discussion', 'torch'];
 
-const expectations = [
+// Fallback for the "What to expect" list if the homepage has none in Tina.
+const defaultExpectations = [
   { label: 'Every Sunday', sub: '9:45 – 11:30 AM' },
+  { label: 'A talk, then your questions', sub: 'Plenty of time for audience Q&A with the speaker' },
   { label: 'Free & open to all', sub: 'No membership required' },
   { label: 'In person or on Zoom', sub: 'Friendly House, NW Portland' },
   { label: 'Live music', sub: 'First Sunday of the month' },
   { label: 'Childcare available', sub: 'First Sunday of the month' },
-  { label: 'Coffee & conversation', sub: 'After the program' },
 ];
 
 export function HomeVisualEditor({ query, variables, data, upcomingEvents, recentRecordings, archiveCount, archiveSince, timezone }: Props) {
   const { data: tinaData } = useTina({ query, variables, data });
   const home = tinaData.homepage;
   const tz = timezone || DEFAULT_TZ;
+  const expectations = (home.expectations ?? []).filter(Boolean).length
+    ? (home.expectations ?? []).filter((e): e is NonNullable<typeof e> => Boolean(e))
+    : defaultExpectations;
 
   const next = upcomingEvents[0] ?? null;
   const later = upcomingEvents.slice(1, 4);
@@ -231,7 +235,7 @@ export function HomeVisualEditor({ query, variables, data, upcomingEvents, recen
                       {next.data.presenterTitle && <div className="text-sm text-neutral-600 line-clamp-1">{next.data.presenterTitle}</div>}
                     </div>
                   </div>
-                  <p className="text-neutral-600 leading-relaxed line-clamp-3 mb-2">{cleanDescription(next.data.description)}</p>
+                  <p className="text-neutral-600 leading-relaxed mb-3">{cleanDescription(next.data.description)}</p>
                   <p className="text-sm text-neutral-500 mb-6">
                     {fmt(next.data.startTime, { hour: 'numeric', minute: '2-digit' }, tz)} – {fmt(next.data.endTime, { hour: 'numeric', minute: '2-digit' }, tz)} {timezoneAbbr(next.data.endTime, tz)}
                   </p>
@@ -297,12 +301,12 @@ export function HomeVisualEditor({ query, variables, data, upcomingEvents, recen
 
           {/* What to expect */}
           <div className="mt-12 grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-5">
-            {expectations.map(item => (
-              <div key={item.label} className="flex gap-3">
+            {expectations.map((item, i) => (
+              <div key={i} className="flex gap-3" data-tina-field={home.expectations?.length ? tinaField(item as any) : undefined}>
                 <span className="mt-2 w-1.5 h-1.5 rounded-full bg-[var(--hgp-gold)] flex-shrink-0" aria-hidden="true" />
                 <div>
                   <div className="text-sm md:text-base font-semibold text-neutral-900">{item.label}</div>
-                  <div className="text-sm text-neutral-500">{item.sub}</div>
+                  {item.sub && <div className="text-sm text-neutral-500">{item.sub}</div>}
                 </div>
               </div>
             ))}

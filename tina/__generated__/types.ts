@@ -561,6 +561,12 @@ export type JoinPageConnection = Connection & {
   edges?: Maybe<Array<Maybe<JoinPageConnectionEdges>>>;
 };
 
+export type HomepageExpectations = {
+  __typename?: 'HomepageExpectations';
+  label: Scalars['String']['output'];
+  sub?: Maybe<Scalars['String']['output']>;
+};
+
 export type HomepageFeatures = {
   __typename?: 'HomepageFeatures';
   title: Scalars['String']['output'];
@@ -582,6 +588,7 @@ export type Homepage = Node & Document & {
   humanismHeading?: Maybe<Scalars['String']['output']>;
   humanismBody1?: Maybe<Scalars['String']['output']>;
   humanismBody2?: Maybe<Scalars['String']['output']>;
+  expectations?: Maybe<Array<Maybe<HomepageExpectations>>>;
   features?: Maybe<Array<Maybe<HomepageFeatures>>>;
   involvementHeading?: Maybe<Scalars['String']['output']>;
   involvement?: Maybe<Array<Maybe<HomepageInvolvement>>>;
@@ -590,6 +597,11 @@ export type Homepage = Node & Document & {
   id: Scalars['ID']['output'];
   _sys: SystemInfo;
   _values: Scalars['JSON']['output'];
+};
+
+export type HomepageExpectationsFilter = {
+  label?: InputMaybe<StringFilter>;
+  sub?: InputMaybe<StringFilter>;
 };
 
 export type HomepageFeaturesFilter = {
@@ -610,6 +622,7 @@ export type HomepageFilter = {
   humanismHeading?: InputMaybe<StringFilter>;
   humanismBody1?: InputMaybe<StringFilter>;
   humanismBody2?: InputMaybe<StringFilter>;
+  expectations?: InputMaybe<HomepageExpectationsFilter>;
   features?: InputMaybe<HomepageFeaturesFilter>;
   involvementHeading?: InputMaybe<StringFilter>;
   involvement?: InputMaybe<HomepageInvolvementFilter>;
@@ -861,6 +874,11 @@ export type JoinPageMutation = {
   questionsFootnote?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type HomepageExpectationsMutation = {
+  label?: InputMaybe<Scalars['String']['input']>;
+  sub?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type HomepageFeaturesMutation = {
   title?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
@@ -879,6 +897,7 @@ export type HomepageMutation = {
   humanismHeading?: InputMaybe<Scalars['String']['input']>;
   humanismBody1?: InputMaybe<Scalars['String']['input']>;
   humanismBody2?: InputMaybe<Scalars['String']['input']>;
+  expectations?: InputMaybe<Array<InputMaybe<HomepageExpectationsMutation>>>;
   features?: InputMaybe<Array<InputMaybe<HomepageFeaturesMutation>>>;
   involvementHeading?: InputMaybe<Scalars['String']['input']>;
   involvement?: InputMaybe<Array<InputMaybe<HomepageInvolvementMutation>>>;
@@ -1031,6 +1050,11 @@ export type JoinPageFilter = {
   questionsFootnote?: StringFilter | null | undefined;
 };
 
+export type HomepageExpectationsFilter = {
+  label?: StringFilter | null | undefined;
+  sub?: StringFilter | null | undefined;
+};
+
 export type HomepageFeaturesFilter = {
   title?: StringFilter | null | undefined;
   description?: StringFilter | null | undefined;
@@ -1049,6 +1073,7 @@ export type HomepageFilter = {
   humanismHeading?: StringFilter | null | undefined;
   humanismBody1?: StringFilter | null | undefined;
   humanismBody2?: StringFilter | null | undefined;
+  expectations?: HomepageExpectationsFilter | null | undefined;
   features?: HomepageFeaturesFilter | null | undefined;
   involvementHeading?: StringFilter | null | undefined;
   involvement?: HomepageInvolvementFilter | null | undefined;
@@ -1064,7 +1089,7 @@ export type SettingsPartsFragment = { __typename: 'Settings', siteTitle: string,
 
 export type JoinPagePartsFragment = { __typename: 'JoinPage', heroHeading: string, heroTagline: string, benefitsHeading: string | null, personalInfoHeading: string | null, philosophyText: string | null, membershipNote: string | null, communicationPrefsHeading: string | null, questionsHeading: string | null, questionsBody: string | null, membershipEmail: string | null, questionsFootnote: string | null, benefits: Array<{ __typename: 'JoinPageBenefits', title: string, description: string } | null> | null, personalFields: Array<{ __typename: 'JoinPagePersonalFields', label: string, fieldName: string, fieldType: string | null, required: boolean | null, placeholder: string | null } | null> | null, membershipTiers: Array<{ __typename: 'JoinPageMembershipTiers', tierName: string, tierSubtitle: string | null, priceRange: string | null } | null> | null, communicationFields: Array<{ __typename: 'JoinPageCommunicationFields', label: string, description: string | null, fieldName: string, defaultChecked: boolean | null } | null> | null };
 
-export type HomepagePartsFragment = { __typename: 'Homepage', heroHeading: string, heroTagline: string, humanismHeading: string | null, humanismBody1: string | null, humanismBody2: string | null, involvementHeading: string | null, ctaHeading: string | null, ctaBody: string | null, features: Array<{ __typename: 'HomepageFeatures', title: string, description: string } | null> | null, involvement: Array<{ __typename: 'HomepageInvolvement', title: string, description: string, link: string, linkText: string | null } | null> | null };
+export type HomepagePartsFragment = { __typename: 'Homepage', heroHeading: string, heroTagline: string, humanismHeading: string | null, humanismBody1: string | null, humanismBody2: string | null, involvementHeading: string | null, ctaHeading: string | null, ctaBody: string | null, expectations: Array<{ __typename: 'HomepageExpectations', label: string, sub: string | null } | null> | null, features: Array<{ __typename: 'HomepageFeatures', title: string, description: string } | null> | null, involvement: Array<{ __typename: 'HomepageInvolvement', title: string, description: string, link: string, linkText: string | null } | null> | null };
 
 export type EventsQueryVariables = Exact<{
   relativePath: string;
@@ -1147,7 +1172,7 @@ export type HomepageQueryVariables = Exact<{
 }>;
 
 
-export type HomepageQuery = { homepage: { __typename: 'Homepage', id: string, heroHeading: string, heroTagline: string, humanismHeading: string | null, humanismBody1: string | null, humanismBody2: string | null, involvementHeading: string | null, ctaHeading: string | null, ctaBody: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, features: Array<{ __typename: 'HomepageFeatures', title: string, description: string } | null> | null, involvement: Array<{ __typename: 'HomepageInvolvement', title: string, description: string, link: string, linkText: string | null } | null> | null } };
+export type HomepageQuery = { homepage: { __typename: 'Homepage', id: string, heroHeading: string, heroTagline: string, humanismHeading: string | null, humanismBody1: string | null, humanismBody2: string | null, involvementHeading: string | null, ctaHeading: string | null, ctaBody: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, expectations: Array<{ __typename: 'HomepageExpectations', label: string, sub: string | null } | null> | null, features: Array<{ __typename: 'HomepageFeatures', title: string, description: string } | null> | null, involvement: Array<{ __typename: 'HomepageInvolvement', title: string, description: string, link: string, linkText: string | null } | null> | null } };
 
 export type HomepageConnectionQueryVariables = Exact<{
   before?: string | null | undefined;
@@ -1159,7 +1184,7 @@ export type HomepageConnectionQueryVariables = Exact<{
 }>;
 
 
-export type HomepageConnectionQuery = { homepageConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Homepage', id: string, heroHeading: string, heroTagline: string, humanismHeading: string | null, humanismBody1: string | null, humanismBody2: string | null, involvementHeading: string | null, ctaHeading: string | null, ctaBody: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, features: Array<{ __typename: 'HomepageFeatures', title: string, description: string } | null> | null, involvement: Array<{ __typename: 'HomepageInvolvement', title: string, description: string, link: string, linkText: string | null } | null> | null } | null } | null> | null } };
+export type HomepageConnectionQuery = { homepageConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Homepage', id: string, heroHeading: string, heroTagline: string, humanismHeading: string | null, humanismBody1: string | null, humanismBody2: string | null, involvementHeading: string | null, ctaHeading: string | null, ctaBody: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, expectations: Array<{ __typename: 'HomepageExpectations', label: string, sub: string | null } | null> | null, features: Array<{ __typename: 'HomepageFeatures', title: string, description: string } | null> | null, involvement: Array<{ __typename: 'HomepageInvolvement', title: string, description: string, link: string, linkText: string | null } | null> | null } | null } | null> | null } };
 
 export const EventsPartsFragmentDoc = gql`
     fragment EventsParts on Events {
@@ -1272,6 +1297,11 @@ export const HomepagePartsFragmentDoc = gql`
   humanismHeading
   humanismBody1
   humanismBody2
+  expectations {
+    __typename
+    label
+    sub
+  }
   features {
     __typename
     title

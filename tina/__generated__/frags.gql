@@ -104,6 +104,11 @@ fragment HomepageParts on Homepage {
   humanismHeading
   humanismBody1
   humanismBody2
+  expectations {
+    __typename
+    label
+    sub
+  }
   features {
     __typename
     title

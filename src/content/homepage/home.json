@@ -4,6 +4,32 @@
   "humanismHeading": "What is Humanism?",
   "humanismBody1": "Humanism is a way of life that guides us to be well and to do good without relying on anything supernatural. It's a progressive philosophy that embraces reason, compassion, and the pursuit of knowledge.",
   "humanismBody2": "We welcome atheists, agnostics, truth-seekers, and anyone interested in exploring ethical living, critical thinking, and community building based on humanist principles.",
+  "expectations": [
+    {
+      "label": "Every Sunday",
+      "sub": "9:45 – 11:30 AM"
+    },
+    {
+      "label": "A talk, then your questions",
+      "sub": "Plenty of time for audience Q&A with the speaker"
+    },
+    {
+      "label": "Free & open to all",
+      "sub": "No membership required"
+    },
+    {
+      "label": "In person or on Zoom",
+      "sub": "Friendly House, NW Portland"
+    },
+    {
+      "label": "Live music",
+      "sub": "First Sunday of the month"
+    },
+    {
+      "label": "Childcare available",
+      "sub": "First Sunday of the month"
+    }
+  ],
   "features": [
     {
       "title": "Science & Reason",

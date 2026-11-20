@@ -405,6 +405,11 @@ type JoinPageConnection implements Connection {
   edges: [JoinPageConnectionEdges]
 }
 
+type HomepageExpectations {
+  label: String!
+  sub: String
+}
+
 type HomepageFeatures {
   title: String!
   description: String!
@@ -423,6 +428,7 @@ type Homepage implements Node & Document {
   humanismHeading: String
   humanismBody1: String
   humanismBody2: String
+  expectations: [HomepageExpectations]
   features: [HomepageFeatures]
   involvementHeading: String
   involvement: [HomepageInvolvement]
@@ -431,6 +437,11 @@ type Homepage implements Node & Document {
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
+}
+
+input HomepageExpectationsFilter {
+  label: StringFilter
+  sub: StringFilter
 }
 
 input HomepageFeaturesFilter {
@@ -451,6 +462,7 @@ input HomepageFilter {
   humanismHeading: StringFilter
   humanismBody1: StringFilter
   humanismBody2: StringFilter
+  expectations: HomepageExpectationsFilter
   features: HomepageFeaturesFilter
   involvementHeading: StringFilter
   involvement: HomepageInvolvementFilter
@@ -606,6 +618,11 @@ input JoinPageMutation {
   questionsFootnote: String
 }
 
+input HomepageExpectationsMutation {
+  label: String
+  sub: String
+}
+
 input HomepageFeaturesMutation {
   title: String
   description: String
@@ -624,6 +641,7 @@ input HomepageMutation {
   humanismHeading: String
   humanismBody1: String
   humanismBody2: String
+  expectations: [HomepageExpectationsMutation]
   features: [HomepageFeaturesMutation]
   involvementHeading: String
   involvement: [HomepageInvolvementMutation]

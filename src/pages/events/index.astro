@@ -103,7 +103,7 @@ function timezoneAbbr(v: Date | string, tz: string): string {
                       {event.data.presenterTitle && <div class="text-neutral-500 line-clamp-1">{event.data.presenterTitle}</div>}
                     </div>
                   </div>
-                  <p class="text-neutral-600 leading-relaxed line-clamp-2 mb-3">{cleanDescription(event.data.description)}</p>
+                  <p class="text-neutral-600 leading-relaxed mb-3">{cleanDescription(event.data.description)}</p>
                   <div class="flex flex-wrap items-center justify-between gap-2 text-sm">
                     <span class="text-neutral-500">{formatTime(event.data.startTime, timezone)} – {formatTime(event.data.endTime, timezone)} {timezoneAbbr(event.data.endTime, timezone)}</span>
                     <span class="inline-flex items-center gap-1.5 font-semibold text-[var(--hgp-primary)] group-hover:gap-2.5 transition-all">
