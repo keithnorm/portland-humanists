@@ -1,5 +1,5 @@
 ---
-title: 'Citizen Project: Bringing People Together Across Difference'
+title: 'Citizen Project: Bringing People Together Across Differences'
 date: 2026-11-22T18:00:08.051Z
 presenter: Bill Howe
 presenterTitle: Board Member of the nonprofit SAGE (Senior Advocates for Generational Equity)
@@ -12,6 +12,6 @@ topics:
   - Society & Politics
 ---
 
-This 20-minute presentation is offered to civic minded and involved organizations. Together, we discuss the cause and degree of the current state of political polarization and how it creates policy gridlock, undermines democratic institutions, and sabotages personal relationships. We then outline the social science research that suggests what individuals and organizations can do to work across differences so communities can move forward in a productive way and solve problems.
+This presentation is offered to civic minded and involved organizations. Together, we discuss the cause and degree of the current state of political polarization and how it creates policy gridlock, undermines democratic institutions, and sabotages personal relationships. We then outline the social science research that suggests what individuals and organizations can do to work across differences so communities can move forward in a productive way and solve problems.
 
 About Bill: Bill Howe serves on the board of the nonprofit and nonpartisan organization SAGE (Senior Advocates for Generational Equity). SAGE engages older adults in causes that benefit younger and future generations. Bill is also the founder of the SAGE Citizen Project, which offers a series of events to inspire and support people to work across political and other differences to solve problems. In addition to his service with SAGE, Bill has practiced family law for 50 years and he has devoted significant time and energy to family court reform. He is a highly accomplished lawyer and has been appointed by several Chief Justices to serve as the Vice-chair of Oregon’s Statewide Family Law Advisory Committee from 1998 through 2020.

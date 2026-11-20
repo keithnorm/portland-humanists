@@ -58,13 +58,13 @@ const currentPath = Astro.url.pathname;
 
 <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
   <div class="flex justify-between items-center h-20">
-    <div class="flex items-center">
+    <div class="flex items-center shrink-0">
       <a href="/" class="hover:opacity-80 transition-opacity">
-        <img src="/logo.png" alt="Humanists of Greater Portland" class="h-20 w-auto" />
+        <img src="/logo-banner.svg" alt="Humanists of Greater Portland" class="h-14 xl:h-16 w-auto" width="562" height="186" />
       </a>
     </div>
 
-    <div class="hidden md:flex items-center gap-8">
+    <div class="hidden lg:flex items-center gap-6 xl:gap-8">
       {allNavItems.map(item => (
         item.highlight ? (
           <a
@@ -129,7 +129,7 @@ const currentPath = Astro.url.pathname;
       </a>
     </div>
 
-    <button id="mobile-menu-button" class="md:hidden p-2 text-neutral-700 hover:text-[var(--hgp-primary)]" aria-label="Toggle menu">
+    <button id="mobile-menu-button" class="lg:hidden p-2 text-neutral-700 hover:text-[var(--hgp-primary)]" aria-label="Toggle menu">
       <svg id="menu-open-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
       </svg>
@@ -140,7 +140,7 @@ const currentPath = Astro.url.pathname;
   </div>
 
   <!-- Mobile menu -->
-  <div id="mobile-menu" class="md:hidden hidden absolute top-full left-0 right-0 bg-white shadow-lg z-50 overflow-y-auto max-h-[calc(100vh-5rem)]">
+  <div id="mobile-menu" class="lg:hidden hidden absolute top-full left-0 right-0 bg-white shadow-lg z-50 overflow-y-auto max-h-[calc(100vh-5rem)]">
     <div class="px-2 pt-2 pb-3 space-y-1">
       {allNavItems.map(item => (
         item.highlight ? (
