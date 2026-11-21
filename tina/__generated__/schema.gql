@@ -118,6 +118,7 @@ type Events implements Node & Document {
   presenterImage: String
   topics: [String]
   featured: Boolean
+  membersOnly: Boolean
   body: RichText
   id: ID!
   _sys: SystemInfo!
@@ -173,6 +174,7 @@ input EventsFilter {
   presenterImage: ImageFilter
   topics: StringFilter
   featured: BooleanFilter
+  membersOnly: BooleanFilter
   body: RichTextFilter
 }
 
@@ -532,6 +534,7 @@ input EventsMutation {
   presenterImage: String
   topics: [String]
   featured: Boolean
+  membersOnly: Boolean
   body: RichText
 }
 

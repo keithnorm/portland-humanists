@@ -10,6 +10,7 @@ zoomLink: 'https://us02web.zoom.us/j/87321211488?pwd=mtToIWlxPgushOasILf5idsMBM2
 description: 'From FH. In this regular program organized by HGP member Suzanne Thornton, three HGP members describe some aspects of their lives which others might find interesting and/or insightful. This time, the members will be Jeff Strang, Barbara Hilyer, and Paul Barkett.'
 topics:
   - Humanist Community
+membersOnly: true
 ---
 
 From FH. In this regular program organized by HGP member Suzanne Thornton, three HGP members describe some aspects of their lives which others might find interesting and/or insightful. This time, the members will be Jeff Strang, Barbara Hilyer, and Paul Barkett.

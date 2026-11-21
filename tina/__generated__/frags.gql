@@ -15,6 +15,7 @@ fragment EventsParts on Events {
   presenterImage
   topics
   featured
+  membersOnly
   body
 }
 

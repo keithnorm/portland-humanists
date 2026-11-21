@@ -19,6 +19,7 @@ const events = defineCollection({
     presenterImage: z.string().optional(),
     topics: z.array(z.string()).optional().default([]),
     featured: z.boolean().optional().default(false),
+    membersOnly: z.boolean().optional().default(false),
     status: z.enum(['upcoming', 'past']).optional(), // deprecated: filtering is now endTime-based
   }),
 });

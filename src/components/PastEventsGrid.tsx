@@ -24,6 +24,8 @@ export type PastEventItem = {
   vimeoThumbnail?: string;
   topics?: string[];
   featured?: boolean;
+  /** Recording is shared only with members, so never "coming soon" publicly. */
+  membersOnly?: boolean;
   /** Small label rendered on the thumbnail (e.g. "Members only"). */
   badge?: string;
   /** Kept for compatibility: every video now plays in the on-page player,
@@ -56,7 +58,10 @@ function Thumbnail({ event, onPlay }: { event: PastEventItem; onPlay: () => void
   const thumb = videoThumbnail(event);
   const video = hasVideo(event);
   const ageDays = (Date.now() - parseDate(event.startTime).getTime()) / 86_400_000;
-  const pending = !video && ageDays < RECORDING_PENDING_DAYS;
+  // Recent programs without a video are usually still being edited, unless
+  // the recording is members-only. Older ones without a public video are
+  // assumed to be members-only too.
+  const pending = !video && !event.membersOnly && ageDays < RECORDING_PENDING_DAYS;
 
   const inner = (
     <>
@@ -77,7 +82,7 @@ function Thumbnail({ event, onPlay }: { event: PastEventItem; onPlay: () => void
         </span>
       ) : (
         <span className="absolute bottom-3 left-3 rounded-full bg-white/90 text-neutral-700 text-xs font-semibold px-3 py-1.5 ring-1 ring-neutral-200">
-          {pending ? 'Recording coming soon' : 'Summary only'}
+          {pending ? 'Recording coming soon' : 'Members only'}
         </span>
       )}
       {event.badge && (

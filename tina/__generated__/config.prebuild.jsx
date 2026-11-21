@@ -178,6 +178,14 @@ var config_default = defineConfig({
             }
           },
           {
+            type: "boolean",
+            name: "membersOnly",
+            label: "Members-only recording",
+            ui: {
+              description: 'Check for programs that are recorded only for members (e.g. member stories). Past Programs will say "Members only" instead of "Recording coming soon". Older programs without a public video already show "Members only".'
+            }
+          },
+          {
             type: "rich-text",
             name: "body",
             label: "Body",

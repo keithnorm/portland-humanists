@@ -36,6 +36,7 @@ const pastEventItems = await Promise.all(pastEvents.map(async event => ({
   vimeoId: event.data.vimeoId,
   topics: event.data.topics,
   featured: event.data.featured,
+  membersOnly: event.data.membersOnly,
   vimeoThumbnail: event.data.vimeoThumbnail
     || (event.data.vimeoId && !event.data.youtubeId
       ? await fetchVimeoThumbnail(event.data.vimeoId)

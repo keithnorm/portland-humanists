@@ -256,6 +256,7 @@ export type Events = Node & Document & {
   presenterImage?: Maybe<Scalars['String']['output']>;
   topics?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   featured?: Maybe<Scalars['Boolean']['output']>;
+  membersOnly?: Maybe<Scalars['Boolean']['output']>;
   body?: Maybe<Scalars['RichText']['output']>;
   id: Scalars['ID']['output'];
   _sys: SystemInfo;
@@ -311,6 +312,7 @@ export type EventsFilter = {
   presenterImage?: InputMaybe<ImageFilter>;
   topics?: InputMaybe<StringFilter>;
   featured?: InputMaybe<BooleanFilter>;
+  membersOnly?: InputMaybe<BooleanFilter>;
   body?: InputMaybe<RichTextFilter>;
 };
 
@@ -788,6 +790,7 @@ export type EventsMutation = {
   presenterImage?: InputMaybe<Scalars['String']['input']>;
   topics?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   featured?: InputMaybe<Scalars['Boolean']['input']>;
+  membersOnly?: InputMaybe<Scalars['Boolean']['input']>;
   body?: InputMaybe<Scalars['RichText']['input']>;
 };
 
@@ -954,6 +957,7 @@ export type EventsFilter = {
   presenterImage?: ImageFilter | null | undefined;
   topics?: StringFilter | null | undefined;
   featured?: BooleanFilter | null | undefined;
+  membersOnly?: BooleanFilter | null | undefined;
   body?: RichTextFilter | null | undefined;
 };
 
@@ -1081,7 +1085,7 @@ export type HomepageFilter = {
   ctaBody?: StringFilter | null | undefined;
 };
 
-export type EventsPartsFragment = { __typename: 'Events', title: string, date: string | null, presenter: string, presenterTitle: string | null, startTime: string, endTime: string, location: string, speakerRemote: boolean | null, zoomLink: string | null, description: string, youtubeId: string | null, vimeoId: string | null, presenterImage: string | null, topics: Array<string | null> | null, featured: boolean | null, body: TinaMarkdownContent | null };
+export type EventsPartsFragment = { __typename: 'Events', title: string, date: string | null, presenter: string, presenterTitle: string | null, startTime: string, endTime: string, location: string, speakerRemote: boolean | null, zoomLink: string | null, description: string, youtubeId: string | null, vimeoId: string | null, presenterImage: string | null, topics: Array<string | null> | null, featured: boolean | null, membersOnly: boolean | null, body: TinaMarkdownContent | null };
 
 export type PagesPartsFragment = { __typename: 'Pages', title: string, description: string, pageLayout: string | null, parent: string | null, showInNav: boolean | null, navOrder: number | null, body: TinaMarkdownContent | null, contactInfo: { __typename: 'PagesContactInfo', email: string | null, location: string | null, address: string | null } | null };
 
@@ -1096,7 +1100,7 @@ export type EventsQueryVariables = Exact<{
 }>;
 
 
-export type EventsQuery = { events: { __typename: 'Events', id: string, title: string, date: string | null, presenter: string, presenterTitle: string | null, startTime: string, endTime: string, location: string, speakerRemote: boolean | null, zoomLink: string | null, description: string, youtubeId: string | null, vimeoId: string | null, presenterImage: string | null, topics: Array<string | null> | null, featured: boolean | null, body: TinaMarkdownContent | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
+export type EventsQuery = { events: { __typename: 'Events', id: string, title: string, date: string | null, presenter: string, presenterTitle: string | null, startTime: string, endTime: string, location: string, speakerRemote: boolean | null, zoomLink: string | null, description: string, youtubeId: string | null, vimeoId: string | null, presenterImage: string | null, topics: Array<string | null> | null, featured: boolean | null, membersOnly: boolean | null, body: TinaMarkdownContent | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
 
 export type EventsConnectionQueryVariables = Exact<{
   before?: string | null | undefined;
@@ -1108,7 +1112,7 @@ export type EventsConnectionQueryVariables = Exact<{
 }>;
 
 
-export type EventsConnectionQuery = { eventsConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Events', id: string, title: string, date: string | null, presenter: string, presenterTitle: string | null, startTime: string, endTime: string, location: string, speakerRemote: boolean | null, zoomLink: string | null, description: string, youtubeId: string | null, vimeoId: string | null, presenterImage: string | null, topics: Array<string | null> | null, featured: boolean | null, body: TinaMarkdownContent | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
+export type EventsConnectionQuery = { eventsConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Events', id: string, title: string, date: string | null, presenter: string, presenterTitle: string | null, startTime: string, endTime: string, location: string, speakerRemote: boolean | null, zoomLink: string | null, description: string, youtubeId: string | null, vimeoId: string | null, presenterImage: string | null, topics: Array<string | null> | null, featured: boolean | null, membersOnly: boolean | null, body: TinaMarkdownContent | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
 
 export type PagesQueryVariables = Exact<{
   relativePath: string;
@@ -1204,6 +1208,7 @@ export const EventsPartsFragmentDoc = gql`
   presenterImage
   topics
   featured
+  membersOnly
   body
 }
     `;
