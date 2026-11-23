@@ -138,10 +138,11 @@ export default defineConfig({
           {
             type: "string",
             name: "description",
-            label: "Description",
+            label: "Summary (~100 words)",
             required: true,
             ui: {
               component: "textarea",
+              description: "Shown on the homepage, the Upcoming list and Past Programs. The same text you use for the newsletter and calendar.",
             },
           },
           {
@@ -198,8 +199,11 @@ export default defineConfig({
           {
             type: "rich-text",
             name: "body",
-            label: "Body",
+            label: "Full write-up (optional)",
             isBody: true,
+            ui: {
+              description: "Shown on the program's own page. Paste the presenter's full text here. Leave it blank and the page shows the Summary instead, so there's no need to copy the Summary in.",
+            },
           },
         ],
       },
