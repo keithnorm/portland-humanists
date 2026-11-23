@@ -188,13 +188,22 @@ export function EventVisualEditor({ query, variables, data, timezone }: Props) {
                       <p className="text-neutral-900 ml-7" data-tina-field={tinaField(event, 'location')}>
                         <LocationText location={event.location} zoomLink={effectiveZoomLink} />
                       </p>
-                      {(event as any).speakerRemote && (
-                        <p className="ml-7 mt-1 inline-flex items-center gap-1 text-xs font-medium text-blue-700 bg-blue-50 border border-blue-200 rounded-full px-2 py-0.5">
-                          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                          </svg>
-                          Speaker presenting remotely
-                        </p>
+                      {/* Where the speaker will be. Upcoming only: before March 2026
+                          the "Speaker is remote" box wasn't used, so for old programs
+                          an unchecked box doesn't mean the speaker was there. */}
+                      {isUpcoming && (event.location ?? '').toLowerCase().includes('friendly house') && (
+                        (event as any).speakerRemote ? (
+                          <p className="ml-7 mt-2 flex items-start gap-1.5 text-xs font-semibold leading-snug text-[var(--hgp-primary)] bg-[var(--hgp-surface)] rounded-lg px-2.5 py-1.5" data-tina-field={tinaField(event, 'speakerRemote' as any)}>
+                            <svg className="w-3.5 h-3.5 mt-px flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                            </svg>
+                            <span>Speaker on Zoom, shown on screen at Friendly House</span>
+                          </p>
+                        ) : (
+                          <p className="ml-7 mt-2 flex items-start gap-1.5 text-xs font-semibold leading-snug text-[var(--hgp-gold-ink)] bg-[var(--hgp-gold-soft)] rounded-lg px-2.5 py-1.5" data-tina-field={tinaField(event, 'speakerRemote' as any)}>
+                            Speaker in person at Friendly House
+                          </p>
+                        )
                       )}
                     </div>
                   )}

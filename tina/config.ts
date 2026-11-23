@@ -124,7 +124,7 @@ export default defineConfig({
             name: "speakerRemote",
             label: "Speaker is remote",
             ui: {
-              description: "Check if the speaker is presenting via Zoom rather than in person at Friendly House",
+              description: "Check if the speaker is presenting via Zoom rather than in person at Friendly House. The site shows \"Speaker in person\" or \"Speaker on Zoom\" from this box, so there's no need to write \"From FH.\" in the description.",
             },
           },
           {

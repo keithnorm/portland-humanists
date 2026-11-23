@@ -10,15 +10,28 @@ export function cleanDescription(description: string | undefined): string {
   return description.replace(/^\s*From (FH|Friendly House)( and over Zoom)?\.\s*/i, '').trim();
 }
 
-export type AttendanceBadge = { label: string; kind: 'in-person' | 'zoom' | 'remote-speaker' };
+export type AttendanceBadge = { label: string; kind: 'speaker-here' | 'speaker-remote' | 'venue' };
 
-/** Badges for how people can attend, derived from the location text. */
+/**
+ * Two pills for an upcoming program:
+ *  1. Where the speaker will be. This is what the old "From FH." prefix told
+ *     people, and it's the deciding factor for many in coming in person.
+ *     Driven by the "Speaker is remote" checkbox; only shown when there's an
+ *     in-person gathering at all.
+ *  2. Where the audience can attend, from the location text.
+ */
 export function attendanceBadges(location: string | undefined, speakerRemote?: boolean): AttendanceBadge[] {
   const lower = (location ?? '').toLowerCase();
+  const atFH = lower.includes('friendly house');
+  const onZoom = lower.includes('zoom');
   const badges: AttendanceBadge[] = [];
-  if (lower.includes('friendly house')) badges.push({ label: 'In person · Friendly House', kind: 'in-person' });
-  if (lower.includes('zoom')) badges.push({ label: 'Live on Zoom', kind: 'zoom' });
-  if (speakerRemote) badges.push({ label: 'Speaker joins remotely', kind: 'remote-speaker' });
+  if (atFH) {
+    badges.push(speakerRemote
+      ? { label: 'Speaker on Zoom', kind: 'speaker-remote' }
+      : { label: 'Speaker in person', kind: 'speaker-here' });
+  }
+  const venue = atFH && onZoom ? 'Friendly House & Zoom' : atFH ? 'Friendly House only' : onZoom ? 'Zoom only' : '';
+  if (venue) badges.push({ label: venue, kind: 'venue' });
   return badges;
 }
 

@@ -216,7 +216,7 @@ export function HomeVisualEditor({ query, variables, data, upcomingEvents, recen
                 <div className="p-6 md:p-8 lg:p-10">
                   <div className="flex flex-wrap gap-2 mb-4">
                     {attendanceBadges(next.data.location, next.data.speakerRemote).map(b => (
-                      <Badge key={b.label} tone={b.kind === 'in-person' ? 'gold' : 'neutral'}>{b.label}</Badge>
+                      <Badge key={b.label} tone={b.kind === 'speaker-here' ? 'gold' : 'neutral'}>{b.label}</Badge>
                     ))}
                   </div>
                   <a href={`/events/${next.slug}`} className="group">

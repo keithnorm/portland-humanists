@@ -88,7 +88,7 @@ function timezoneAbbr(v: Date | string, tz: string): string {
                 <div class="flex-1 min-w-0">
                   <div class="flex flex-wrap gap-2 mb-3">
                     {attendanceBadges(event.data.location, event.data.speakerRemote).map(b => (
-                      <span class={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold ${b.kind === 'in-person' ? 'bg-[var(--hgp-gold-soft)] text-[var(--hgp-gold-ink)]' : 'bg-[var(--hgp-surface)] text-[var(--hgp-primary)]'}`}>{b.label}</span>
+                      <span class={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold ${b.kind === 'speaker-here' ? 'bg-[var(--hgp-gold-soft)] text-[var(--hgp-gold-ink)]' : 'bg-[var(--hgp-surface)] text-[var(--hgp-primary)]'}`}>{b.label}</span>
                     ))}
                   </div>
                   <h3 class="text-xl md:text-2xl font-semibold text-neutral-900 leading-snug mb-3 group-hover:text-[var(--hgp-primary)] transition-colors">{event.data.title}</h3>
